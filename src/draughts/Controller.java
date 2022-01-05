@@ -25,7 +25,7 @@ public class Controller {
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } };	// 	program memory : default values all -1
 	private static String returnMessage = "";					// 	remotely set display message for UI
 
-	public static final boolean TEST_MODE = false;				// 	When set to true, the game immediately starts rather than gets user input
+	public static final boolean TEST_MODE = true;				// 	When set to true, the game immediately starts rather than gets user input
 	public static final boolean TIMERS_DEACTIVATED = true;		// 	Deactivates menu sleep() timers
 	/**
 	 * BOARD_SETUP values
@@ -43,7 +43,7 @@ public class Controller {
 	 * kingdirectionattack<br>
 	 * cs50demo</b>
 	 */
-	public static final String BOARD_SETUP = "standard";		//  Sets up a specific board layout for testing. Normal = "standard"
+	public static final String BOARD_SETUP = "jumping2";		//  Sets up a specific board layout for testing. Normal = "standard"
 
 	///////////////////////////////////////
 	//			BOARD ADMIN				//
