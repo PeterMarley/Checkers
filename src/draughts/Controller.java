@@ -1,7 +1,11 @@
 package draughts;
 
+import java.net.SocketPermission;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import javax.print.event.PrintJobListener;
+import javax.sound.sampled.SourceDataLine;
 
 /**
  * 
@@ -39,7 +43,7 @@ public class Controller {
 	 * kingdirectionattack<br>
 	 * cs50demo</b>
 	 */
-	public static final String BOARD_SETUP = "cs50demo";		//  Sets up a specific board layout for testing. Normal = "standard"
+	public static final String BOARD_SETUP = "standard";		//  Sets up a specific board layout for testing. Normal = "standard"
 
 	///////////////////////////////////////
 	//			BOARD ADMIN				//
@@ -147,6 +151,9 @@ public class Controller {
 				returnMessage = String.format("Move cancelled! %s%n", (pieceSelected) ? convertCoords(memory[0]) + " unselected" : "");
 				clearMemory();
 				return true;
+			} else if (userInput.equals("cap") || userInput.equals("captured")) {
+				gameBoard.printCaptured();
+			
 			} else if (userInput.length() == 2) {
 				if (userInput.charAt(0) >= 'a' && userInput.charAt(0) <= 'h' && userInput.charAt(1) >= '1' && userInput.charAt(1) <= '8') {
 					isValidated = true;
@@ -293,7 +300,8 @@ public class Controller {
 		System.out.println("\t1) type \"h\" or \"help\" for help at any time");
 		System.out.println("\t2) type \"q\" or \"quit\" to quit");
 		System.out.println("\t3) type \"c\" or \"cancel\" to restart your go");
-		System.out.println("\t4) play the game");
+		System.out.println("\t4) type \"cap\" or \"captured\" to see captured pieces");
+		System.out.println("\t5) play the game");
 		System.out.println();
 		System.out.println("How to play:");
 		System.out.println("\t- Select your piece with coorindates e.g. A1, E4");

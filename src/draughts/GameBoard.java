@@ -220,7 +220,7 @@ public class GameBoard {
 		int colToCheck = 0;
 
 		// is move in the correct direction for this player (ignored if king)
-		if (!sourcePiece.isKing()) {
+		if (sourcePiece != null && !sourcePiece.isKing()) {
 			int directionModifier = (this.getCurrentPlayer() == 0) ? 1 : -1;
 			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier)
 					|| (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
@@ -563,6 +563,20 @@ public class GameBoard {
 		}
 		System.out.println();
 		Controller.log.add("Board displayed");
+	}
+
+	public void printCaptured() {
+		int black = 0;
+		int white = 0;
+		for (GamePiece i : captured) {
+			if (i.getTeam() == 0) {
+				black++;
+			} else {
+				white++;
+			}
+		}
+		String returnString = String.format("Captured Pieces:%n\tBlack captured %d pieces%n\tWhite captured %d pieces%n", white, black);
+		Controller.setReturnMessage(returnString);
 	}
 
 	/**
