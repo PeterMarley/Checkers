@@ -15,7 +15,7 @@ To learn more about Java and get used to making larger more complex programs (th
 
 Have not yet implemented the win/ loss condition "has no legal moves"
 
-#### Basics
+## Basics
 
 This is a local co-op version of Checkers (English Draughts).
 
