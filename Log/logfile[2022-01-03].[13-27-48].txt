@@ -1,0 +1,32 @@
+[2022-01-03].[13-27-48]
+ 	draughts.Log.<init>(Log.java:65)
+	MSG: Log Initialised Successfully!
+
+[2022-01-03].[13-27-53]
+ 	draughts.Controller.getGameBoard(Controller.java:187)
+	MSG: Player 0 named: "1" successfully
+
+[2022-01-03].[13-27-53]
+ 	draughts.Controller.getGameBoard(Controller.java:187)
+	MSG: Player 1 named: "2" successfully
+
+[2022-01-03].[13-27-53]
+ 	draughts.Controller.getGameBoard(Controller.java:191)
+	MSG: GameBoard initialised. [TEST_MODE: false] [TEST_BOARD: cs50demo]
+
+[2022-01-03].[13-27-53]
+ 	draughts.GameBoard.<init>(GameBoard.java:175)
+	MSG: [TEST_MODE=false ; TIMERS_ACTIVE=false ; TEST_BOARD=cs50demo]
+
+[2022-01-03].[13-27-53]
+ 	draughts.GameBoard.displayBoard(GameBoard.java:565)
+	MSG: Board displayed
+
+[2022-01-03].[13-27-54]
+ 	draughts.Controller.setMemoryOrQuit(Controller.java:143)
+	MSG: User chose quit!
+
+[2022-01-03].[13-27-54]
+ 	draughts.Log.shutdown(Log.java:115)
+	MSG: Shutting down logging system
+
