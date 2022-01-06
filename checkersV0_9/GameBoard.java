@@ -18,7 +18,7 @@ public class GameBoard {
 	 * The game board itself, a GamePiece[][]
 	 */
 	private GamePiece[][] board;
-	private ArrayList<GamePiece> captured = new ArrayList<GamePiece>(40);	// captured pieces stored here
+	private ArrayList<GamePiece> captured = new ArrayList<GamePiece>(40); // captured pieces stored here
 	private String[] playerNames = new String[2];
 	/**
 	 * 0 = Black<br>
@@ -27,11 +27,12 @@ public class GameBoard {
 	private int currentPlayer;
 
 	///////////////////////////////////////
-	//			CONSTRUCTORS			//
+	// CONSTRUCTORS //
 	/////////////////////////////////////
 
 	/**
-	 * Creates a game board, the layout of which is governed by the value of Controller.BOARD_SETUP field
+	 * Creates a game board, the layout of which is governed by the value of
+	 * Controller.BOARD_SETUP field
 	 * 
 	 * @param player1Name
 	 * @param player2Name
@@ -46,8 +47,9 @@ public class GameBoard {
 		// populate board
 		int point = 0;
 
-		switch (Controller.BOARD_SETUP) { // This switch statement sets up the board depending on the value of Controller.BOARD_SETUP
-		case "standard":	// REAL GAMEBOARD
+		switch (Controller.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
+											// Controller.BOARD_SETUP
+		case "standard": // REAL GAMEBOARD
 			for (int row = 0; row < gameWidth; row++) {
 				for (int col = 0; col < gameWidth; col++) {
 					if (row < (gameWidth / 2) - 1 || row > (gameWidth / 2)) {
@@ -97,11 +99,11 @@ public class GameBoard {
 			this.setSquare(3, 1, new GamePiece(0));
 			this.setSquare(1, 1, new GamePiece(0));
 			this.setSquare(0, 2, new GamePiece(0));
-			//this.setSquare(1, 3, new GamePiece(0));
+			// this.setSquare(1, 3, new GamePiece(0));
 			this.setSquare(0, 0, new GamePiece(0));
 			this.setSquare(2, 2, new GamePiece(1));
 			this.setSquare(0, 4, new GamePiece(0));
-			//this.setSquare(6, 4, new GamePiece(1));
+			// this.setSquare(6, 4, new GamePiece(1));
 			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 
 			break;
@@ -159,11 +161,30 @@ public class GameBoard {
 			this.setSquare(2, 4, 0);
 			this.setSquare(5, 5, 1);
 			this.setSquare(3, 5, 1);
-			//this.setSquare(7, 5, new GamePiece(1));
-			//this.setSquare(6, 2, 1);
-			//this.setSquare(4, 0, 1);
+			// this.setSquare(7, 5, new GamePiece(1));
+			// this.setSquare(6, 2, 1);
+			// this.setSquare(4, 0, 1);
 
-			//this.setSquare(7, 0, 1);
+			// this.setSquare(7, 0, 1);
+		case "validMoveCheck":
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					this.setSquare(i, j, 0);
+				}
+			}
+			this.setSquare(1, 3, 1);
+			this.clearSquare(new int[] { 2, 4 });
+			// this.setSquare(1, 4, point)
+			break;
+		case "validMoveCheck2":
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					this.setSquare(i, j, 0);
+				}
+			}
+			this.setSquare(0, 0, 1);
+			//this.clearSquare(new int[] { 2, 4 });
+			break;
 		}
 
 		// reset currentPlayer
@@ -171,28 +192,79 @@ public class GameBoard {
 		this.setPlayerName(0, player1Name);
 		this.setPlayerName(1, player2Name);
 
-		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Controller.TEST_MODE, Controller.TIMERS_DEACTIVATED, Controller.BOARD_SETUP);
+		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Controller.TEST_MODE,
+				Controller.TIMERS_DEACTIVATED, Controller.BOARD_SETUP);
 		Controller.log.add(logMessage);
 	}
 
 	///////////////////////////////////////
-	//			MOVE OPERATION			//
+	// MOVE OPERATION //
 	/////////////////////////////////////
 
+	public boolean checkPlayerHasValidMoves() {
+		// TODO check player has valid moves
+		boolean hasValidMove = false;
+		for (int row = 0; row < board.length && !hasValidMove; row++) {
+			for (int col = 0; col < board[row].length && !hasValidMove; col++) {
+				GamePiece tmp = getSquare(row, col);
+				int start, end;
+				if (tmp != null && tmp.isKing()) {
+					start = 0;
+					end = 4;
+				} else {
+					start = (this.currentPlayer == 0) ? 0 : 2;
+					end = (this.currentPlayer == 0) ? 2 : 4;
+				}
+				if (tmp != null && tmp.getTeam() == this.currentPlayer) {
+					int[] moves = move_generateMoveList(new int[] { row, col });
+					for (int i = start; i < end; i++) {
+						if (moves[i] == 2) {
+							hasValidMove = true;
+							break;
+						} else if (moves[i] == ((this.currentPlayer == 0) ? 1 : 0)) {
+							int[] modifiers = move_generateVectorModifiers(i);
+							int[] farSideOfPiece = new int[] { row + (modifiers[0] * 2), col + (modifiers[1] * 2) };
+							GamePiece otherSide = getSquare(farSideOfPiece);
+							if (otherSide == null) {
+								hasValidMove = true;
+								break;
+							}
+							/*
+							 * int[] farSideOfEnemyPiece = new int[] { s[0] + (modifiers[0] * 2), s[1] +
+							 * (modifiers[1] * 2) }; if (farSideOfEnemyPiece[0] >= 0 &&
+							 * farSideOfEnemyPiece[0] <= 7 && farSideOfEnemyPiece[1] >= 0 &&
+							 * farSideOfEnemyPiece[1] <= 7) { // if (s[0] + modifiers[0] < 0 || s[0] +
+							 * modifiers[0] > 7 || s[1] + modifiers[1] // < 0 && s[1] + modifiers[1] > 7) {
+							 * // if (s[0] != 0 && s[0] != 7 && s[1] != 0 && s[1] != 7) { if
+							 * (this.getSquare(farSideOfEnemyPiece) == null) { // if far side square is
+							 * empty then attack is // possible hasAttack = true; break; } }
+							 */
+
+						}
+					}
+				}
+			}
+		}
+		return hasValidMove;
+	}
+
 	/**
-	 * This adjudicates a players move from start to finish, including any jump enforcement.
+	 * This adjudicates a players move from start to finish, including any jump
+	 * enforcement.
 	 * 
-	 * @param coords an int[][] containing the players piece coords at index 0, and the players destination coords at index 1.
+	 * @param coords an int[][] containing the players piece coords at index 0, and
+	 *               the players destination coords at index 1.
 	 * @return A boolean - continue the game?
 	 */
 	public boolean executeMove(int[][] coords) {
-		if (this.move_operation(coords)) {				// if the move was successful
-			if (GamePiece.getTotalPieces(0) == 0 || GamePiece.getTotalPieces(1) == 0) {	// if a player has lost all their pieces
+		if (this.move_operation(coords)) { // if the move was successful
+			if (GamePiece.getTotalPieces(0) == 0 || GamePiece.getTotalPieces(1) == 0) { // if a player has lost all
+																						// their pieces
 				return false;
 			}
 			// TODO check if players have no moves available , which is a loss
 			if (!move_hasAttack(coords[1]) || getSquare(coords[1]).isKing())
-				nextPlayer();							// end this players move by changing active player
+				nextPlayer(); // end this players move by changing active player
 		} else {
 			if (Controller.getReturnMessage().isEmpty()) {
 				Controller.setReturnMessage("That move was not acceptable. Please try again!");
@@ -204,7 +276,8 @@ public class GameBoard {
 	/**
 	 * Move a piece if its legally allowed
 	 * 
-	 * @param coords an int[][], holding the players own-piece selection at index 0 and the destination square at index 1.
+	 * @param coords an int[][], holding the players own-piece selection at index 0
+	 *               and the destination square at index 1.
 	 * @return A boolean - This move was made successfully?
 	 */
 	private boolean move_operation(int[][] coords) {
@@ -224,19 +297,21 @@ public class GameBoard {
 			int directionModifier = (this.getCurrentPlayer() == 0) ? 1 : -1;
 			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier)
 					|| (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
-				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " DENIED - move in wrong direction");
+				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player "
+						+ this.getCurrentPlayer() + " DENIED - move in wrong direction");
 				return false;
 			}
 		}
 
 		// General Check Block
-		if (sourcePiece == null 										// if source square is empty
-				|| currentPlayer != sourcePiece.getTeam() 				// if source square is other team's piece
-				|| destinationPiece != null								// if the destination is NOT empty
-				|| Math.abs(vectorVert) > 2 || Math.abs(vectorHori) > 2	// if move greater than 2 squares away
-				|| Math.abs(vectorVert) != Math.abs(vectorHori)) {		// if not a diagonal move
-			Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " DENIED - General Check Block fail");
-			return false; 												// THEN RETURN FALSE
+		if (sourcePiece == null // if source square is empty
+				|| currentPlayer != sourcePiece.getTeam() // if source square is other team's piece
+				|| destinationPiece != null // if the destination is NOT empty
+				|| Math.abs(vectorVert) > 2 || Math.abs(vectorHori) > 2 // if move greater than 2 squares away
+				|| Math.abs(vectorVert) != Math.abs(vectorHori)) { // if not a diagonal move
+			Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player "
+					+ this.getCurrentPlayer() + " DENIED - General Check Block fail");
+			return false; // THEN RETURN FALSE
 		}
 
 		// Check intervening square if it is a 2-distance move
@@ -250,9 +325,10 @@ public class GameBoard {
 				} else {
 					capture = true;
 				}
-				//System.out.println(check.toVisualString());
+				// System.out.println(check.toVisualString());
 			} else {
-				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " DENIED - Null Piece Check fail");
+				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player "
+						+ this.getCurrentPlayer() + " DENIED - Null Piece Check fail");
 				return false;
 			}
 		}
@@ -262,7 +338,8 @@ public class GameBoard {
 		boolean hasAttack = move_hasAttack(s);
 		if (attacks.size() > 0) {
 			if (!attacks.contains(Controller.convertCoords(s))) {
-				String message = String.format("You have attacks at the following squares (if you can attack, you must attack)%n");
+				String message = String
+						.format("You have attacks at the following squares (if you can attack, you must attack)%n");
 				for (String i : attacks) {
 					message += i + " ";
 				}
@@ -289,13 +366,15 @@ public class GameBoard {
 			check.setToKing();
 			Controller.setReturnMessage("Piece upgraded to king!");
 		}
-		Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " accepted");
+		Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player "
+				+ this.getCurrentPlayer() + " accepted");
 
 		return true;
 	}
 
 	/**
-	 * @return return an {@code ArrayList<String>} containing all the players pieces that have a valid attack (in format A1, H8 etc)
+	 * @return return an {@code ArrayList<String>} containing all the players pieces
+	 *         that have a valid attack (in format A1, H8 etc)
 	 */
 	public ArrayList<String> checkPlayersPiecesForAttacks() {
 		ArrayList<String> attacks = new ArrayList<>(20);
@@ -313,33 +392,34 @@ public class GameBoard {
 	}
 
 	/**
-	 * @param i 0 to 3 - representing clockwise top left, top right, bottom right and bottom left squares around a central point.
+	 * @param i 0 to 3 - representing clockwise top left, top right, bottom right
+	 *          and bottom left squares around a central point.
 	 * @return The vector modifiers for each direction
 	 */
 	private int[] move_generateVectorModifiers(int i) {
 		int[] modifiers = new int[2];
-		switch (i) {	// set directional modifier
+		switch (i) { // set directional modifier
 		case 0:
-			//modifierVertical = 1;
-			//modifierHorizontal = -1;
+			// modifierVertical = 1;
+			// modifierHorizontal = -1;
 			modifiers[0] = 1;
 			modifiers[1] = -1;
 			break;
 		case 1:
-			//modifierVertical = 1;
-			//modifierHorizontal = 1;
+			// modifierVertical = 1;
+			// modifierHorizontal = 1;
 			modifiers[0] = 1;
 			modifiers[1] = 1;
 			break;
 		case 2:
-			//modifierVertical = -1;
-			//modifierHorizontal = 1;
+			// modifierVertical = -1;
+			// modifierHorizontal = 1;
 			modifiers[0] = -1;
 			modifiers[1] = 1;
 			break;
 		case 3:
-			//modifierVertical = -1;
-			//modifierHorizontal = -1;
+			// modifierVertical = -1;
+			// modifierHorizontal = -1;
 			modifiers[0] = -1;
 			modifiers[1] = -1;
 			break;
@@ -348,7 +428,8 @@ public class GameBoard {
 	}
 
 	/**
-	 * Generates a int[4] containing all the possible moves for piece @ s. clockwise top left to bottom left<br>
+	 * Generates a int[4] containing all the possible moves for piece @ s. clockwise
+	 * top left to bottom left<br>
 	 * 
 	 * @param s (for source) - An int[2] containing board coordinates
 	 * @return int[4] <br>
@@ -369,7 +450,7 @@ public class GameBoard {
 	private int[] move_generateMoveList(int[] s) {
 		// check all possible moves and store in a HashMap
 		GamePiece selected = null;
-		//int[] key = null;
+		// int[] key = null;
 		int value = 0;
 
 		int[] fourDirections = new int[4];
@@ -383,17 +464,17 @@ public class GameBoard {
 			// select the square to check
 			int row = s[0] + modifierVertical;
 			int col = s[1] + modifierHorizontal;
-			//key = new int[] { row, col };
+			// key = new int[] { row, col };
 
 			selected = this.getSquare(row, col);
-			if (selected == null) { 					// if piece is null		
+			if (selected == null) { // if piece is null
 				if (row < 0 || row > 7 || col < 0 || col > 7) {
-					value = -1;							// cursor is off the board
+					value = -1; // cursor is off the board
 				} else {
-					value = 2;							// square is empty
+					value = 2; // square is empty
 				}
-			} else { 									// if piece is not null
-				value = selected.getTeam();				// team number of the piece
+			} else { // if piece is not null
+				value = selected.getTeam(); // team number of the piece
 			}
 
 			// add to array
@@ -438,10 +519,13 @@ public class GameBoard {
 			if (moves[i] == ((this.getCurrentPlayer() == 0) ? 1 : 0)) { // found an adjacent enemy piece
 				int[] modifiers = move_generateVectorModifiers(i);
 				int[] farSideOfEnemyPiece = new int[] { s[0] + (modifiers[0] * 2), s[1] + (modifiers[1] * 2) };
-				if (farSideOfEnemyPiece[0] >= 0 && farSideOfEnemyPiece[0] <= 7 && farSideOfEnemyPiece[1] >= 0 && farSideOfEnemyPiece[1] <= 7) {
-					//if (s[0] + modifiers[0] < 0 || s[0] + modifiers[0] > 7 || s[1] + modifiers[1] < 0 && s[1] + modifiers[1] > 7) {
-					//if (s[0] != 0 && s[0] != 7 && s[1] != 0 && s[1] != 7) {
-					if (this.getSquare(farSideOfEnemyPiece) == null) { // if far side square is empty then attack is possible
+				if (farSideOfEnemyPiece[0] >= 0 && farSideOfEnemyPiece[0] <= 7 && farSideOfEnemyPiece[1] >= 0
+						&& farSideOfEnemyPiece[1] <= 7) {
+					// if (s[0] + modifiers[0] < 0 || s[0] + modifiers[0] > 7 || s[1] + modifiers[1]
+					// < 0 && s[1] + modifiers[1] > 7) {
+					// if (s[0] != 0 && s[0] != 7 && s[1] != 0 && s[1] != 7) {
+					if (this.getSquare(farSideOfEnemyPiece) == null) { // if far side square is empty then attack is
+																		// possible
 						hasAttack = true;
 						break;
 					}
@@ -450,47 +534,50 @@ public class GameBoard {
 		}
 		return hasAttack;
 
-		//		//TODO has an attack check
-		//		GamePiece piece = this.getSquare(coords);
-		//		int start = 0;
-		//		int end = 4;
+		// //TODO has an attack check
+		// GamePiece piece = this.getSquare(coords);
+		// int start = 0;
+		// int end = 4;
 		//
-		//		if (!piece.isKing()) {
-		//			start = (piece.getTeam() == 0) ? 0 : 2;
-		//			end = (piece.getTeam() == 0) ? 2 : 4;
-		//		} else {
+		// if (!piece.isKing()) {
+		// start = (piece.getTeam() == 0) ? 0 : 2;
+		// end = (piece.getTeam() == 0) ? 2 : 4;
+		// } else {
 		//
-		//		}
+		// }
 		//
-		//		int modifierVertical;
-		//		int modifierHorizontal;
+		// int modifierVertical;
+		// int modifierHorizontal;
 		//
-		//		int[] moves = move_generateMoveList(coords);	// generate 4 direction checks for this destination square
-		//		for (int i = start; i < end; i++) {
-		//			modifierVertical = -99;		// default value
-		//			modifierHorizontal = -99;	// default value
-		//			if (moves[i] == ((this.currentPlayer == 0) ? 1 : 0)) {	// if another teams piece is there
-		//				int[] modifiers = move_generateVectorModifiers(i);
-		//				modifierVertical = modifiers[0];
-		//				modifierHorizontal = modifiers[1];
+		// int[] moves = move_generateMoveList(coords); // generate 4 direction checks
+		// for this destination square
+		// for (int i = start; i < end; i++) {
+		// modifierVertical = -99; // default value
+		// modifierHorizontal = -99; // default value
+		// if (moves[i] == ((this.currentPlayer == 0) ? 1 : 0)) { // if another teams
+		// piece is there
+		// int[] modifiers = move_generateVectorModifiers(i);
+		// modifierVertical = modifiers[0];
+		// modifierHorizontal = modifiers[1];
 		//
-		//			}
-		//			if (modifierHorizontal != -99 && modifierVertical != -99) {	// if not default value
-		//				int row = coords[0] + modifierVertical;
-		//				int col = coords[1] + modifierHorizontal;
-		//				int[] emptyAfterEnemy = move_generateMoveList(new int[] { row, col });
-		//				// if same direction has empty square then there is a move
-		//				if (emptyAfterEnemy[i] == 2) {
-		//					return true;
-		//				}
-		//			}
-		//		}
+		// }
+		// if (modifierHorizontal != -99 && modifierVertical != -99) { // if not default
+		// value
+		// int row = coords[0] + modifierVertical;
+		// int col = coords[1] + modifierHorizontal;
+		// int[] emptyAfterEnemy = move_generateMoveList(new int[] { row, col });
+		// // if same direction has empty square then there is a move
+		// if (emptyAfterEnemy[i] == 2) {
+		// return true;
+		// }
+		// }
+		// }
 		//
-		//		return false;
+		// return false;
 	}
 
 	///////////////////////////////////////
-	//				UTILITY				//
+	// UTILITY //
 	/////////////////////////////////////
 
 	/**
@@ -575,7 +662,8 @@ public class GameBoard {
 				white++;
 			}
 		}
-		String returnString = String.format("Captured Pieces:%n\tBlack captured %d pieces%n\tWhite captured %d pieces%n", white, black);
+		String returnString = String
+				.format("Captured Pieces:%n\tBlack captured %d pieces%n\tWhite captured %d pieces%n", white, black);
 		Controller.setReturnMessage(returnString);
 	}
 
@@ -600,7 +688,7 @@ public class GameBoard {
 	}
 
 	///////////////////////////////////////
-	//			GETTERS N SETTERS		//
+	// GETTERS N SETTERS //
 	/////////////////////////////////////
 
 	/**
@@ -628,7 +716,8 @@ public class GameBoard {
 		try {
 			this.board[row][col] = g;
 		} catch (Exception e) {
-			Controller.log.add("Bad setSquare call! [row = " + row + "] [col = " + col + "] [GamePiece = " + g + "]", true);
+			Controller.log.add("Bad setSquare call! [row = " + row + "] [col = " + col + "] [GamePiece = " + g + "]",
+					true);
 		}
 	}
 
@@ -667,7 +756,8 @@ public class GameBoard {
 	 * Get the player name from the playerNames String array
 	 * 
 	 * @param player the index to use for the playerNames String array
-	 * @return the player's name or "Unknown Player" if an unacceptable argument is passed
+	 * @return the player's name or "Unknown Player" if an unacceptable argument is
+	 *         passed
 	 */
 	public String getPlayerName(int player) {
 		if (player >= 0 && player < this.playerNames.length) {

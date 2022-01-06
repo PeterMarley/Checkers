@@ -2,6 +2,8 @@
 ### Video Demo: https://www.youtube.com/watch?v=p2JHpilPolw
 ### Description:
 
+#### Current Version: V0.9
+
 #### Basics
 
 This is a local co-op version of Checkers (English Draughts).
@@ -60,7 +62,9 @@ A class used to describe the GamePiece object, the actual game pieces themselves
 This beefy boy is where a lot of the program's logic lives (reflected in how much larger this file is). The actual business creating and holding a GameBoard oject, moving pieces around the board,
 and capturing pieces is done here.
 ##### Log.java
-A basic logging system that outputs a file suffixed with a [ YYYY - MM - DD ] [ HH - MM - SS ] date stamp from the initialisation of the program. Signifcant events are logged here, along with any errors that arise during game operation
+A basic logging system that outputs a file suffixed with a YYYY-MM-DD HH-MM-SS date stamp from the initialisation of the program. Signifcant events are logged here, along with any errors that arise during game operation
 
-
-
+# Still to do
+- Finish implementation of GameBoard.checkPlayerHasValidMoves()
+- Unit Testing
+- GUI implementation
