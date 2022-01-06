@@ -1,19 +1,8 @@
 # 2-player Checkers
-###### Played in console... for now
+### Video Demo: https://www.youtube.com/watch?v=p2JHpilPolw
+### Description:
 
-## The what?
-
-A basic 1v1 Checkers/ English Draughs game played in the console. An amazing learning experience. 
-
-## The why?
-
-To learn more about Java and get used to making larger more complex programs (this is easily the biggest and most complex thing i've made, sadly :D
-
-## Still to do
-
-Have not yet implemented the win/ loss condition "has no legal moves"
-
-## Basics
+#### Basics
 
 This is a local co-op version of Checkers (English Draughts).
 
@@ -29,7 +18,6 @@ the text prompt can accept several different inputs, put typing "h" or "help" as
 - "q" or "quit" - exits the program gracefully
 - "c" or "cancel" - cancels the current move and allows the player to start again
 These 3 inputs can be entered at any time for the desired effect
-- "cap" or "captured" - to view all captured pieces
 
 - "A1", "C3", "H8" etc - A board coordinate. The first selection is of the players piece, and the second is a selection of their desired destination square.
 
@@ -73,11 +61,6 @@ This beefy boy is where a lot of the program's logic lives (reflected in how muc
 and capturing pieces is done here.
 ##### Log.java
 A basic logging system that outputs a file suffixed with a [ YYYY - MM - DD ] [ HH - MM - SS ] date stamp from the initialisation of the program. Signifcant events are logged here, along with any errors that arise during game operation
-
-# Version History
-
-- v0.9 Everything basically implemented except last win condition specified in "Still to do" section above
-
 
 
 

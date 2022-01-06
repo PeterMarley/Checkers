@@ -1,0 +1,20 @@
+[2022-01-06].[18-37-25]
+ 	checkersV0_9.Log.<init>(Log.java:65)
+	MSG: Log Initialised Successfully!
+
+[2022-01-06].[18-37-25]
+ 	checkersV0_9.GameBoard.<init>(GameBoard.java:175)
+	MSG: Test GameBoard of width 8 created successfully. [TEST_MODE=true ; TIMERS_ACTIVE=true ; TEST_BOARD=jumping2]
+
+[2022-01-06].[18-37-25]
+ 	checkersV0_9.GameBoard.displayBoard(GameBoard.java:565)
+	MSG: Board displayed
+
+[2022-01-06].[18-37-27]
+ 	checkersV0_9.Controller.setMemoryOrQuit(Controller.java:143)
+	MSG: User chose quit!
+
+[2022-01-06].[18-37-27]
+ 	checkersV0_9.Log.shutdown(Log.java:115)
+	MSG: Shutting down logging system
+
