@@ -1,7 +1,7 @@
 # 2-player Checkers
 ### Video Demo: https://www.youtube.com/watch?v=p2JHpilPolw
 
-# Checkers V1
+# Checkers
 
 ## The what?
 
@@ -74,6 +74,10 @@ This beefy boy is where a lot of the program's logic lives (reflected in how muc
 and capturing pieces is done here.
 ##### Log.java
 A basic logging system that outputs a file suffixed with a [ YYYY - MM - DD ] [ HH - MM - SS ] date stamp from the initialisation of the program. Signifcant events are logged here, along with any errors that arise during game operation
+
+# Version History
+
+- v0.9 Everything basically implemented except last win condition specified in "Still to do" section above
 
 
 
