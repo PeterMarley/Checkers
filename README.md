@@ -29,6 +29,7 @@ the text prompt can accept several different inputs, put typing "h" or "help" as
 - "q" or "quit" - exits the program gracefully
 - "c" or "cancel" - cancels the current move and allows the player to start again
 These 3 inputs can be entered at any time for the desired effect
+- "cap" or "captured" to view all captured pieces
 
 - "A1", "C3", "H8" etc - A board coordinate. The first selection is of the players piece, and the second is a selection of their desired destination square.
 
