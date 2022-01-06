@@ -1,7 +1,5 @@
 # 2-player Checkers
-### Video Demo: https://www.youtube.com/watch?v=p2JHpilPolw
-
-# Checkers
+###### Played in console... for now
 
 ## The what?
 
