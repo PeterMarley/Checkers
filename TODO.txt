@@ -1,3 +1,0 @@
-Checks for no valid moves as loss condition
-
-implement GUI
