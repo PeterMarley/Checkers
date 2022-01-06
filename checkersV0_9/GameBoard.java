@@ -357,7 +357,6 @@ public class GameBoard {
 		ArrayList<String> attacks = checkPlayersPiecesForAttacks();
 
 		// at this point basic checks are done - now to check for jump enforcement
-		boolean hasAttack = move_hasAttack(s);
 		if (attacks.size() > 0) {
 			if (!attacks.contains(Controller.convertCoords(s))) {
 				String message = String.format("You have attacks at the following squares (if you can attack, you must attack)%n");
@@ -368,6 +367,8 @@ public class GameBoard {
 				return false;
 			}
 		}
+		
+		boolean hasAttack = move_hasAttack(s);
 
 		// if piece hasAttack, but isn't a capture move then move is invalid
 		if (hasAttack && !capture) {
