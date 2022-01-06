@@ -40,7 +40,7 @@ public class Controller {
 	 * kingdirectionattack<br>
 	 * cs50demo</b>
 	 */
-	public static final String BOARD_SETUP = "validMoveCheck2"; // Sets up a specific board layout for testing. Normal =
+	public static final String BOARD_SETUP = "validMoveCheck3"; // Sets up a specific board layout for testing. Normal =
 																// "standard"
 
 	///////////////////////////////////////
@@ -81,20 +81,14 @@ public class Controller {
 		System.out.printf("%n".repeat(50));
 		System.out.println("This game brought to you by novice programmer");
 
-		System.out.println(
-				" ______   ______     ______   ______     ______        __    __     ______     ______     __         ______     __  __    ");
-		System.out.println(
-				"/\\  == \\ /\\  ___\\   /\\__  _\\ /\\  ___\\   /\\  == \\      /\\ \"-./  \\   /\\  __ \\   /\\  == \\   /\\ \\       /\\  ___\\   /\\ \\_\\ \\   ");
-		System.out.println(
-				"\\ \\  _-/ \\ \\  __\\   \\/_/\\ \\/ \\ \\  __\\   \\ \\  __<      \\ \\ \\-./\\ \\  \\ \\  __ \\  \\ \\  __<   \\ \\ \\____  \\ \\  __\\   \\ \\____ \\");
-		System.out.println(
-				" \\ \\_\\    \\ \\_____\\    \\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\     \\ \\_\\ \\ \\_\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\/\\_____\\");
-		System.out.println(
-				"  \\/_/     \\/_____/     \\/_/   \\/_____/   \\/_/ /_/      \\/_/  \\/_/   \\/_/\\/_/   \\/_/ /_/   \\/_____/   \\/_____/   \\/_____/");
+		System.out.println(" ______   ______     ______   ______     ______        __    __     ______     ______     __         ______     __  __    ");
+		System.out.println("/\\  == \\ /\\  ___\\   /\\__  _\\ /\\  ___\\   /\\  == \\      /\\ \"-./  \\   /\\  __ \\   /\\  == \\   /\\ \\       /\\  ___\\   /\\ \\_\\ \\   ");
+		System.out.println("\\ \\  _-/ \\ \\  __\\   \\/_/\\ \\/ \\ \\  __\\   \\ \\  __<      \\ \\ \\-./\\ \\  \\ \\  __ \\  \\ \\  __<   \\ \\ \\____  \\ \\  __\\   \\ \\____ \\");
+		System.out.println(" \\ \\_\\    \\ \\_____\\    \\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\     \\ \\_\\ \\ \\_\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\/\\_____\\");
+		System.out.println("  \\/_/     \\/_____/     \\/_/   \\/_____/   \\/_/ /_/      \\/_/  \\/_/   \\/_/\\/_/   \\/_/ /_/   \\/_____/   \\/_____/   \\/_____/");
 		sleep(5);
 		System.out.println();
-		System.out.println(
-				"ASCII text art from: https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Sub-Zero&t=Peter%20Marley");
+		System.out.println("ASCII text art from: https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Sub-Zero&t=Peter%20Marley");
 	}
 
 	/**
@@ -104,11 +98,9 @@ public class Controller {
 		boolean toContinue = true;
 		while (toContinue) {
 			// get selection
-			// TODO check if current player has valid moves here
 			gameBoard.displayBoard();
 			if (gameBoard.checkPlayerHasValidMoves()) {
-				if (!setMemoryOrQuit(0, "Select your piece!") || !setMemoryOrQuit(1,
-						"You have selected " + convertCoords(memory[0]) + " - now select your destination square! ")) {
+				if (!setMemoryOrQuit(0, "Select your piece!") || !setMemoryOrQuit(1, "You have selected " + convertCoords(memory[0]) + " - now select your destination square! ")) {
 					break;
 				}
 
@@ -159,21 +151,18 @@ public class Controller {
 				return false;
 			} else if (userInput.equals("c") || userInput.equals("cancel")) {
 				boolean pieceSelected = (memory[0][0] == -1 || memory[0][1] == -1) ? false : true;
-				returnMessage = String.format("Move cancelled! %s%n",
-						(pieceSelected) ? convertCoords(memory[0]) + " unselected" : "");
+				returnMessage = String.format("Move cancelled! %s%n", (pieceSelected) ? convertCoords(memory[0]) + " unselected" : "");
 				clearMemory();
 				return true;
 			} else if (userInput.equals("cap") || userInput.equals("captured")) {
 				gameBoard.printCaptured();
 
 			} else if (userInput.length() == 2) {
-				if (userInput.charAt(0) >= 'a' && userInput.charAt(0) <= 'h' && userInput.charAt(1) >= '1'
-						&& userInput.charAt(1) <= '8') {
+				if (userInput.charAt(0) >= 'a' && userInput.charAt(0) <= 'h' && userInput.charAt(1) >= '1' && userInput.charAt(1) <= '8') {
 					isValidated = true;
 					memory[i][0] = userInput.charAt(1) - 49;
 					memory[i][1] = userInput.charAt(0) - 97;
-					Controller.log
-							.add("Player " + gameBoard.getCurrentPlayer() + " selected " + Arrays.deepToString(memory));
+					Controller.log.add("Player " + gameBoard.getCurrentPlayer() + " selected " + Arrays.deepToString(memory));
 				}
 			}
 			userInput = "";
@@ -244,8 +233,7 @@ public class Controller {
 		} else if (whitePieces == 0) {
 			System.out.println(gameBoard.getPlayerName(0) + " has won the game!");
 		} else {
-			System.out.println(
-					gameBoard.getPlayerName((gameBoard.getCurrentPlayer() == 0) ? 1 : 0) + " has won the game!");
+			System.out.println(gameBoard.getPlayerName((gameBoard.getCurrentPlayer() == 0) ? 1 : 0) + " has won the game!");
 		}
 		System.out.println("Pieces left on board: " + GamePiece.pieceCount());
 

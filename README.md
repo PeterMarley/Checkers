@@ -49,7 +49,9 @@ Furthermore the second coordinate is checked that it is in the correct direction
 The program then will do the actual move operation and move the piece, capture if needed, upgrade if needed
 
 #### Win Conditions
-You must take all of the opponents pieces to win! Once this has occured the game ends!
+There are two win/loss conditions:
+- 1 - You lose if you have no pieces on the board
+- 2 - You lose if you have no valid moves available
 
 #### The files
 The program is made up of 4 java classes.
