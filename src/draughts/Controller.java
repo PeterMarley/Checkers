@@ -1,11 +1,7 @@
 package draughts;
 
-import java.net.SocketPermission;
 import java.util.Arrays;
 import java.util.Scanner;
-
-import javax.print.event.PrintJobListener;
-import javax.sound.sampled.SourceDataLine;
 
 /**
  * 
