@@ -1,4 +1,4 @@
-package checkersV0_9;
+package checkers;
 
 import java.io.BufferedWriter;
 import java.io.File;

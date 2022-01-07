@@ -1,4 +1,4 @@
-package checkersV0_9;
+package checkers;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package checkersV0_9;
+package checkers;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -60,7 +60,7 @@ public class Controller {
 	 * Start log, get player names, initiate game
 	 */
 	private static void startUp() {
-		log = new Log("./Log/");
+		log = new Log("./");
 		gameBoard = (TEST_MODE) ? new GameBoard("Jeff", "Waynes") : getGameBoard();
 		aGameOfCheckers();
 	}
