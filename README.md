@@ -1,3 +1,5 @@
+edit
+
 # 2-player Checkers
 ### Video Demo: https://www.youtube.com/watch?v=p2JHpilPolw
 ### Description:
