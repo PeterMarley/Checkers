@@ -1,5 +1,6 @@
 package checkers;
 
+import java.awt.EventQueue;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -52,8 +53,18 @@ public class Controller {
 	 * ensures logging system is correctly shut down after program is finished
 	 */
 	public static void main(String[] args) {
-		startUp();
-		shutDown();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUI frame = new GUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		//startUp();
+		//shutDown();
 	}
 
 	/**
