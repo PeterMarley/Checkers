@@ -226,7 +226,6 @@ public class GameBoard {
 	/////////////////////////////////////
 
 	public boolean checkPlayerHasValidMoves() {
-		// TODO check player has valid moves
 		boolean hasValidMove = false;
 		for (int row = 0; row < board.length && !hasValidMove; row++) {
 			for (int col = 0; col < board[row].length && !hasValidMove; col++) {
@@ -554,7 +553,6 @@ public class GameBoard {
 		}
 		return hasAttack;
 
-		// //TODO has an attack check
 		// GamePiece piece = this.getSquare(coords);
 		// int start = 0;
 		// int end = 4;
