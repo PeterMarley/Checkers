@@ -36,7 +36,8 @@ public class Enums {
 	}
 
 	/**
-	 * The enumerated GamePiece[][] index modifiers for the 4 diagonal directions
+	 * The enumerated GamePiece[][] index modifiers for the 4 diagonal directions.
+	 * Used to select the adjacent 4 diagonal pieces, moving from up left, clockwise through to down left.
 	 * @author Peter Marley
 	 * @StudentNum 13404067
 	 * @email pmarley03@qub.ac.uk
@@ -44,33 +45,29 @@ public class Enums {
 	 *
 	 */
 	public enum Modifier {
-		UPLEFT {
-			@Override
-			public int[] get() {
-				return new int[] { 1, -1 };
-			}
-		},
-		UPRIGHT {
-			@Override
-			public int[] get() {
-				return new int[] { 1, 1 };
-			}
-		},
-		DOWNRIGHT {
-			@Override
-			public int[] get() {
-				return new int[] { -1, 1 };
-			}
-		},
-		DOWNLEFT {
-			@Override
-			public int[] get() {
-				return new int[] { -1, -1 };
-			}
-		};
-
-		public int[] get() { // almost like an abstract method, overrider above inside the Modifier initialiser(?)
-			return null;
+		// calls to constructor
+		UPLEFT(new int[] { 1, -1 }),
+		UPRIGHT(new int[] { 1, 1 }),
+		DOWNRIGHT(new int[] { -1, 1 }),
+		DOWNLEFT(new int[] { -1, -1 });
+		
+		// actual modifiers
+		private int[] modifiers;
+		
+		/**
+		 * Constructor
+		 * @param An int[2] containing index modifiers for the GamePiece[][] field of GameBoard.
+		 */
+		private Modifier(int[] modifiers) {
+			this.modifiers = modifiers;
 		}
+		/**
+		 * @return An int[2] containing index modifiers for the GamePiece[][] field of GameBoard.
+		 * Used to select the adjacent 4 diagonal pieces, moving from up left, clockwise through to down left.
+		 */
+		public int[] get() {
+			return this.modifiers;
+		}
+
 	}
 }
