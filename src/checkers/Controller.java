@@ -199,7 +199,7 @@ public class Controller {
 		}
 
 		// log successful GameBoard creation and then return the GameBoard
-		Controller.log.add("GameBoard initialised. [TEST_MODE: " + SKIP_INTRO + "] [TEST_BOARD: " + BOARD_SETUP + "]");
+		Controller.log.add("GameBoard initialised. [SKIP_INTRO: " + SKIP_INTRO + "] [BOARD_SETUP: " + BOARD_SETUP + "]");
 		return new GameBoard(playerNames[0], playerNames[1]);
 
 	}

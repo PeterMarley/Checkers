@@ -618,11 +618,13 @@ public class GameBoard {
 		}
 		System.out.println("|");
 		System.out.println();
+		
+		// print testing variable states
 		if (Controller.SKIP_INTRO) {
-			System.out.printf("--- TEST MODE ACTIVE%n");
+			System.out.printf("--- SKIP_INTRO ACTIVE%n");
 		}
-		if (!Controller.BOARD_SETUP.equals("standard")) {
-			System.out.printf("--- TEST BOARD ACTIVE - %s%n", Controller.BOARD_SETUP);
+		if (!Controller.BOARD_SETUP.equals(BoardSetup.STANDARD)) {
+			System.out.printf("--- BOARD_SETUP non-standard type: %s%n", Controller.BOARD_SETUP);
 		}
 		if (Controller.TIMERS_DEACTIVATED) {
 			System.out.printf("--- ALL TIMERS DE-ACTIVATED%n", "");
