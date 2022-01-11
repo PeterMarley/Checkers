@@ -1,0 +1,24 @@
+[2022-01-11].[1-55-27]
+ 	checkers.Log.<init>(Log.java:65)
+	MSG: Log Initialised Successfully!
+
+[2022-01-11].[1-55-27]
+ 	checkers.GameBoard.<init>(GameBoard.java:221)
+	MSG: Dynamic GameBoard of width 8 created successfully. [TEST_MODE=true ; TIMERS_ACTIVE=true ; TEST_BOARD=STANDARD]
+
+[2022-01-11].[1-55-28]
+ 	checkers.GameBoard.displayBoard(GameBoard.java:633)
+	MSG: Board displayed
+
+[2022-01-11].[1-55-28]
+ 	checkers.GameBoard.displayBoard(GameBoard.java:633)
+	MSG: Board displayed
+
+[2022-01-11].[1-55-29]
+ 	checkers.Controller.setMemoryOrQuit(Controller.java:151)
+	MSG: User chose quit!
+
+[2022-01-11].[1-55-29]
+ 	checkers.Log.shutdown(Log.java:115)
+	MSG: Shutting down logging system
+

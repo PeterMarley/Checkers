@@ -56,7 +56,7 @@ public class Controller {
 	 * Start log, get player names, initiate game
 	 */
 	private static void startUp() {
-		log = new Log("./");
+		log = new Log("./Logfiles/");
 		gameBoard = (SKIP_INTRO) ? new GameBoard("Test Player 1", "Test Player 2") : getGameBoard();
 		aGameOfCheckers();
 	}
