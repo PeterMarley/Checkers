@@ -3,8 +3,14 @@ package checkers;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import checkers.Enums.Modifier;
+
 /**
- * 
+ * <hr>
+ * <b>currentPlayer:</b><br>
+ * 0 = Black<br>
+ * 1 = White
+ * <hr>
  * @author Peter Marley
  * @projectTitle Checkers V1
  * @City Belfast
@@ -14,58 +20,18 @@ import java.util.Arrays;
  */
 public class GameBoard {
 
-
-
-	public enum Modifier {
-		UPLEFT {
-			@Override
-			public int[] get() {
-				return new int[] { 1, -1 };
-			}
-		},
-		UPRIGHT {
-			@Override
-			public int[] get() {
-				return new int[] { 1, 1 };
-			}
-		},
-		DOWNRIGHT {
-			@Override
-			public int[] get() {
-				return new int[] { -1, 1 };
-			}
-		},
-		DOWNLEFT {
-			@Override
-			public int[] get() {
-				return new int[] { -1, -1 };
-			}
-		};
-
-		public int[] get() { // almost like an abstract method, overrider above inside the Modifier initialiser(?)
-			return null;
-		}
-	}
-
-	/**
-	 * The game board itself, a GamePiece[][]
-	 */
-	private GamePiece[][] board;
-	private ArrayList<GamePiece> captured = new ArrayList<GamePiece>(40); // captured pieces stored here
-	private String[] playerNames = new String[2];
-	/**
-	 * 0 = Black<br>
-	 * 1 = White
-	 */
-	private int currentPlayer;
+	private GamePiece[][] board;											// the "physical" board itself
+	private ArrayList<GamePiece> captured = new ArrayList<GamePiece>(40); 	// captured pieces stored here
+	private String[] playerNames = new String[2];							// stores both players names
+	private int currentPlayer;												// int representing current player (0 = black, 1 = white)
+	private Modifier[] modifierArray = Enums.getModifiers();				// This holds the GameBoard array index modifiers
 
 	///////////////////////////////////////
-	// CONSTRUCTORS //
+	// CONSTRUCTORS 					//
 	/////////////////////////////////////
 
 	/**
-	 * Creates a game board, the layout of which is governed by the value of
-	 * Controller.BOARD_SETUP field
+	 * Creates a game board, the layout of which is governed by the value of Controller.BOARD_SETUP field
 	 * 
 	 * @param player1Name
 	 * @param player2Name
@@ -256,7 +222,7 @@ public class GameBoard {
 	}
 
 	///////////////////////////////////////
-	// MOVE OPERATION //
+	// MOVE OPERATION 					//
 	/////////////////////////////////////
 
 	public boolean checkPlayerHasValidMoves() {
@@ -279,7 +245,7 @@ public class GameBoard {
 							hasValidMove = true;
 							break;
 						} else if (moves[i] == ((this.currentPlayer == 0) ? 1 : 0)) {
-							int[] modifiers = move_generateVectorModifiers(i);
+							int[] modifiers = modifierArray[i].get();
 							int[] farSideOfPiece = new int[] { row + (modifiers[0] * 2), col + (modifiers[1] * 2) };
 							if (farSideOfPiece[0] > 7 || farSideOfPiece[0] < 0 || farSideOfPiece[1] > 7 || farSideOfPiece[1] < 0) {
 								break;
@@ -290,14 +256,11 @@ public class GameBoard {
 								break;
 							}
 							/*
-							 * int[] farSideOfEnemyPiece = new int[] { s[0] + (modifiers[0] * 2), s[1] +
-							 * (modifiers[1] * 2) }; if (farSideOfEnemyPiece[0] >= 0 &&
-							 * farSideOfEnemyPiece[0] <= 7 && farSideOfEnemyPiece[1] >= 0 &&
-							 * farSideOfEnemyPiece[1] <= 7) { // if (s[0] + modifiers[0] < 0 || s[0] +
-							 * modifiers[0] > 7 || s[1] + modifiers[1] // < 0 && s[1] + modifiers[1] > 7) {
-							 * // if (s[0] != 0 && s[0] != 7 && s[1] != 0 && s[1] != 7) { if
-							 * (this.getSquare(farSideOfEnemyPiece) == null) { // if far side square is
-							 * empty then attack is // possible hasAttack = true; break; } }
+							 * int[] farSideOfEnemyPiece = new int[] { s[0] + (modifiers[0] * 2), s[1] + (modifiers[1] * 2) }; if
+							 * (farSideOfEnemyPiece[0] >= 0 && farSideOfEnemyPiece[0] <= 7 && farSideOfEnemyPiece[1] >= 0 && farSideOfEnemyPiece[1] <=
+							 * 7) { // if (s[0] + modifiers[0] < 0 || s[0] + modifiers[0] > 7 || s[1] + modifiers[1] // < 0 && s[1] + modifiers[1] >
+							 * 7) { // if (s[0] != 0 && s[0] != 7 && s[1] != 0 && s[1] != 7) { if (this.getSquare(farSideOfEnemyPiece) == null) { //
+							 * if far side square is empty then attack is // possible hasAttack = true; break; } }
 							 */
 
 						}
@@ -309,11 +272,9 @@ public class GameBoard {
 	}
 
 	/**
-	 * This adjudicates a players move from start to finish, including any jump
-	 * enforcement.
+	 * This adjudicates a players move from start to finish, including any jump enforcement.
 	 * 
-	 * @param coords an int[][] containing the players piece coords at index 0, and
-	 *            the players destination coords at index 1.
+	 * @param coords an int[][] containing the players piece coords at index 0, and the players destination coords at index 1.
 	 * @return A boolean - continue the game?
 	 */
 	public boolean executeMove(int[][] coords) {
@@ -335,8 +296,7 @@ public class GameBoard {
 	/**
 	 * Move a piece if its legally allowed
 	 * 
-	 * @param coords an int[][], holding the players own-piece selection at index 0
-	 *            and the destination square at index 1.
+	 * @param coords an int[][], holding the players own-piece selection at index 0 and the destination square at index 1.
 	 * @return A boolean - This move was made successfully?
 	 */
 	private boolean move_operation(int[][] coords) {
@@ -431,8 +391,7 @@ public class GameBoard {
 	}
 
 	/**
-	 * @return return an {@code ArrayList<String>} containing all the players pieces
-	 *         that have a valid attack (in format A1, H8 etc)
+	 * @return return an {@code ArrayList<String>} containing all the players pieces that have a valid attack (in format A1, H8 etc)
 	 */
 	public ArrayList<String> checkPlayersPiecesForAttacks() {
 		ArrayList<String> attacks = new ArrayList<>(20);
@@ -450,45 +409,7 @@ public class GameBoard {
 	}
 
 	/**
-	 * @param i 0 to 3 - representing clockwise top left, top right, bottom right
-	 *            and bottom left squares around a central point.
-	 * @return The vector modifiers for each direction
-	 */
-	private int[] move_generateVectorModifiers(int i) {
-		int[] modifiers = new int[2];
-
-		switch (i) { // set directional modifier
-		case 0:
-			// modifierVertical = 1;
-			// modifierHorizontal = -1;
-			modifiers[0] = 1;
-			modifiers[1] = -1;
-			break;
-		case 1:
-			// modifierVertical = 1;
-			// modifierHorizontal = 1;
-			modifiers[0] = 1;
-			modifiers[1] = 1;
-			break;
-		case 2:
-			// modifierVertical = -1;
-			// modifierHorizontal = 1;
-			modifiers[0] = -1;
-			modifiers[1] = 1;
-			break;
-		case 3:
-			// modifierVertical = -1;
-			// modifierHorizontal = -1;
-			modifiers[0] = -1;
-			modifiers[1] = -1;
-			break;
-		}
-		return modifiers;
-	}
-
-	/**
-	 * Generates a int[4] containing all the possible moves for piece @ s. clockwise
-	 * top left to bottom left<br>
+	 * Generates a int[4] containing all the possible moves for piece @ s. clockwise top left to bottom left<br>
 	 * 
 	 * @param s (for source) - An int[2] containing board coordinates
 	 * @return int[4] <br>
@@ -513,12 +434,11 @@ public class GameBoard {
 		int value = 0;
 
 		int[] fourDirections = new int[4];
-		Modifier[] modifiersArr = { Modifier.UPLEFT, Modifier.UPRIGHT, Modifier.DOWNRIGHT, Modifier.DOWNLEFT };
+
 		for (int i = 0; i < 4; i++) {
 
 			// set vector modifiers
-			//Modifier mod = Enums.Modifier.getWithIndex(i);
-			int[] modifiers = modifiersArr[i].get();
+			int[] modifiers = modifierArray[i].get();
 			int modifierVertical = modifiers[0];
 			int modifierHorizontal = modifiers[1];
 
@@ -553,8 +473,8 @@ public class GameBoard {
 		GamePiece e = getSquare(coords);
 		Controller.log.add("GamePiece " + e + " captured!");
 		captured.add(e);
-		Controller.log.add(GamePiece.pieceCount());
-		e.removePieceFromBoard();
+		Controller.log.add(GamePiece.enumeratePiecesOnBoard());
+		e.removePieceFromCount();
 		clearSquare(coords);
 	}
 
@@ -578,7 +498,7 @@ public class GameBoard {
 		int moves[] = move_generateMoveList(s);
 		for (int i = start; i < end; i++) { // find the enemies
 			if (moves[i] == ((this.getCurrentPlayer() == 0) ? 1 : 0)) { // found an adjacent enemy piece
-				int[] modifiers = move_generateVectorModifiers(i);
+				int[] modifiers = modifierArray[i].get();
 				int[] farSideOfEnemyPiece = new int[] { s[0] + (modifiers[0] * 2), s[1] + (modifiers[1] * 2) };
 				if (farSideOfEnemyPiece[0] >= 0 && farSideOfEnemyPiece[0] <= 7 && farSideOfEnemyPiece[1] >= 0 && farSideOfEnemyPiece[1] <= 7) {
 					// if (s[0] + modifiers[0] < 0 || s[0] + modifiers[0] > 7 || s[1] + modifiers[1]
@@ -636,7 +556,7 @@ public class GameBoard {
 	}
 
 	///////////////////////////////////////
-	// UTILITY //
+	// UTILITY 							//
 	/////////////////////////////////////
 
 	/**
@@ -746,7 +666,7 @@ public class GameBoard {
 	}
 
 	///////////////////////////////////////
-	// GETTERS N SETTERS //
+	// GETTERS N SETTERS 				//
 	/////////////////////////////////////
 
 	/**
@@ -813,8 +733,7 @@ public class GameBoard {
 	 * Get the player name from the playerNames String array
 	 * 
 	 * @param player the index to use for the playerNames String array
-	 * @return the player's name or "Unknown Player" if an unacceptable argument is
-	 *         passed
+	 * @return the player's name or "Unknown Player" if an unacceptable argument is passed
 	 */
 	public String getPlayerName(int player) {
 		if (player >= 0 && player < this.playerNames.length) {

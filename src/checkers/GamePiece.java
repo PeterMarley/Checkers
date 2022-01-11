@@ -15,14 +15,20 @@ public class GamePiece {
 	private boolean king;
 	private int pieceNum;
 
+	// black piece counts
 	private static int blackNormalPieces;
-	private static int whiteNormalPieces;
-
 	private static int blackKingPieces;
-	private static int whiteKingPieces;
-
-	private static int totalWhitePieces;
 	private static int totalBlackPieces;
+	
+	// white piece counts
+	private static int whiteNormalPieces;
+	private static int whiteKingPieces;
+	private static int totalWhitePieces;
+	
+
+	///////////////////////////////////////
+	// BOARD ADMIN 						//
+	/////////////////////////////////////
 
 	/**
 	 * Creates a GamePiece, setting the team and the piece number info
@@ -35,55 +41,15 @@ public class GamePiece {
 		//Controller.log.add("Game piece \"" + this.toVisualString() + " " + this.pieceNum + "\" created!");
 	}
 
-	/**
-	 * 
-	 * @return is the Piece a King?
-	 */
-	public boolean isKing() {
-		return this.king;
-	}
-
-	/**
-	 * Make the Piece a king.
-	 */
-	public void setToKing() {
-		this.king = true;
-		if (this.team == 0) {
-			--blackNormalPieces;
-			this.pieceNum = ++blackKingPieces;
-		} else {
-			--whiteNormalPieces;
-			this.pieceNum = ++whiteKingPieces;
-		}
-
-	}
-
-	/**
-	 * 
-	 * @return the pieceNum of this piece
-	 */
-	public int getPieceNum() {
-		return this.pieceNum;
-	}
-
-	/**
-	 * Set the appropriate piece number for this team
-	 */
-	private void setPieceNum() {
-		if (this.team == 0) {
-			this.pieceNum = ++blackNormalPieces;
-			++totalBlackPieces;
-		} else {
-			this.pieceNum = ++whiteNormalPieces;
-			++totalWhitePieces;
-		}
-	}
+	///////////////////////////////////////
+	// UTILITY	 						//
+	/////////////////////////////////////
 
 	/**
 	 * @return A String that represents the amount of black/white normals and kings, and total pieces of each team still on board
 	 */
-	public static String pieceCount() {
-		return String.format("Black Team[normals %d, kings %d, total %d] White Team[normals %d, kings %d, total %d]%n",
+	public static String enumeratePiecesOnBoard() {
+		return String.format("Black Team [normals %d, kings %d, total %d]%nWhite Team [normals %d, kings %d, total %d]%n",
 				blackNormalPieces, blackKingPieces, totalBlackPieces, whiteNormalPieces, whiteKingPieces, totalWhitePieces);
 	}
 
@@ -102,7 +68,7 @@ public class GamePiece {
 	/**
 	 * adjusts the piece count data for a captured piece
 	 */
-	public void removePieceFromBoard() {
+	public void removePieceFromCount() {
 		if (this.team == 0) {
 			totalBlackPieces--;
 			if (this.isKing()) {
@@ -122,37 +88,7 @@ public class GamePiece {
 	}
 
 	/**
-	 * Get the team for this piece
-	 * 
-	 * @return team <br>
-	 *         0 for Black<br>
-	 *         1 for White<br>
-	 *         set to -999 if error
-	 */
-	public int getTeam() {
-		return this.team;
-	}
-
-	/**
-	 * Set the team for this piece
-	 *
-	 * @param team <br>
-	 *             0 for Black<br>
-	 *             1 for White<br>
-	 *             set to -999 if error
-	 */
-	public void setTeam(int team) {
-		if (team == 0 || team == 1) {
-			this.team = team;
-		} else {
-			this.team = -999;
-		}
-	}
-
-	/**
-	 * "Black Num" / "Black King Num"
-	 * Team 0 == Black
-	 * Team 1 == White
+	 * "Black Num" / "Black King Num" Team 0 == Black Team 1 == White
 	 */
 	public String toString() {
 		String team = null;
@@ -165,9 +101,7 @@ public class GamePiece {
 	}
 
 	/**
-	 * "[#][#][#][#]" / "[ ][ ][ ][ ]"
-	 * Team 0 == Black
-	 * Team 1 == White
+	 * "[#][#][#][#]" / "[ ][ ][ ][ ]" Team 0 == Black Team 1 == White
 	 */
 	public String toVisualString() {
 		String team = null;
@@ -177,6 +111,82 @@ public class GamePiece {
 			team = "[__________]";
 		}
 		return team;
+	}
+
+	///////////////////////////////////////
+	// GETTERS N SETTERS				//
+	/////////////////////////////////////
+
+	/**
+	 * 
+	 * @return is the Piece a King?
+	 */
+	public boolean isKing() {
+		return this.king;
+	}
+
+	/**
+	 * 
+	 * @return the pieceNum of this piece
+	 */
+	public int getPieceNum() {
+		return this.pieceNum;
+	}
+
+	/**
+	 * Get the team for this piece
+	 * 
+	 * @return team <br>
+	 *         0 for Black<br>
+	 *         1 for White<br>
+	 *         set to -999 if error
+	 */
+	public int getTeam() {
+		return this.team;
+	}
+
+	/**
+	 * Make the Piece a king.
+	 */
+	public void setToKing() {
+		this.king = true;
+		if (this.team == 0) {
+			--blackNormalPieces;
+			this.pieceNum = ++blackKingPieces;
+		} else {
+			--whiteNormalPieces;
+			this.pieceNum = ++whiteKingPieces;
+		}
+
+	}
+
+	/**
+	 * Set the appropriate piece number for this team
+	 */
+	private void setPieceNum() {
+		if (this.team == 0) {
+			this.pieceNum = ++blackNormalPieces;
+			++totalBlackPieces;
+		} else {
+			this.pieceNum = ++whiteNormalPieces;
+			++totalWhitePieces;
+		}
+	}
+
+	/**
+	 * Set the team for this piece
+	 *
+	 * @param team <br>
+	 *            0 for Black<br>
+	 *            1 for White<br>
+	 *            set to -999 if error
+	 */
+	private void setTeam(int team) {
+		if (team == 0 || team == 1) {
+			this.team = team;
+		} else {
+			this.team = -999;
+		}
 	}
 
 }

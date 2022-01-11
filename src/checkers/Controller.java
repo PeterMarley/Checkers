@@ -15,16 +15,15 @@ import java.util.Scanner;
  */
 public class Controller {
 
-	private static GameBoard gameBoard; // Game Board
-	public static Log log; // Logging System
+	private static GameBoard gameBoard; 						// GameBoard object
+	public static Log log; 										// Logging System
 
-	private static Scanner scanner = new Scanner(System.in); // User input scanner
-	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; // program memory : default values all -1
-	private static String returnMessage = ""; // remotely set display message for UI
+	private static Scanner scanner = new Scanner(System.in); 	// User input scanner
+	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; // program memory : default (unset) values all -1
+	private static String returnMessage = ""; 					// remotely set display message for UI
 
-	public static final boolean TEST_MODE = true; // When set to true, the game immediately starts rather than gets user
-													// input
-	public static final boolean TIMERS_DEACTIVATED = true; // Deactivates menu sleep() timers
+	public static final boolean TEST_MODE = true; 				// When set to true, the game immediately starts rather than gets user input
+	public static final boolean TIMERS_DEACTIVATED = true; 		// Deactivates menu sleep() timers
 	/**
 	 * BOARD_SETUP values
 	 * <hr>
@@ -41,11 +40,10 @@ public class Controller {
 	 * kingdirectionattack<br>
 	 * cs50demo</b>
 	 */
-	public static final String BOARD_SETUP = "validMoveCheck3"; // Sets up a specific board layout for testing. Normal =
-																// "standard"
+	public static final String BOARD_SETUP = "validMoveCheck3"; // Sets up a specific board layout for testing. Normal = "standard"
 
 	///////////////////////////////////////
-	// BOARD ADMIN //
+	// BOARD ADMIN 						//
 	/////////////////////////////////////
 
 	/**
@@ -77,8 +75,7 @@ public class Controller {
 	}
 
 	/**
-	 * Shuts the program down safely by shutting down the logging system and
-	 * displaying credits & farewell message
+	 * Shuts the program down safely by shutting down the logging system and displaying credits & farewell message
 	 */
 	private static void shutDown() {
 		log.shutdown();
@@ -252,12 +249,12 @@ public class Controller {
 		} else {
 			System.out.println(gameBoard.getPlayerName((gameBoard.getCurrentPlayer() == 0) ? 1 : 0) + " has won the game!");
 		}
-		System.out.println("Pieces left on board: " + GamePiece.pieceCount());
+		System.out.println("Pieces left on board: " + GamePiece.enumeratePiecesOnBoard());
 
 	}
 
 	///////////////////////////////////////
-	// UTILITY //
+	// UTILITY 							//
 	/////////////////////////////////////
 
 	/**
@@ -310,7 +307,7 @@ public class Controller {
 	}
 
 	///////////////////////////////////////
-	// MENUS //
+	// MENUS 							//
 	/////////////////////////////////////
 
 	/**
