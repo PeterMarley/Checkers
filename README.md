@@ -3,7 +3,7 @@
 
 #### Current Version: V0.9.2
 
-#### Basics
+# Basics
 
 This is a local 1v1 version of Checkers / English Draughts.
 
@@ -29,7 +29,7 @@ These 4 inputs can be entered at any time for the desired effect
 ###### Selection of Pieces/ Squares 
 - "A1", "C3", "H8" etc - A board coordinate. The first selection is of the players piece, and the second is a selection of their desired destination square.
 
-#### The Move Itself
+# The Move Itself
 
 The program will get two GameBoard GamePiece 2D array field coordinates (row and column indices) from player
 
@@ -56,7 +56,7 @@ There are two win/loss conditions:
 - 1 - You lose if you have no pieces on the board
 - 2 - You lose if you have no valid moves available
 
-#### The files
+# The files
 The program is made up of 4 java classes.
 
 ##### Controller.java
