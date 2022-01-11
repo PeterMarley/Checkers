@@ -1,6 +1,8 @@
 # 2-player Checkers
 #### Current Version: V0.9.2
 
+![The Game](https://imgur.com/a/zSV33hN)
+
 # Basics
 
 This is a local 1v1 version of Checkers / English Draughts.

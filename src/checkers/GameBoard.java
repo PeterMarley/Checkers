@@ -24,7 +24,7 @@ public class GameBoard {
 	private ArrayList<GamePiece> captured = new ArrayList<GamePiece>(40); 	// captured pieces stored here
 	private String[] playerNames = new String[2];							// stores both players names
 	private int currentPlayer;												// int representing current player (0 = black, 1 = white)
-	private Modifier[] modifierArray = Enums.getModifiers();				// This holds the GameBoard array index modifiers
+	private Modifier[] modifierArray = Modifier.values();				// This holds the GameBoard array index modifiers
 
 	///////////////////////////////////////
 	// CONSTRUCTORS 					//
@@ -37,7 +37,9 @@ public class GameBoard {
 	 * @param player2Name
 	 */
 	public GameBoard(String player1Name, String player2Name) {
-
+		for (Modifier i : modifierArray) {
+			System.out.println(i);
+		}
 		int gameWidth = 8;
 		board = new GamePiece[gameWidth][gameWidth];
 		boolean firstHalf = true;

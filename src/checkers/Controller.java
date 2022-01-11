@@ -25,8 +25,8 @@ public class Controller {
 	private static String returnMessage = ""; 						// remotely set display message for UI
 
 	// testing variables
-	public static final boolean SKIP_INTRO = true;						// When set to true, the game immediately starts rather than gets user input
-	public static final boolean TIMERS_DEACTIVATED = true; 				// Deactivates menu sleep() timers
+	public static final boolean SKIP_INTRO = false;						// When set to true, the game immediately starts rather than gets user input
+	public static final boolean TIMERS_DEACTIVATED = false; 				// Deactivates menu sleep() timers
 	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
 
 	///////////////////////////////////////

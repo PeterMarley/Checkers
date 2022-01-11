@@ -72,10 +72,5 @@ public class Enums {
 		public int[] get() { // almost like an abstract method, overrider above inside the Modifier initialiser(?)
 			return null;
 		}
-
-	}
-
-	public static Modifier[] getModifiers() {
-		return new Modifier[] { Modifier.UPLEFT, Modifier.UPRIGHT, Modifier.DOWNRIGHT, Modifier.DOWNLEFT };
 	}
 }
