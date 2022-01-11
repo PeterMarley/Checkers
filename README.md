@@ -1,7 +1,7 @@
 # 2-player Checkers
 #### Current Version: V0.9.2
 
-![The Game](https://imgur.com/a/zSV33hN)
+![The Game](https://i.imgur.com/IBmU5fH.png)
 
 # Basics
 
