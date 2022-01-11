@@ -14,6 +14,39 @@ import java.util.Arrays;
  */
 public class GameBoard {
 
+
+
+	public enum Modifier {
+		UPLEFT {
+			@Override
+			public int[] get() {
+				return new int[] { 1, -1 };
+			}
+		},
+		UPRIGHT {
+			@Override
+			public int[] get() {
+				return new int[] { 1, 1 };
+			}
+		},
+		DOWNRIGHT {
+			@Override
+			public int[] get() {
+				return new int[] { -1, 1 };
+			}
+		},
+		DOWNLEFT {
+			@Override
+			public int[] get() {
+				return new int[] { -1, -1 };
+			}
+		};
+
+		public int[] get() { // almost like an abstract method, overrider above inside the Modifier initialiser(?)
+			return null;
+		}
+	}
+
 	/**
 	 * The game board itself, a GamePiece[][]
 	 */
@@ -217,7 +250,8 @@ public class GameBoard {
 		this.setPlayerName(0, player1Name);
 		this.setPlayerName(1, player2Name);
 
-		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Controller.TEST_MODE, Controller.TIMERS_DEACTIVATED, Controller.BOARD_SETUP);
+		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Controller.TEST_MODE, Controller.TIMERS_DEACTIVATED,
+				Controller.BOARD_SETUP);
 		Controller.log.add(logMessage);
 	}
 
@@ -279,7 +313,7 @@ public class GameBoard {
 	 * enforcement.
 	 * 
 	 * @param coords an int[][] containing the players piece coords at index 0, and
-	 *               the players destination coords at index 1.
+	 *            the players destination coords at index 1.
 	 * @return A boolean - continue the game?
 	 */
 	public boolean executeMove(int[][] coords) {
@@ -302,7 +336,7 @@ public class GameBoard {
 	 * Move a piece if its legally allowed
 	 * 
 	 * @param coords an int[][], holding the players own-piece selection at index 0
-	 *               and the destination square at index 1.
+	 *            and the destination square at index 1.
 	 * @return A boolean - This move was made successfully?
 	 */
 	private boolean move_operation(int[][] coords) {
@@ -320,8 +354,10 @@ public class GameBoard {
 		// is move in the correct direction for this player (ignored if king)
 		if (sourcePiece != null && !sourcePiece.isKing()) {
 			int directionModifier = (this.getCurrentPlayer() == 0) ? 1 : -1;
-			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier) || (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
-				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " DENIED - move in wrong direction");
+			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier)
+					|| (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
+				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
+						+ " DENIED - move in wrong direction");
 				return false;
 			}
 		}
@@ -332,7 +368,8 @@ public class GameBoard {
 				|| destinationPiece != null // if the destination is NOT empty
 				|| Math.abs(vectorVert) > 2 || Math.abs(vectorHori) > 2 // if move greater than 2 squares away
 				|| Math.abs(vectorVert) != Math.abs(vectorHori)) { // if not a diagonal move
-			Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " DENIED - General Check Block fail");
+			Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
+					+ " DENIED - General Check Block fail");
 			return false; // THEN RETURN FALSE
 		}
 
@@ -349,7 +386,8 @@ public class GameBoard {
 				}
 				// System.out.println(check.toVisualString());
 			} else {
-				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " DENIED - Null Piece Check fail");
+				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
+						+ " DENIED - Null Piece Check fail");
 				return false;
 			}
 		}
@@ -366,7 +404,7 @@ public class GameBoard {
 				return false;
 			}
 		}
-		
+
 		boolean hasAttack = move_hasAttack(s);
 
 		// if piece hasAttack, but isn't a capture move then move is invalid
@@ -413,11 +451,12 @@ public class GameBoard {
 
 	/**
 	 * @param i 0 to 3 - representing clockwise top left, top right, bottom right
-	 *          and bottom left squares around a central point.
+	 *            and bottom left squares around a central point.
 	 * @return The vector modifiers for each direction
 	 */
 	private int[] move_generateVectorModifiers(int i) {
 		int[] modifiers = new int[2];
+
 		switch (i) { // set directional modifier
 		case 0:
 			// modifierVertical = 1;
@@ -474,10 +513,12 @@ public class GameBoard {
 		int value = 0;
 
 		int[] fourDirections = new int[4];
+		Modifier[] modifiersArr = { Modifier.UPLEFT, Modifier.UPRIGHT, Modifier.DOWNRIGHT, Modifier.DOWNLEFT };
 		for (int i = 0; i < 4; i++) {
 
 			// set vector modifiers
-			int[] modifiers = move_generateVectorModifiers(i);
+			//Modifier mod = Enums.Modifier.getWithIndex(i);
+			int[] modifiers = modifiersArr[i].get();
 			int modifierVertical = modifiers[0];
 			int modifierHorizontal = modifiers[1];
 
@@ -712,7 +753,7 @@ public class GameBoard {
 	 * Set the player name in the playerNames String array at index player
 	 * 
 	 * @param player The index to use for the playerNames String array
-	 * @param name   The player's name
+	 * @param name The player's name
 	 */
 	public void setPlayerName(int player, String name) {
 		if (player >= 0 && player < this.playerNames.length) {
@@ -727,7 +768,7 @@ public class GameBoard {
 	 * 
 	 * @param row
 	 * @param col
-	 * @param g   - A GamePiece
+	 * @param g - A GamePiece
 	 */
 	private void setSquare(int row, int col, GamePiece g) {
 		try {
