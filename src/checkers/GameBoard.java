@@ -3,7 +3,7 @@ package checkers;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import checkers.Enums.Modifier;
+import checkers.Enums.*;
 
 /**
  * <hr>
@@ -48,7 +48,7 @@ public class GameBoard {
 
 		switch (Controller.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
 											// Controller.BOARD_SETUP
-		case "standard": // REAL GAMEBOARD
+		case STANDARD: // REAL GAMEBOARD
 			for (int row = 0; row < gameWidth; row++) {
 				for (int col = 0; col < gameWidth; col++) {
 					if (row < (gameWidth / 2) - 1 || row > (gameWidth / 2)) {
@@ -67,7 +67,7 @@ public class GameBoard {
 			this.currentPlayer = 0;
 			logMessage = "Dynamic GameBoard of width " + gameWidth + " created successfully. ";
 			break;
-		case "test":
+		case TEST:
 			for (int row = 0; row < gameWidth; row++) {
 				for (int col = 0; col < gameWidth; col++) {
 					if (row > (gameWidth / 2) + 1 || row < (gameWidth / 2) - 2) {
@@ -84,7 +84,7 @@ public class GameBoard {
 				}
 			}
 			break;
-		case "jumping1":
+		case JUMPING1:
 			// Jumping Enforcement test board
 			this.setSquare(1, 1, new GamePiece(0));
 			this.setSquare(2, 2, new GamePiece(1));
@@ -92,7 +92,7 @@ public class GameBoard {
 			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 
 			break;
-		case "jumping2":
+		case JUMPING2:
 			// jumping enforcement test board 2
 			this.setSquare(2, 0, new GamePiece(0));
 			this.setSquare(3, 1, new GamePiece(0));
@@ -106,14 +106,14 @@ public class GameBoard {
 			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 
 			break;
-		case "kingjump":
+		case KINGJUMP:
 			// king jump enforcement test board
 			this.setSquare(6, 3, new GamePiece(1));
 			this.setSquare(7, 2, new GamePiece(0));
 			getSquare(7, 2).setToKing();
 			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 			break;
-		case "multiplejumps1":
+		case MULTIPLEJUMPS1:
 			// testing jump chain
 			this.setSquare(0, 0, new GamePiece(0));
 			this.setSquare(1, 1, new GamePiece(1));
@@ -123,7 +123,7 @@ public class GameBoard {
 			this.setSquare(7, 3, new GamePiece(1));
 			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 			break;
-		case "multiplejumps2":
+		case MULTIPLEJUMPS2:
 			// testing jump chain 2
 			this.setSquare(0, 2, new GamePiece(0));
 			this.setSquare(1, 1, new GamePiece(1));
@@ -132,7 +132,7 @@ public class GameBoard {
 			this.setSquare(7, 7, new GamePiece(1));
 			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 			break;
-		case "multiplejumpsagainstedge":
+		case MULTIPLEJUMPSAGAINSTEDGE:
 			// testing hasAttack recognises edges cannot be attacked
 			this.setSquare(0, 0, new GamePiece(0));
 			this.setSquare(2, 0, new GamePiece(1));
@@ -142,20 +142,20 @@ public class GameBoard {
 			this.setSquare(0, 2, new GamePiece(0));
 			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 			break;
-		case "blackattackedge":
+		case BLACKATTACKEDGE:
 			// testing black attacking edge
 			this.setSquare(1, 1, new GamePiece(1));
 			this.setSquare(2, 0, new GamePiece(0));
 			this.setSquare(6, 6, new GamePiece(0));
 			break;
-		case "kingdirectionattack":
+		case KINGDIRECTIONALATTACK:
 			// testing kings bidirectionality
 			this.setSquare(3, 3, new GamePiece(0));
 			this.setSquare(4, 2, new GamePiece(1));
 			this.setSquare(4, 4, new GamePiece(1));
 			getSquare(3, 3).setToKing();
 			break;
-		case "cs50demo":
+		case CS50DEMO:
 			// demo board to demonstrate win, capture, and jump enforcement
 			this.setSquare(2, 4, 0);
 			this.setSquare(5, 5, 1);
@@ -166,7 +166,7 @@ public class GameBoard {
 
 			// this.setSquare(7, 0, 1);
 			break;
-		case "validMoveCheck":
+		case VALIDMOVECHECK:
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
 					this.setSquare(i, j, 0);
@@ -176,7 +176,7 @@ public class GameBoard {
 			this.clearSquare(new int[] { 2, 4 });
 			// this.setSquare(1, 4, point)
 			break;
-		case "validMoveCheck2":
+		case VALIDMOVECHECK2:
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
 					this.setSquare(i, j, 0);
@@ -185,7 +185,7 @@ public class GameBoard {
 			this.setSquare(0, 0, 1);
 			// this.clearSquare(new int[] { 2, 4 });
 			break;
-		case "validMoveCheck3":
+		case VALIDMOVECHECK3:
 			for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
 					this.setSquare(i, j, 0);
@@ -216,7 +216,7 @@ public class GameBoard {
 		this.setPlayerName(0, player1Name);
 		this.setPlayerName(1, player2Name);
 
-		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Controller.TEST_MODE, Controller.TIMERS_DEACTIVATED,
+		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Controller.SKIP_INTRO, Controller.TIMERS_DEACTIVATED,
 				Controller.BOARD_SETUP);
 		Controller.log.add(logMessage);
 	}
@@ -568,9 +568,9 @@ public class GameBoard {
 		for (int i = board.length - 1; i >= 0; i--) {
 			for (int k = 0; k <= 3; k++) {
 				if (k == 1) {
-					System.out.printf(" (%d) ", (Controller.TEST_MODE) ? i : i + 1);
+					System.out.printf(" (%d) ", (Controller.SKIP_INTRO) ? i : i + 1);
 				} else {
-					System.out.printf("     ", (Controller.TEST_MODE) ? i : i + 1);
+					System.out.printf("     ", (Controller.SKIP_INTRO) ? i : i + 1);
 
 				}
 				for (int j = 0; j < board[i].length; j++) {
@@ -592,7 +592,7 @@ public class GameBoard {
 							System.out.printf(" | %13s", "");
 						}
 					} else if (k == 3) {
-						if (Controller.TEST_MODE) {
+						if (Controller.SKIP_INTRO) {
 							System.out.printf(" | %7s/%3s  ", i + "," + j, (char) (j + 65) + "" + (char) (i + 49));
 						} else {
 							System.out.printf(" |   %7s    ", "(" + (char) (j + 65) + (char) (i + 49) + ")");
@@ -610,7 +610,7 @@ public class GameBoard {
 		}
 		System.out.printf("      ");
 		for (int i = 0; i < board.length; i++) {
-			if (Controller.TEST_MODE) {
+			if (Controller.SKIP_INTRO) {
 				System.out.printf("|     (%d/%c)     ", i, (char) i + 65);
 			} else {
 				System.out.printf("|      (%c)      ", (char) i + 65);
@@ -618,7 +618,7 @@ public class GameBoard {
 		}
 		System.out.println("|");
 		System.out.println();
-		if (Controller.TEST_MODE) {
+		if (Controller.SKIP_INTRO) {
 			System.out.printf("--- TEST MODE ACTIVE%n");
 		}
 		if (!Controller.BOARD_SETUP.equals("standard")) {

@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import checkers.Enums.BoardSetup;
+
 /**
  * 
  * @author Peter Marley
@@ -15,32 +17,17 @@ import java.util.Scanner;
  */
 public class Controller {
 
-	private static GameBoard gameBoard; 						// GameBoard object
-	public static Log log; 										// Logging System
+	// declarations
+	public static Log log; 											// Logging System
+	private static GameBoard gameBoard; 							// GameBoard object
+	private static Scanner scanner = new Scanner(System.in); 		// User input scanner
+	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
+	private static String returnMessage = ""; 						// remotely set display message for UI
 
-	private static Scanner scanner = new Scanner(System.in); 	// User input scanner
-	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; // program memory : default (unset) values all -1
-	private static String returnMessage = ""; 					// remotely set display message for UI
-
-	public static final boolean TEST_MODE = true; 				// When set to true, the game immediately starts rather than gets user input
-	public static final boolean TIMERS_DEACTIVATED = true; 		// Deactivates menu sleep() timers
-	/**
-	 * BOARD_SETUP values
-	 * <hr>
-	 * <b>standard</b> Normal board
-	 * <hr>
-	 * <b>test<br>
-	 * jumping1<br>
-	 * jumping2<br>
-	 * kingjump<br>
-	 * multiplejumps1<br>
-	 * multiplejumps2<br>
-	 * multiplejumpsagainstedge<br>
-	 * blackattackedge<br>
-	 * kingdirectionattack<br>
-	 * cs50demo</b>
-	 */
-	public static final String BOARD_SETUP = "validMoveCheck3"; // Sets up a specific board layout for testing. Normal = "standard"
+	// testing variables
+	public static final boolean SKIP_INTRO = true;						// When set to true, the game immediately starts rather than gets user input
+	public static final boolean TIMERS_DEACTIVATED = true; 				// Deactivates menu sleep() timers
+	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
 
 	///////////////////////////////////////
 	// BOARD ADMIN 						//
@@ -70,7 +57,7 @@ public class Controller {
 	 */
 	private static void startUp() {
 		log = new Log("./");
-		gameBoard = (TEST_MODE) ? new GameBoard("Jeff", "Waynes") : getGameBoard();
+		gameBoard = (SKIP_INTRO) ? new GameBoard("Test Player 1", "Test Player 2") : getGameBoard();
 		aGameOfCheckers();
 	}
 
@@ -212,7 +199,7 @@ public class Controller {
 		}
 
 		// log successful GameBoard creation and then return the GameBoard
-		Controller.log.add("GameBoard initialised. [TEST_MODE: " + TEST_MODE + "] [TEST_BOARD: " + BOARD_SETUP + "]");
+		Controller.log.add("GameBoard initialised. [TEST_MODE: " + SKIP_INTRO + "] [TEST_BOARD: " + BOARD_SETUP + "]");
 		return new GameBoard(playerNames[0], playerNames[1]);
 
 	}
@@ -337,7 +324,7 @@ public class Controller {
 	 */
 	public static void renderGameScene(String prompt) {
 		// User Interface
-		if (!TEST_MODE) {
+		if (!SKIP_INTRO) {
 			System.out.printf("%n".repeat(200));
 		}
 		gameBoard.displayBoard();

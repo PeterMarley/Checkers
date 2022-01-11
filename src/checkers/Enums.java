@@ -1,31 +1,48 @@
 package checkers;
 
+/**
+ * Various Enums for Checkers
+ * @author Peter Marley
+ * @StudentNum 13404067
+ * @email pmarley03@qub.ac.uk
+ * @GitHub BigJeffTheChef
+ *
+ */
 public class Enums {
-	public enum BoardSetups {
-		STANDARD("standard"),
-		TEST("test"),
-		JUMPING1("jumping1"),
-		JUMPING2("jumping2"),
-		KINGJUMP("kingjump"),
-		MULTIPLEJUMPS1("multiplejumps1"),
-		MULTIPLEJUMPS2("multiplejumps2"),
-		MULTIPLEJUMPSAGAINSTEDGE("multiplejumpsagainstedge"),
-		BLACKATTACKEDGE("blackattackedge"),
-		KINGDIRECTIONALATTACK("kingdirectionalattack"),
-		CS50DEMO("cs50demo");
-		
-		private String setup;
-		
-		private BoardSetups(String setup) {
-			this.setup = setup;
-		}
-		
-		@Override
-		public String toString() {
-			return this.setup;
-		}
+
+	/**
+	 * The enumerated board setups
+	 * @author Peter Marley
+	 * @StudentNum 13404067
+	 * @email pmarley03@qub.ac.uk
+	 * @GitHub BigJeffTheChef
+	 *
+	 */
+	public enum BoardSetup {
+		STANDARD,
+		TEST,
+		JUMPING1,
+		JUMPING2,
+		KINGJUMP,
+		MULTIPLEJUMPS1,
+		MULTIPLEJUMPS2,
+		MULTIPLEJUMPSAGAINSTEDGE,
+		BLACKATTACKEDGE,
+		KINGDIRECTIONALATTACK,
+		CS50DEMO,
+		VALIDMOVECHECK,
+		VALIDMOVECHECK2,
+		VALIDMOVECHECK3;
 	}
 
+	/**
+	 * The enumerated GamePiece[][] index modifiers for the 4 diagonal directions
+	 * @author Peter Marley
+	 * @StudentNum 13404067
+	 * @email pmarley03@qub.ac.uk
+	 * @GitHub BigJeffTheChef
+	 *
+	 */
 	public enum Modifier {
 		UPLEFT {
 			@Override
@@ -56,9 +73,8 @@ public class Enums {
 			return null;
 		}
 
-		
 	}
-	
+
 	public static Modifier[] getModifiers() {
 		return new Modifier[] { Modifier.UPLEFT, Modifier.UPRIGHT, Modifier.DOWNRIGHT, Modifier.DOWNLEFT };
 	}
