@@ -1,6 +1,4 @@
 # 2-player Checkers
-### Description:
-
 #### Current Version: V0.9.2
 
 # Basics
