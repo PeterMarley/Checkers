@@ -11,7 +11,7 @@ public class MyJFrame extends JFrame {
 		ImageIcon icon = new ImageIcon("./icons/checkersIcon.png");
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(true);
+		this.setResizable(false);
 		this.setTitle("Checkers!");
 		this.setIconImage(icon.getImage());
 		this.getContentPane().setBackground(Color.GRAY);

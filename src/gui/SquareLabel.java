@@ -31,8 +31,9 @@ public class SquareLabel extends JLabel {
 				}
 			}
 			this.setIcon(icon);
+			//this.setText(p.toVisualString());
+
 		}
-		
 		// define properties
 		this.setBackground(color);
 		this.setBorder(border);
