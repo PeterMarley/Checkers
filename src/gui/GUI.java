@@ -69,7 +69,7 @@ public class GUI {
 				}
 				//TODO get index 0,0 to actually have correct alignment and position (see comment after loop) / works on laptop?!
 				//if (piece != null) {
-				square = new SquareLabel(Color.BLUE, piece);
+				square = new SquareLabel(Color.RED, piece); // TODO figure out why this colour is being setting the Frame background
 				board[row][col] = square;
 				int x, y;
 				x = (col + 1) * scale;
