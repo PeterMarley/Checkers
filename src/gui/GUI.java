@@ -4,11 +4,20 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.SwingUtilities;
+
 import checkers.GamePiece;
 
 public class GUI {
 	public static void main(String[] args) {
-		initBoard();
+		// if you dont do this then you get inconsistent GUI. i presume something to do with
+		// multiple unsynchronised threads being used? more research needed
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				initBoard();
+			}
+		});
+
 	}
 
 	public static void initBoard() {
@@ -25,18 +34,18 @@ public class GUI {
 		SquareLabel[][] board = new SquareLabel[8][8];
 
 		// initialise squares to have null GamePiece
-		for (int row = 0; row < board.length; row++) {
-			for (int col = 0; col < board[row].length; col++) {
-				SquareLabel square = new SquareLabel(Color.WHITE, null);
-				board[row][col] = square;
-				int x, y;
-				x = (col + 1) * scale;
-				y = (row + 1) * scale;
-				board[row][col].setBounds(x, y, scale, scale);
-				frame.add(board[row][col]);
-
-			}
-		}
+		//		for (int row = 0; row < board.length; row++) {
+		//			for (int col = 0; col < board[row].length; col++) {
+		//				SquareLabel square = new SquareLabel(Color.WHITE, null);
+		//				board[row][col] = square;
+		//				int x, y;
+		//				x = (col + 1) * scale;
+		//				y = (row + 1) * scale;
+		//				board[row][col].setBounds(x, y, scale, scale);
+		//				frame.add(board[row][col]);
+		//
+		//			}
+		//		}
 
 		// Add GamePieces at appropriate positions
 		int team = 0;
@@ -59,15 +68,15 @@ public class GUI {
 					}
 				}
 				//TODO get index 0,0 to actually have correct alignment and position (see comment after loop) / works on laptop?!
-				if (piece != null) {
-					square = new SquareLabel(Color.BLUE, piece);
-					board[row][col] = square;
-					int x, y;
-					x = (col + 1) * scale;
-					y = (row + 1) * scale;
-					board[row][col].setBounds(x, y, scale, scale);
-					frame.add(board[row][col]);
-				}
+				//if (piece != null) {
+				square = new SquareLabel(Color.BLUE, piece);
+				board[row][col] = square;
+				int x, y;
+				x = (col + 1) * scale;
+				y = (row + 1) * scale;
+				board[row][col].setBounds(x, y, scale, scale);
+				frame.add(board[row][col]);
+				//}
 			}
 		}
 		/*
