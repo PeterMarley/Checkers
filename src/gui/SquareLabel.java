@@ -37,7 +37,7 @@ public class SquareLabel extends JLabel {
 		// define properties
 		this.setBackground(color);
 		this.setBorder(border);
-		this.setOpaque(false);
+		this.setOpaque(true);
 		this.setHorizontalAlignment(JLabel.CENTER);
 		this.setVerticalAlignment(JLabel.CENTER);
 

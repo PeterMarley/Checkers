@@ -12,7 +12,6 @@ public class GUI {
 	}
 
 	public static void initBoard() {
-		int scale = 50;
 		// Test GamePieces
 		//		GamePiece bp = new GamePiece(0);
 		//		GamePiece bk = new GamePiece(0);
@@ -21,25 +20,29 @@ public class GUI {
 		//		GamePiece wk = new GamePiece(1);
 		//		wk.setToKing();
 
-		// instantiate frame
+		int scale = 50;
 		MyJFrame frame = new MyJFrame();
-		// declare and init board
 		SquareLabel[][] board = new SquareLabel[8][8];
-		// set frame to visible
-		frame.setVisible(true);
 
-		//GridBagLayout gridLayout = new GridBagLayout();
-		//GridBagConstraints gridConstraints = new GridBagConstraints();
-		//gridConstraints.gridx = 100;
-		//gridConstraints.gridy = 100;
-		//gridConstraints.gridwidth = 10;
-		//gridConstraints.gridheight = 10;
+		// initialise squares to have null GamePiece
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board[row].length; col++) {
+				SquareLabel square = new SquareLabel(Color.WHITE, null);
+				board[row][col] = square;
+				int x, y;
+				x = (col + 1) * scale;
+				y = (row + 1) * scale;
+				board[row][col].setBounds(x, y, scale, scale);
+				frame.add(board[row][col]);
 
-		// set all gameBoard square labels
+			}
+		}
+
+		// Add GamePieces at appropriate positions
 		int team = 0;
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length; col++) {
-				if (row == 3 && col ==0) {
+				if (row == 3 && col == 0) {
 					team = 1;
 				}
 				GamePiece piece = null;
@@ -56,13 +59,15 @@ public class GUI {
 					}
 				}
 				//TODO get index 0,0 to actually have correct alignment and position (see comment after loop) / works on laptop?!
-				square = new SquareLabel(Color.BLUE, piece);
-				board[row][col] = square;
-				int x, y;
-				x = (col + 1) * scale;
-				y = (row + 1) * scale;
-				board[row][col].setBounds(x, y, scale, scale);
-				frame.add(board[row][col]);
+				if (piece != null) {
+					square = new SquareLabel(Color.BLUE, piece);
+					board[row][col] = square;
+					int x, y;
+					x = (col + 1) * scale;
+					y = (row + 1) * scale;
+					board[row][col].setBounds(x, y, scale, scale);
+					frame.add(board[row][col]);
+				}
 			}
 		}
 		/*
@@ -73,7 +78,7 @@ public class GUI {
 		//SquareLabel testLabl = new SquareLabel(0, 0, Color.BLACK, bk);
 
 		//testLabl.setBounds(0, 0, 100, 100);
-		frame.setSize(scale*10, scale*10);
+		frame.setSize(scale * 10, scale * 10);
 		//frame.setLayout(null);
 
 		//gridLayout.
@@ -83,6 +88,8 @@ public class GUI {
 		//frame.setLayout(null);
 
 		//frame.add(testLabl);
+		//frame.pack();
+		frame.setVisible(true);
 
 	}
 }
