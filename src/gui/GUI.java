@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import checkers.GamePiece;
 
@@ -54,7 +56,20 @@ public class GUI {
 
 		//testLabl.setBounds(0, 0, 100, 100);
 		frame.setSize(1000, 1000);
-		frame.setLayout(null);
+		//frame.setLayout(null);
+		GridBagLayout gridLayout = new GridBagLayout();
+		GridBagConstraints gridConstraints = new GridBagConstraints();
+		gridConstraints.gridx = 100;
+		gridConstraints.gridy = 100;
+		gridConstraints.gridwidth = 10;
+		gridConstraints.gridheight = 10;
+		
+		//gridLayout.
+		//GridBagConstraints gridConstraints = new GridBagConstraints(gridx, gridy, gridwidth, 
+		//		gridheight, weightx, weighty, anchor, fill, insets, ipadx, ipady)
+		gridLayout.add
+		frame.setLayout(gridLayout);
+		
 		//frame.add(testLabl);
 	}
 
