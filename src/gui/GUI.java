@@ -26,11 +26,13 @@ public class GUI {
 	}
 
 	public static void initBoard() {
-
+		int x, y;
+		x = 1000;
+		y = 1000;
 		JFrame frame = new JFrame();
 		frame.setTitle("Checkers by Peter Marley");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1000, 1000);
+		frame.setSize(x, y);
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(Color.GRAY); 	// remember a frame is made of several hidden layers (think back to java
 															// doc on oracle website with the wee diagram with glass pane at front
@@ -41,6 +43,7 @@ public class GUI {
 		bottomPanel = new JPanel();
 		centrePanel = new JPanel();
 
+<<<<<<< HEAD
 		topPanel.setPreferredSize(new Dimension(1, 50));		// if you use .setSize it doesn't work? says:
 		leftPanel.setPreferredSize(new Dimension(50, 1));		// "This method changes layout-related information, and therefore, invalidates the component hierarchy."
 		bottomPanel.setPreferredSize(new Dimension(1, 150));	//		in the tool tip
@@ -49,6 +52,16 @@ public class GUI {
 		leftPanel.setBackground(Color.GREEN);
 		bottomPanel.setBackground(Color.BLUE);
 		centrePanel.setBackground(Color.DARK_GRAY);
+=======
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLUE);
+		/* THIS */
+		//panel.setLayout(new BorderLayout());
+		//panel.setSize(1000, 1000);
+		/* OR */
+		panel.setLayout(null);
+		panel.setBounds(10, 10, x - 35, x - 60);
+>>>>>>> 8d2e47ed7b616cbbb1452f09ec1305eb550ad055
 
 		centrePanel.add(new SquareLabel(Color.BLACK, new GamePiece(1)));
 		
@@ -57,9 +70,18 @@ public class GUI {
 		frame.add(bottomPanel, BorderLayout.SOUTH);
 		frame.add(board, BorderLayout.CENTER);
 
+<<<<<<< HEAD
+=======
+		// add components
+		panel.add(label);
+		frame.add(panel);
+
+		// set frame to visible
+>>>>>>> 8d2e47ed7b616cbbb1452f09ec1305eb550ad055
 		frame.setVisible(true);
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+<<<<<<< HEAD
 		//		JFrame frame = new JFrame();
 		//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//		frame.setSize(1000, 1000);
@@ -102,6 +124,8 @@ public class GUI {
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+=======
+>>>>>>> 8d2e47ed7b616cbbb1452f09ec1305eb550ad055
 		// Test GamePieces
 		//		GamePiece bp = new GamePiece(0);
 		//		GamePiece bk = new GamePiece(0);
