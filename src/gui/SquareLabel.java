@@ -19,15 +19,15 @@ public class SquareLabel extends JLabel {
 		if (p != null) {
 			if (p.isKing()) {
 				if (p.getTeam() == 0) {
-					icon = Enums.Pieces.BLACK_KING.get();
+					icon = Enums.Icons.BLACK_KING.get();
 				} else {
-					icon = Enums.Pieces.WHITE_KING.get();
+					icon = Enums.Icons.WHITE_KING.get();
 				}
 			} else {
 				if (p.getTeam() == 0) {
-					icon = Enums.Pieces.BLACK_PIECE.get();
+					icon = Enums.Icons.BLACK_PIECE.get();
 				} else {
-					icon = Enums.Pieces.WHITE_PIECE.get();
+					icon = Enums.Icons.WHITE_PIECE.get();
 				}
 			}
 			this.setIcon(icon);
