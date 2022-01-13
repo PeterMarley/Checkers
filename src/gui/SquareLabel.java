@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -38,6 +39,7 @@ public class SquareLabel extends JLabel {
 		this.setBackground(color);
 		this.setBorder(border);
 		this.setOpaque(true);
+		this.setPreferredSize(new Dimension(98,98));
 		this.setHorizontalAlignment(JLabel.CENTER);
 		this.setVerticalAlignment(JLabel.CENTER);
 

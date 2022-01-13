@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -9,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import checkers.GamePiece;
 
 public class GUI {
 	public static void main(String[] args) {
@@ -25,50 +28,79 @@ public class GUI {
 	public static void initBoard() {
 
 		JFrame frame = new JFrame();
+		frame.setTitle("Checkers by Peter Marley");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 1000);
 		frame.setResizable(false);
-		frame.setIconImage(new ImageIcon("./icons/checkersIcon.png").getImage());
-		frame.setLayout(null);
-		frame.getContentPane().setBackground(Color.GREEN);
+		frame.getContentPane().setBackground(Color.GRAY); 	// remember a frame is made of several hidden layers (think back to java
+															// doc on oracle website with the wee diagram with glass pane at front
+		GameBoardPanel board = new GameBoardPanel();
+		JPanel topPanel, leftPanel, bottomPanel, centrePanel;
+		topPanel = new JPanel();
+		leftPanel = new JPanel();
+		bottomPanel = new JPanel();
+		centrePanel = new JPanel();
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLUE);
-		/* THIS */
-		//panel.setLayout(new BorderLayout());
-		//panel.setSize(1000, 1000);
-		/* OR */
-		panel.setLayout(null);
-		panel.setBounds(0, 0, 990, 965);
+		topPanel.setPreferredSize(new Dimension(1, 50));		// if you use .setSize it doesn't work? says:
+		leftPanel.setPreferredSize(new Dimension(50, 1));		// "This method changes layout-related information, and therefore, invalidates the component hierarchy."
+		bottomPanel.setPreferredSize(new Dimension(1, 150));	//		in the tool tip
 
+		topPanel.setBackground(Color.RED);
+		leftPanel.setBackground(Color.GREEN);
+		bottomPanel.setBackground(Color.BLUE);
+		centrePanel.setBackground(Color.DARK_GRAY);
 
-		JLabel label = new JLabel();
-		label.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-		label.setText("Test");
-		label.setBackground(Color.BLACK);
-		label.setOpaque(true);
-		label.setLayout(null);
-		label.setBounds(0, 0, 50, 50);
+		centrePanel.add(new SquareLabel(Color.BLACK, new GamePiece(1)));
+		
+		frame.add(topPanel, BorderLayout.NORTH);
+		frame.add(leftPanel, BorderLayout.WEST);
+		frame.add(bottomPanel, BorderLayout.SOUTH);
+		frame.add(board, BorderLayout.CENTER);
 
-		// add components
-		panel.add(label);
-		frame.add(panel);
-
-
-		// set frame to visible
 		frame.setVisible(true);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		//		JFrame frame = new JFrame();
+		//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//		frame.setSize(1000, 1000);
+		//		frame.setResizable(false);
+		//		frame.setIconImage(new ImageIcon("./icons/checkersIcon.png").getImage());
+		//		frame.setLayout(new BorderLayout());
+		//		frame.getContentPane().setBackground(Color.GREEN);
+		//
+		//		JPanel panel = new JPanel();
+		//		panel.setBackground(Color.BLUE);
+		//		/* THIS */
+		//		//panel.setLayout(new BorderLayout());
+		//		//panel.setSize(900, 900);
+		//		/* OR */
+		//		panel.setLayout(null);
+		//		panel.setBounds(10, 10, 900, 900); // sets panels position inside ITS container, not the position of the panel!!!
+		//
+		//
+		//		JLabel label = new JLabel();
+		//		label.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+		//		label.setText("Test");
+		//		label.setBackground(Color.BLACK);
+		//		label.setOpaque(true);
+		//		/* THIS (not right yet)*/
+		//		//		label.setLayout(new BorderLayout());
+		//		//		label.setVerticalAlignment(JLabel.CENTER);
+		//		//		label.setHorizontalAlignment(JLabel.CENTER);
+		//		//		label.setSize(900, 900);
+		//		/* OR */
+		//		label.setLayout(null);
+		//		label.setBounds(0, 0, 50, 50);
+		//
+		//		// add components
+		//		panel.add(label);
+		//		frame.add(panel, BorderLayout.CENTER);
+		//
+		//
+		//		// set frame to visible
+		//		frame.setVisible(true);
 
-
-
-
-
-
-
-
-
-
-
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Test GamePieces
 		//		GamePiece bp = new GamePiece(0);
