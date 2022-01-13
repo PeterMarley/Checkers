@@ -23,10 +23,12 @@ public class GUI {
 	}
 
 	public static void initBoard() {
-
+		int x, y;
+		x = 1000;
+		y = 1000;
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1000, 1000);
+		frame.setSize(x, y);
 		frame.setResizable(false);
 		frame.setIconImage(new ImageIcon("./icons/checkersIcon.png").getImage());
 		frame.setLayout(null);
@@ -39,8 +41,7 @@ public class GUI {
 		//panel.setSize(1000, 1000);
 		/* OR */
 		panel.setLayout(null);
-		panel.setBounds(0, 0, 990, 965);
-
+		panel.setBounds(10, 10, x - 35, x - 60);
 
 		JLabel label = new JLabel();
 		label.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
@@ -54,21 +55,8 @@ public class GUI {
 		panel.add(label);
 		frame.add(panel);
 
-
 		// set frame to visible
 		frame.setVisible(true);
-
-
-
-
-
-
-
-
-
-
-
-
 
 		// Test GamePieces
 		//		GamePiece bp = new GamePiece(0);
