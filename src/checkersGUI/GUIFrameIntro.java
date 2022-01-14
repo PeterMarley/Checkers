@@ -164,13 +164,15 @@ public class GUIFrameIntro extends GUIFrame {
 	private void startGame() {
 		String message = "User selected start game from intro menu";
 		System.out.println(message);
-		Controller.log.add(message);
+		Controller.log(message);
 		this.dispose();
-		GUI.frameMain.setVisible(true);
+		GUIDriver.initGUI_Game();
 	}
 	
 	private void selectionQuit() {
-		System.out.println("User selected quit from intro menu.");
+		String message = "User selected quit game from intro menu";
+		System.out.println(message);
+		Controller.log(message);
 		this.dispose();
 	}
 	

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import checkers.Enums.BoardSetup;
+import checkersGUI.GUIDriver;
 
 /**
  * 
@@ -38,16 +39,6 @@ public class Controller {
 	 * ensures logging system is correctly shut down after program is finished
 	 */
 	public static void main(String[] args) {
-		//		EventQueue.invokeLater(new Runnable() {
-		//			public void run() {
-		//				try {
-		//					GUI frame = new GUI();
-		//					frame.setVisible(true);
-		//				} catch (Exception e) {
-		//					e.printStackTrace();
-		//				}
-		//			}
-		//		});
 		startUp();
 		shutDown();
 	}
@@ -57,8 +48,17 @@ public class Controller {
 	 */
 	private static void startUp() {
 		log = new Log("./Logfiles/");
-		gameBoard = (SKIP_INTRO) ? new GameBoard("Test Player 1", "Test Player 2") : getGameBoard();
-		aGameOfCheckers();
+		GUIDriver.initGUI();
+		//		gameBoard = (SKIP_INTRO) ? new GameBoard("Test Player 1", "Test Player 2") : getGameBoard();
+		//		aGameOfCheckers();
+	}
+
+	public static void log(String message, boolean isError) {
+		log.add(message, isError);
+	}
+
+	public static void log(String message) {
+		log(message, false);
 	}
 
 	/**
@@ -68,27 +68,27 @@ public class Controller {
 		log.shutdown();
 		System.out.println("Thanks for playing!");
 
-		for (int i = 0; i < 4; i++) {
-			sleep(1);
-			System.out.println(".".repeat(i + 1));
-		}
-
-		System.out.printf("%n".repeat(50));
-		System.out.println("This game brought to you by novice programmer");
-
-		System.out.println(
-				" ______   ______     ______   ______     ______        __    __     ______     ______     __         ______     __  __    ");
-		System.out.println(
-				"/\\  == \\ /\\  ___\\   /\\__  _\\ /\\  ___\\   /\\  == \\      /\\ \"-./  \\   /\\  __ \\   /\\  == \\   /\\ \\       /\\  ___\\   /\\ \\_\\ \\   ");
-		System.out.println(
-				"\\ \\  _-/ \\ \\  __\\   \\/_/\\ \\/ \\ \\  __\\   \\ \\  __<      \\ \\ \\-./\\ \\  \\ \\  __ \\  \\ \\  __<   \\ \\ \\____  \\ \\  __\\   \\ \\____ \\");
-		System.out.println(
-				" \\ \\_\\    \\ \\_____\\    \\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\     \\ \\_\\ \\ \\_\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\/\\_____\\");
-		System.out.println(
-				"  \\/_/     \\/_____/     \\/_/   \\/_____/   \\/_/ /_/      \\/_/  \\/_/   \\/_/\\/_/   \\/_/ /_/   \\/_____/   \\/_____/   \\/_____/");
-		sleep(5);
-		System.out.println();
-		System.out.println("ASCII text art from: https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Sub-Zero&t=Peter%20Marley");
+		//		for (int i = 0; i < 4; i++) {
+		//			sleep(1);
+		//			System.out.println(".".repeat(i + 1));
+		//		}
+		//
+		//		System.out.printf("%n".repeat(50));
+		//		System.out.println("This game brought to you by novice programmer");
+		//
+		//		System.out.println(
+		//				" ______   ______     ______   ______     ______        __    __     ______     ______     __         ______     __  __    ");
+		//		System.out.println(
+		//				"/\\  == \\ /\\  ___\\   /\\__  _\\ /\\  ___\\   /\\  == \\      /\\ \"-./  \\   /\\  __ \\   /\\  == \\   /\\ \\       /\\  ___\\   /\\ \\_\\ \\   ");
+		//		System.out.println(
+		//				"\\ \\  _-/ \\ \\  __\\   \\/_/\\ \\/ \\ \\  __\\   \\ \\  __<      \\ \\ \\-./\\ \\  \\ \\  __ \\  \\ \\  __<   \\ \\ \\____  \\ \\  __\\   \\ \\____ \\");
+		//		System.out.println(
+		//				" \\ \\_\\    \\ \\_____\\    \\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\     \\ \\_\\ \\ \\_\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\/\\_____\\");
+		//		System.out.println(
+		//				"  \\/_/     \\/_____/     \\/_/   \\/_____/   \\/_/ /_/      \\/_/  \\/_/   \\/_/\\/_/   \\/_/ /_/   \\/_____/   \\/_____/   \\/_____/");
+		//		sleep(5);
+		//		System.out.println();
+		//		System.out.println("ASCII text art from: https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Sub-Zero&t=Peter%20Marley");
 	}
 
 	/**

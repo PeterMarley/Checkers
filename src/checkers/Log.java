@@ -90,6 +90,7 @@ public class Log {
 			bw.write(String.format("%s%n \t%s%n\t%s: %s%n%n", getDateTime(), Thread.currentThread().getStackTrace()[3], ((isAnError) ? "ERR" : "MSG"), entry));
 		} catch (IOException e) {
 			System.err.println("Log WARNING: Log write failed (0003)");
+			e.printStackTrace();
 		} catch (NullPointerException npe) {
 			System.err.println("Log WARNING: Null Pointer Exception (0004)");
 		}

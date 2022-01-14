@@ -17,21 +17,26 @@ import checkersGUI.abstracts.GUIFrame;
  * @GitHub BigJeffTheChef
  *
  */
-public class GUI {
+public class GUIDriver {
 
 	public static GUIFrame frameIntro = new GUIFrameIntro();
 	public static GUIFrame frameMain = new GUIFrameMain();
 	
-	public static void main(String[] args) {
+	public static void initGUI() {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				initGUI();
+				initGUI_Intro();
 			}
 		});
 	}
 
-	public static void initGUI() {
+	public static void initGUI_Intro() {
 		frameIntro.setVisible(true);
 	}
 
+	public static void initGUI_Game() {
+		frameIntro.dispose();
+		frameMain.setVisible(true);
+	}
+	
 }
