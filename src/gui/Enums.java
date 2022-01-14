@@ -4,11 +4,11 @@ import javax.swing.ImageIcon;
 
 public class Enums {
 	public enum Icons {
-		WHITE_PIECE(new ImageIcon("./icons/whitePiece.png")),
-		WHITE_KING(new ImageIcon("./icons/whiteKing.png")),
-		BLACK_PIECE(new ImageIcon("./icons/blackPiece.png")),
-		BLACK_KING(new ImageIcon("./icons/blackKing.png")),
-		FRAME(new ImageIcon("./icons/checkersIcon.png"));
+		WHITE_PIECE(new ImageIcon("./images/whitePiece.png")),
+		WHITE_KING(new ImageIcon("./images/whiteKing.png")),
+		BLACK_PIECE(new ImageIcon("./images/blackPiece.png")),
+		BLACK_KING(new ImageIcon("./images/blackKing.png")),
+		FRAME(new ImageIcon("./images/checkersIcon.png"));
 
 		private ImageIcon icon;
 
@@ -20,4 +20,5 @@ public class Enums {
 			return this.icon;
 		}
 	}
+	
 }

@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class GUIFrame extends JFrame {
 	
-	public GUIFrame(int x, int y) {
+	public GUIFrame(int width, int height) {
 		ImageIcon icon = new ImageIcon("./icons/checkersIcon.png");
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +28,7 @@ public class GUIFrame extends JFrame {
 		this.getContentPane().setBackground(Color.GRAY);// remember a frame is made of several hidden layers (think back to java
 														// doc on oracle website with the wee diagram with glass pane at front;
 		this.setLayout(new BorderLayout());
-		this.setMinimumSize(new Dimension(800, 800));
+		this.setMinimumSize(new Dimension(width, height));
 
 	}
 }

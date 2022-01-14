@@ -7,6 +7,16 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+/**
+ * GUI for my 2 player checkers program
+ * @Attributions Images: https://woodexpressions.com/wp-content/uploads/2016/07/258015Main2DB.jpg<br>
+ * Edited by me to give them the correct size and background transparency on GIMP
+ * @author Peter Marley
+ * @StudentNum 13404067
+ * @email pmarley03@qub.ac.uk
+ * @GitHub BigJeffTheChef
+ *
+ */
 public class GUI {
 
 	// Define Dimensions

@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import checkers.GamePiece;
 
@@ -12,7 +14,7 @@ import checkers.GamePiece;
 public class GUIBoardPanel extends JPanel {
 
 	public GUISquareLabel[][] squares;
-
+	public static final int SQUARE_BORDER_THICKNESS = 1;
 	/**
 	 * 
 	 * @param squaresWide
@@ -25,6 +27,7 @@ public class GUIBoardPanel extends JPanel {
 		this.squares = new GUISquareLabel[squaresWide][squaresWide];
 		int team = 0;
 		Color squareColor = Color.WHITE;
+		Color brown = new Color(107, 71, 55);
 		for (int row = 0; row < this.squares.length; row++) {
 			for (int col = 0; col < this.squares.length; col++) {
 				if (row == this.squares.length / 2 && col == 0) {
@@ -32,23 +35,32 @@ public class GUIBoardPanel extends JPanel {
 				}
 				GamePiece piece = null;
 				GUISquareLabel square = null;
-				//if (row < 3 || row > 4) {
-				if ((row + 1) % 2 == 1) {
-					if ((col + 1) % 2 == 0) {
-						piece = new GamePiece(team);
-					}
-				} else {
-					if ((col + 1) % 2 == 1) {
-						piece = new GamePiece(team);
+				if (row < 3 || row > 4) {
+					if ((row + 1) % 2 == 1) {
+						if ((col + 1) % 2 == 0) {
+							piece = new GamePiece(team);
+						}
+					} else {
+						if ((col + 1) % 2 == 1) {
+							piece = new GamePiece(team);
+						}
 					}
 				}
-
-				//}
+				//if (piece != null) piece.setToKing();
 				square = new GUISquareLabel(squareColor, piece);
-
+				int topBorderThickness = 0;
+				int leftBorderThickness = 0;
+				if (row == 0) {
+					topBorderThickness = SQUARE_BORDER_THICKNESS;
+				}
+				if (col == 0) {
+					leftBorderThickness = SQUARE_BORDER_THICKNESS;
+				}
+				Border border = BorderFactory.createMatteBorder(topBorderThickness, leftBorderThickness, SQUARE_BORDER_THICKNESS, SQUARE_BORDER_THICKNESS, Color.BLACK);
+				square.setBorder(border);
 				this.add(square);
 				if (col != 7) {
-					squareColor = (squareColor == Color.WHITE) ? Color.DARK_GRAY : Color.WHITE;
+					squareColor = (squareColor == Color.WHITE) ? brown : Color.WHITE;
 				}
 			}
 		}

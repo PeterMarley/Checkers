@@ -3,8 +3,10 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.border.Border;
 
 import checkers.GamePiece;
 
@@ -37,13 +39,13 @@ public class GUISquareLabel extends JLabel {
 					icon = Enums.Icons.WHITE_PIECE.get();
 				}
 			}
-			//this.setIcon(icon);
+			this.setIcon(icon);
 			//this.setText(p.toVisualString());
 
 		}
 
 		// define properties
-		int length = GUI.CENTER_PANEL_SIZE / GUI.CENTER_PANEL_SQUARES;
+		int length = GUI.CENTER_PANEL_SIZE / GUI.CENTER_PANEL_SQUARES - (2 * GUIBoardPanel.SQUARE_BORDER_THICKNESS);
 		this.setBackground(color);
 		this.setOpaque(true);
 		this.setPreferredSize(new Dimension(length, length));
