@@ -6,7 +6,7 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import checkersGUI.Enums.Length;
+import checkersGUI.Enums.Sizes;
 import checkersGUI.abstracts.GUIFrame;
 import checkersGUI.abstracts.GUIPanelMain;
 
@@ -25,21 +25,23 @@ public class GUIFrameMain extends GUIFrame {
 		// create panels
 		JPanel topPanel, leftPanel, bottomPanel;
 		GUIPanelMain centrePanel;
+		Color bgColor = Color.LIGHT_GRAY;
+		
 		topPanel = new JPanel();
 		leftPanel = new JPanel();
 		bottomPanel = new JPanel();
 		centrePanel = new GUIPanelBoard();
 
 		// set panel sizes
-		topPanel.setPreferredSize(new Dimension(1, Length.TOP_PANEL_HEIGHT.value()));		// if you use .setSize it doesn't work? says:
-		leftPanel.setPreferredSize(new Dimension(Length.LEFT_PANEL_WIDTH.value(), 1));		// "This method changes layout-related information, and therefore, invalidates the component hierarchy."
-		bottomPanel.setPreferredSize(new Dimension(1, Length.BOTTOM_PANEL_HEIGHT.value()));	// in the tool tip
+		topPanel.setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.value()));		// if you use .setSize it doesn't work? says:
+		leftPanel.setPreferredSize(new Dimension(Sizes.LEFT_PANEL_WIDTH.value(), 1));		// "This method changes layout-related information, and therefore, invalidates the component hierarchy."
+		bottomPanel.setPreferredSize(new Dimension(1, Sizes.BOTTOM_PANEL_HEIGHT.value()));	// in the tool tip
 
 		// set panel backgrounds
-		topPanel.setBackground(Color.RED);
-		leftPanel.setBackground(Color.GREEN);
-		bottomPanel.setBackground(Color.BLUE);
-		centrePanel.setBackground(Color.DARK_GRAY);
+		topPanel.setBackground(bgColor);
+		leftPanel.setBackground(bgColor);
+		bottomPanel.setBackground(bgColor);
+		centrePanel.setBackground(bgColor);
 
 		// add components
 		this.add(topPanel, BorderLayout.NORTH);

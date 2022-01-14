@@ -47,7 +47,7 @@ public class Enums {
 	 * @GitHub BigJeffTheChef
 	 *
 	 */
-	public enum Length {
+	public enum Sizes {
 		TOP_PANEL_HEIGHT(50),
 		LEFT_PANEL_WIDTH(50),
 		BOTTOM_PANEL_HEIGHT(50),
@@ -57,7 +57,7 @@ public class Enums {
 
 		private int size;
 
-		private Length(int size) {
+		private Sizes(int size) {
 			this.size = size;
 		}
 

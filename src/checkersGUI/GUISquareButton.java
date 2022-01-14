@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 
 import checkers.GamePiece;
-import checkersGUI.Enums.Length;;
+import checkersGUI.Enums.Sizes;;
 
 @SuppressWarnings("serial")
 public class GUISquareButton extends JButton implements ActionListener {
@@ -20,8 +20,8 @@ public class GUISquareButton extends JButton implements ActionListener {
 	public int col;
 
 	public GUISquareButton(int row, int col, Color color, GamePiece p) {
-		int borderThickness = Length.SQUARE_BORDER_THICKNESS.value();
-		int widthOfSquare = Length.CENTER_PANEL_SIZE.value() / Length.CENTER_PANEL_SQUARES.value() - (borderThickness * 2);
+		int borderThickness = Sizes.SQUARE_BORDER_THICKNESS.value();
+		int widthOfSquare = Sizes.CENTER_PANEL_SIZE.value() / Sizes.CENTER_PANEL_SQUARES.value() - (borderThickness * 2);
 		
 		// define square display
 		ImageIcon icon = null;

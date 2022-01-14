@@ -9,6 +9,8 @@ This is a local 1v1 version of Checkers / English Draughts.
 
 The program isn't fancy, it is a console printed version of the game but it pushed me up to and past the limits of my programming ability :)
 
+### note: GUI currently being implemented - it's my first GUI... so it's ... well, you'll see
+
 I come back and add new concepts as I learn them
 
 The game starts and first prompts both players to input their name. Immediately afterward the game starts.

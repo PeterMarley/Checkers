@@ -3,7 +3,7 @@ package checkersGUI;
 import java.awt.Color;
 
 import checkers.GamePiece;
-import checkersGUI.Enums.Length;
+import checkersGUI.Enums.Sizes;
 import checkersGUI.abstracts.GUIPanelMain;
 
 @SuppressWarnings("serial")
@@ -22,7 +22,7 @@ public class GUIPanelBoard extends GUIPanelMain {
 		super();
 
 		// get enum values for readability
-		int squaresWide = Length.CENTER_PANEL_SQUARES.value();
+		int squaresWide = Sizes.CENTER_PANEL_SQUARES.value();
 		this.squares = new GUISquareButton[squaresWide][squaresWide];
 		int team = 0;
 		Color squareColor = Color.WHITE;

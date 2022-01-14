@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import checkers.GamePiece;
-import checkersGUI.Enums.Length;
+import checkersGUI.Enums.Sizes;
 import checkersGUI.GUISquareButton;
 
 @SuppressWarnings("serial")
@@ -20,8 +20,8 @@ public abstract class GUIPanelMain extends JPanel {
 	 * An abstract class for the main JPanel of GUI
 	 */
 	public GUIPanelMain() {
-		int squareCount = Length.CENTER_PANEL_SQUARES.value();
-		int length = Length.CENTER_PANEL_SIZE.value();
+		int squareCount = Sizes.CENTER_PANEL_SQUARES.value();
+		int length = Sizes.CENTER_PANEL_SIZE.value();
 		this.setLayout(new GridLayout(squareCount, squareCount));
 		this.setPreferredSize(new Dimension(length, length));
 	}

@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import checkersGUI.Enums.Length;
+import checkersGUI.Enums.Sizes;
 import checkersGUI.abstracts.GUIFrame;
 
 public class GUIFrameIntro extends GUIFrame {
@@ -24,7 +24,7 @@ public class GUIFrameIntro extends GUIFrame {
 		
 		JPanel textPanel = new JPanel();
 		textPanel.setLayout(new GridLayout(2, 1));
-		textPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, Length.SQUARE_BORDER_THICKNESS.value()));
+		textPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, Sizes.SQUARE_BORDER_THICKNESS.value()));
 		textPanel.setBackground(Color.LIGHT_GRAY);
 		textPanel.setForeground(Color.WHITE);
 		
