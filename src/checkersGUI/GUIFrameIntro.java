@@ -1,6 +1,6 @@
-package gui;
+package checkersGUI;
 
-import gui.abstracts.GUIFrame;
+import checkersGUI.abstracts.GUIFrame;
 
 public class GUIFrameIntro extends GUIFrame {
 

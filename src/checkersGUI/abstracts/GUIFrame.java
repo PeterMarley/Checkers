@@ -1,4 +1,4 @@
-package gui.abstracts;
+package checkersGUI.abstracts;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,8 +7,8 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import gui.Enums;
-import gui.Enums.Length;
+import checkersGUI.Enums;
+import checkersGUI.Enums.Length;
 
 /**
  * This custom JFrame object is used to define the Game window JFrame

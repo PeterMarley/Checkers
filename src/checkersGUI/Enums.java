@@ -1,4 +1,4 @@
-package gui;
+package checkersGUI;
 
 import javax.swing.ImageIcon;
 /**
@@ -52,7 +52,8 @@ public class Enums {
 		LEFT_PANEL_WIDTH(50),
 		BOTTOM_PANEL_HEIGHT(50),
 		CENTER_PANEL_SIZE(800),
-		CENTER_PANEL_SQUARES(8);
+		CENTER_PANEL_SQUARES(8),
+		SQUARE_BORDER_THICKNESS(1);
 
 		private int size;
 

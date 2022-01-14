@@ -1,15 +1,14 @@
-package gui;
+package checkersGUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import gui.Enums.Length;
-import gui.abstracts.GUIFrame;
+import checkersGUI.Enums.Length;
+import checkersGUI.abstracts.GUIFrame;
+import checkersGUI.abstracts.GUIPanelMain;
 
 /**
  * This custom JFrame object is used to define the Game window JFrame
@@ -25,11 +24,11 @@ public class GUIFrameMain extends GUIFrame {
 		super();
 		// create panels
 		JPanel topPanel, leftPanel, bottomPanel;
-		GUIPanelBoard centrePanel;
+		GUIPanelMain centrePanel;
 		topPanel = new JPanel();
 		leftPanel = new JPanel();
 		bottomPanel = new JPanel();
-		centrePanel = new GUIPanelBoard(Length.CENTER_PANEL_SQUARES.value(), Length.CENTER_PANEL_SIZE.value(), Length.CENTER_PANEL_SIZE.value());
+		centrePanel = new GUIPanelBoard();
 
 		// set panel sizes
 		topPanel.setPreferredSize(new Dimension(1, Length.TOP_PANEL_HEIGHT.value()));		// if you use .setSize it doesn't work? says:

@@ -1,15 +1,18 @@
-package gui;
+package checkersGUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.border.Border;
 
 import checkers.GamePiece;
+import checkersGUI.Enums.Length;;
 
 @SuppressWarnings("serial")
 public class GUISquareButton extends JButton implements ActionListener {
@@ -17,6 +20,9 @@ public class GUISquareButton extends JButton implements ActionListener {
 	public int col;
 
 	public GUISquareButton(int row, int col, Color color, GamePiece p) {
+		int borderThickness = Length.SQUARE_BORDER_THICKNESS.value();
+		int widthOfSquare = Length.CENTER_PANEL_SIZE.value() / Length.CENTER_PANEL_SQUARES.value() - (borderThickness * 2);
+		
 		// define square display
 		ImageIcon icon = null;
 		this.row = row;
@@ -41,14 +47,24 @@ public class GUISquareButton extends JButton implements ActionListener {
 		}
 
 		// define properties
-		int length = GUI.CENTER_PANEL_SIZE / GUI.CENTER_PANEL_SQUARES - (2 * GUIPanelBoard.SQUARE_BORDER_THICKNESS);
 		this.setBackground(color);
 		this.setOpaque(true);
-		this.setPreferredSize(new Dimension(length, length));
+		this.setPreferredSize(new Dimension(widthOfSquare, widthOfSquare));
 		this.setHorizontalAlignment(JLabel.CENTER);
 		this.setVerticalAlignment(JLabel.CENTER);
 		this.addActionListener(this);
 
+		int topBorderThickness = 0;
+		int leftBorderThickness = 0;
+		if (row == 0) {
+			topBorderThickness = borderThickness;
+		}
+		if (col == 0) {
+			leftBorderThickness = borderThickness;
+		}
+		Border border = BorderFactory.createMatteBorder(topBorderThickness, leftBorderThickness, borderThickness,
+				borderThickness, Color.BLACK);
+		this.setBorder(border);
 
 
 	}
