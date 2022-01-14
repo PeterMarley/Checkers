@@ -1,4 +1,4 @@
-package gui;
+package gui.abstracts;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,6 +6,9 @@ import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
+import gui.Enums;
+import gui.Enums.Length;
 
 /**
  * This custom JFrame object is used to define the Game window JFrame
@@ -16,9 +19,9 @@ import javax.swing.JFrame;
  *
  */
 @SuppressWarnings("serial")
-public class GUIFrame extends JFrame {
+public abstract class GUIFrame extends JFrame {
 	
-	public GUIFrame(int width, int height) {
+	public GUIFrame() {
 		ImageIcon icon = new ImageIcon("./icons/checkersIcon.png");
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +31,7 @@ public class GUIFrame extends JFrame {
 		this.getContentPane().setBackground(Color.GRAY);// remember a frame is made of several hidden layers (think back to java
 														// doc on oracle website with the wee diagram with glass pane at front;
 		this.setLayout(new BorderLayout());
-		this.setMinimumSize(new Dimension(width, height));
+		this.setMinimumSize(new Dimension(Length.getFrameWidth(), Length.getFrameHeight()));
 
 	}
 }

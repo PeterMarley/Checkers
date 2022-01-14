@@ -41,7 +41,7 @@ public class GUISquareButton extends JButton implements ActionListener {
 		}
 
 		// define properties
-		int length = GUI.CENTER_PANEL_SIZE / GUI.CENTER_PANEL_SQUARES - (2 * GUIBoardPanel.SQUARE_BORDER_THICKNESS);
+		int length = GUI.CENTER_PANEL_SIZE / GUI.CENTER_PANEL_SQUARES - (2 * GUIPanelBoard.SQUARE_BORDER_THICKNESS);
 		this.setBackground(color);
 		this.setOpaque(true);
 		this.setPreferredSize(new Dimension(length, length));

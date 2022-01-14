@@ -11,7 +11,7 @@ import javax.swing.border.Border;
 import checkers.GamePiece;
 
 @SuppressWarnings("serial")
-public class GUIBoardPanel extends JPanel {
+public class GUIPanelBoard extends JPanel {
 
 	//public GUISquareLabel[][] squares;
 	public GUISquareButton[][] squares;
@@ -23,7 +23,7 @@ public class GUIBoardPanel extends JPanel {
 	 * @param panelWidth
 	 * @param PanelHeight
 	 */
-	public GUIBoardPanel(int squaresWide, int panelWidth, int PanelHeight) {
+	public GUIPanelBoard(int squaresWide, int panelWidth, int PanelHeight) {
 		this.setLayout(new GridLayout(8, 8));
 		this.setPreferredSize(new Dimension(800, 800));
 		//this.squares = new GUISquareLabel[squaresWide][squaresWide];

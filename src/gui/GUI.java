@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import gui.Enums.Length;
+import gui.abstracts.GUIFrame;
+
 /**
  * GUI for my 2 player checkers program
  * @Attributions Images: https://woodexpressions.com/wp-content/uploads/2016/07/258015Main2DB.jpg<br>
@@ -33,45 +36,23 @@ public class GUI {
 		// multiple unsynchronised threads being used? more research needed
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				initBoard();
+				initGUI();
 			}
 		});
 
 	}
 
-	public static void initBoard() {
+	public static void initGUI() {
 
 
-		GUIFrame frame = new GUIFrame(FRAME_WIDTH, FRAME_HEIGHT);
-
-		// create panels
-		JPanel topPanel, leftPanel, bottomPanel;
-		GUIBoardPanel centrePanel;
-		topPanel = new JPanel();
-		leftPanel = new JPanel();
-		bottomPanel = new JPanel();
-		centrePanel = new GUIBoardPanel(CENTER_PANEL_SQUARES, CENTER_PANEL_SIZE, CENTER_PANEL_SIZE);
-
-		// set panel sizes
-		topPanel.setPreferredSize(new Dimension(1, TOP_PANEL_HEIGHT));		// if you use .setSize it doesn't work? says:
-		leftPanel.setPreferredSize(new Dimension(LEFT_PANEL_WIDTH, 1));		// "This method changes layout-related information, and therefore, invalidates the component hierarchy."
-		bottomPanel.setPreferredSize(new Dimension(1, BOTTOM_PANEL_HEIGHT));	// in the tool tip
-
-		// set panel backgrounds
-		topPanel.setBackground(Color.RED);
-		leftPanel.setBackground(Color.GREEN);
-		bottomPanel.setBackground(Color.BLUE);
-		centrePanel.setBackground(Color.DARK_GRAY);
-
-		// add components
-		frame.add(topPanel, BorderLayout.NORTH);
-		frame.add(leftPanel, BorderLayout.WEST);
-		frame.add(bottomPanel, BorderLayout.SOUTH);
-		frame.add(centrePanel, BorderLayout.CENTER);
+		GUIFrame frameMain = new GUIFrameMain();
+		GUIFrame frameIntro = new GUIFrameIntro();
+		
 
 
 		// set frame to visible
-		frame.setVisible(true);
+		frameMain.setVisible(true);
+		frameIntro.setVisible(false);
 
 	}
 
