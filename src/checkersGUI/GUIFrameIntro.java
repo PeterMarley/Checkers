@@ -80,6 +80,10 @@ public class GUIFrameIntro extends GUIFrame {
 		return panel;
 	}
 
+	/**
+	 * @param color
+	 * @return The Bottom Panel of intro screen, containing various selections
+	 */
 	public static JPanel getPanelSouth(Color color) {
 
 		JPanel panel = new JPanel();
