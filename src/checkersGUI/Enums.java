@@ -1,6 +1,9 @@
 package checkersGUI;
 
+import java.awt.Color;
+
 import javax.swing.ImageIcon;
+
 /**
  * Enumerated types for Checkers Program
  * @author Peter Marley
@@ -81,5 +84,37 @@ public class Enums {
 		public static int getFrameHeight() {
 			return CENTER_PANEL_SIZE.value() + TOP_PANEL_HEIGHT.value() + BOTTOM_PANEL_HEIGHT.value();
 		}
+	}
+
+	public enum WinColors {
+		DARKEST(Color.decode("#2E5266")),
+		DARK(Color.decode("#6E8898")),
+		MIDDLE(Color.decode("#9FB1BC")),
+		LIGHT(Color.decode("#D3D0CB")),
+		ACCENT(Color.decode("#E2C044"));
+
+		private Color color;
+
+		private WinColors(Color color) {
+			this.color = color;
+		}
+
+		public Color get() {
+			return this.color;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 }

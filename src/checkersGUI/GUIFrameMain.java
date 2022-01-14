@@ -30,7 +30,7 @@ public class GUIFrameMain extends GUIFrame {
 		topPanel = new JPanel();
 		leftPanel = new JPanel();
 		bottomPanel = new JPanel();
-		centrePanel = new GUIPanelBoard();
+		centrePanel = new GUIPanelBoard(); // the game board itself
 
 		// set panel sizes
 		topPanel.setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.value()));		// if you use .setSize it doesn't work? says:
