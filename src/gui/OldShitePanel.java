@@ -7,12 +7,12 @@ import javax.swing.JPanel;
 
 import checkers.GamePiece;
 
-public class GameBoardPanel extends JPanel {
-	public GameBoardPanel() {
+public class OldShitePanel extends JPanel {
+	public OldShitePanel() {
 		//Add GamePieces at appropriate positions
 		JPanel panel = new JPanel();
 		int scale = 100;
-		SquareLabel[][] board = new SquareLabel[8][8];
+		GUISquareLabel[][] board = new GUISquareLabel[8][8];
 		int team = 0;
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length; col++) {
@@ -20,7 +20,7 @@ public class GameBoardPanel extends JPanel {
 					team = 1;
 				}
 				GamePiece piece = null;
-				SquareLabel square = null;
+				GUISquareLabel square = null;
 				if (row < 3 || row > 4) {
 					if ((row + 1) % 2 == 1) {
 						if ((col + 1) % 2 == 0) {
@@ -34,7 +34,7 @@ public class GameBoardPanel extends JPanel {
 				}
 				//TODO get index 0,0 to actually have correct alignment and position (see comment after loop) / works on laptop?!
 				//if (piece != null) {
-				square = new SquareLabel(Color.RED, piece); // TODO figure out why this colour is being setting the Frame background
+				square = new GUISquareLabel(Color.RED, piece); // TODO figure out why this colour is being setting the Frame background
 				board[row][col] = square;
 				int x, y;
 				x = (col + 1) * scale;

@@ -3,19 +3,25 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.border.Border;
 
 import checkers.GamePiece;
 
-public class SquareLabel extends JLabel {
-	public SquareLabel(Color color, GamePiece p) {
-		// define border
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+/**
+ * A Custom JLabel subclass for representing a Checkers board square
+ * @author Peter Marley
+ * @StudentNum 13404067
+ * @email pmarley03@qub.ac.uk
+ * @GitHub BigJeffTheChef
+ *
+ */
+@SuppressWarnings("serial")
+public class GUISquareLabel extends JLabel {
+	public GUISquareLabel(Color color, GamePiece p) {
 
-		// define icon
+		// define square display
+		@SuppressWarnings("unused")
 		ImageIcon icon = null;
 		if (p != null) {
 			if (p.isKing()) {
@@ -31,15 +37,16 @@ public class SquareLabel extends JLabel {
 					icon = Enums.Icons.WHITE_PIECE.get();
 				}
 			}
-			this.setIcon(icon);
+			//this.setIcon(icon);
 			//this.setText(p.toVisualString());
 
 		}
+
 		// define properties
+		int length = GUI.CENTER_PANEL_SIZE / GUI.CENTER_PANEL_SQUARES;
 		this.setBackground(color);
-		this.setBorder(border);
 		this.setOpaque(true);
-		this.setPreferredSize(new Dimension(98,98));
+		this.setPreferredSize(new Dimension(length, length));
 		this.setHorizontalAlignment(JLabel.CENTER);
 		this.setVerticalAlignment(JLabel.CENTER);
 
