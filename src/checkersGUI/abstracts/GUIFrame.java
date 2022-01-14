@@ -22,7 +22,7 @@ import checkersGUI.Enums.Sizes;
 public abstract class GUIFrame extends JFrame {
 	
 	public GUIFrame() {
-		ImageIcon icon = new ImageIcon("./icons/checkersIcon.png");
+		ImageIcon icon = new ImageIcon("./images/checkersIcon.png");
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
