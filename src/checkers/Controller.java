@@ -17,7 +17,7 @@ import checkers.Enums.BoardSetup;
 public class Controller {
 
 	// declarations
-	public static Log log = new Log("./Logfiles/");; 											// Logging System
+	//public static Log log = new Log("./Logfiles/");					// Logging System
 	private static GameBoard gameBoard; 							// GameBoard object
 	private static Scanner scanner = new Scanner(System.in); 		// User input scanner
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
@@ -54,8 +54,8 @@ public class Controller {
 	 * Shuts the program down safely by shutting down the logging system and displaying credits & farewell message
 	 */
 	private static void shutDown() {
-		sleep(2); // give GUI time to finish logging - probably janky as hell
-		log.shutdown();
+		//		sleep(2); // give GUI time to finish logging - probably janky as hell
+		//		//log.shutdown();
 		//System.out.println("Thanks for playing!");
 		//		for (int i = 0; i < 4; i++) {
 		//			sleep(1);
@@ -123,7 +123,7 @@ public class Controller {
 	private static boolean setMemoryOrQuit(int i, String prompt) {
 
 		if (i >= memory.length || i < 0) {
-			Controller.log.add("Improper index passed into setMemoryOrQuit() [i=" + i + ", should be 0 or 1]", true);
+			//Controller.log.add("Improper index passed into setMemoryOrQuit() [i=" + i + ", should be 0 or 1]", true);
 			return false;
 		}
 
@@ -137,7 +137,7 @@ public class Controller {
 			if (userInput.equals("h") || userInput.equals("help")) {
 				printMenuHelp();
 			} else if (userInput.equals("q") || userInput.equals("quit")) {
-				Controller.log.add("User chose quit!");
+				//Controller.log.add("User chose quit!");
 				return false;
 			} else if (userInput.equals("c") || userInput.equals("cancel")) {
 				boolean pieceSelected = (memory[0][0] == -1 || memory[0][1] == -1) ? false : true;
@@ -152,7 +152,7 @@ public class Controller {
 					isValidated = true;
 					memory[i][0] = userInput.charAt(1) - 49;
 					memory[i][1] = userInput.charAt(0) - 97;
-					Controller.log.add("Player " + gameBoard.getCurrentPlayer() + " selected " + Arrays.deepToString(memory));
+					//Controller.log.add("Player " + gameBoard.getCurrentPlayer() + " selected " + Arrays.deepToString(memory));
 				}
 			}
 			userInput = "";
@@ -184,11 +184,11 @@ public class Controller {
 					playerNameSelected[i] = true;
 				}
 			}
-			Controller.log.add("Player " + i + " named: \"" + playerNames[i] + "\" successfully");
+			//Controller.log.add("Player " + i + " named: \"" + playerNames[i] + "\" successfully");
 		}
 
 		// log successful GameBoard creation and then return the GameBoard
-		Controller.log.add("GameBoard initialised. [SKIP_INTRO: " + SKIP_INTRO + "] [BOARD_SETUP: " + BOARD_SETUP + "]");
+		//Controller.log.add("GameBoard initialised. [SKIP_INTRO: " + SKIP_INTRO + "] [BOARD_SETUP: " + BOARD_SETUP + "]");
 		return new GameBoard(playerNames[0], playerNames[1]);
 
 	}
@@ -270,7 +270,7 @@ public class Controller {
 			try {
 				Thread.sleep(seconds * 1000);
 			} catch (InterruptedException e) {
-				Controller.log.add("Controller.menuSleep() Thread.Sleep failure", true);
+				// Controller.log.add("Controller.menuSleep() Thread.Sleep failure", true);
 			}
 		}
 	}

@@ -22,23 +22,31 @@ public class MainGUI {
 
 	public static GUIFrame window = new GUIFrame();
 	public static GUIPanel_Intro intro = new GUIPanel_Intro();
+	public static GUIPanel_PlayerNames playerNames = new GUIPanel_PlayerNames();
 	public static GUIPanel_Game game = new GUIPanel_Game();
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				initGUI_Intro();
+				initGUI();
 			}
 		});
 	}
 
-	public static void initGUI_Intro() {
+	public static void initGUI() {
 		window.setVisible(true);
 		window.add(intro);
 	}
 
-	public static void initGUI_Game() {
+	public static void showPanePlayerNames() {
+		intro.setVisible(false);
 		window.remove(intro);
+		window.add(playerNames);
+	}
+	
+	public static void showPaneGame() {
+		playerNames.setVisible(false);
+		window.remove(playerNames);
 		window.add(game);
 	}
 

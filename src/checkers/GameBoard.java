@@ -220,7 +220,7 @@ public class GameBoard {
 
 		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Controller.SKIP_INTRO, Controller.TIMERS_DEACTIVATED,
 				Controller.BOARD_SETUP);
-		Controller.log.add(logMessage);
+		//Controller.log.add(logMessage);
 	}
 
 	///////////////////////////////////////
@@ -318,8 +318,8 @@ public class GameBoard {
 			int directionModifier = (this.getCurrentPlayer() == 0) ? 1 : -1;
 			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier)
 					|| (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
-				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
-						+ " DENIED - move in wrong direction");
+				//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
+				//		+ " DENIED - move in wrong direction");
 				return false;
 			}
 		}
@@ -330,8 +330,8 @@ public class GameBoard {
 				|| destinationPiece != null // if the destination is NOT empty
 				|| Math.abs(vectorVert) > 2 || Math.abs(vectorHori) > 2 // if move greater than 2 squares away
 				|| Math.abs(vectorVert) != Math.abs(vectorHori)) { // if not a diagonal move
-			Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
-					+ " DENIED - General Check Block fail");
+			//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
+			//		+ " DENIED - General Check Block fail");
 			return false; // THEN RETURN FALSE
 		}
 
@@ -348,7 +348,7 @@ public class GameBoard {
 				}
 				// System.out.println(check.toVisualString());
 			} else {
-				Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
+				//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
 						+ " DENIED - Null Piece Check fail");
 				return false;
 			}
@@ -387,7 +387,7 @@ public class GameBoard {
 			check.setToKing();
 			Controller.setReturnMessage("Piece upgraded to king!");
 		}
-		Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " accepted");
+		//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " accepted");
 
 		return true;
 	}
@@ -473,9 +473,9 @@ public class GameBoard {
 	 */
 	private void move_capture(int[] coords) {
 		GamePiece e = getSquare(coords);
-		Controller.log.add("GamePiece " + e + " captured!");
+		//Controller.log.add("GamePiece " + e + " captured!");
 		captured.add(e);
-		Controller.log.add(GamePiece.enumeratePiecesOnBoard());
+		//Controller.log.add(GamePiece.enumeratePiecesOnBoard());
 		e.removePieceFromCount();
 		clearSquare(coords);
 	}
@@ -632,7 +632,7 @@ public class GameBoard {
 			System.out.printf("--- ALL TIMERS DE-ACTIVATED%n", "");
 		}
 		System.out.println();
-		Controller.log.add("Board displayed");
+		//Controller.log.add("Board displayed");
 	}
 
 	public void printCaptured() {
@@ -683,7 +683,7 @@ public class GameBoard {
 		if (player >= 0 && player < this.playerNames.length) {
 			this.playerNames[player] = name;
 		} else {
-			Controller.log.add("Invalid setPlayerName", true);
+			//Controller.log.add("Invalid setPlayerName", true);
 		}
 	}
 
@@ -698,7 +698,7 @@ public class GameBoard {
 		try {
 			this.board[row][col] = g;
 		} catch (Exception e) {
-			Controller.log.add("Bad setSquare call! [row = " + row + "] [col = " + col + "] [GamePiece = " + g + "]", true);
+			//Controller.log.add("Bad setSquare call! [row = " + row + "] [col = " + col + "] [GamePiece = " + g + "]", true);
 		}
 	}
 
@@ -743,7 +743,7 @@ public class GameBoard {
 		if (player >= 0 && player < this.playerNames.length) {
 			return this.playerNames[player];
 		} else {
-			Controller.log.add("Invalid argument passed to GameBoard.getPlayerName(int player): " + player);
+			//Controller.log.add("Invalid argument passed to GameBoard.getPlayerName(int player): " + player);
 			return "Unknown Player";
 		}
 	}

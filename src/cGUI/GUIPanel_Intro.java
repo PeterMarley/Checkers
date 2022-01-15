@@ -189,8 +189,7 @@ public class GUIPanel_Intro extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==startButton) {
-			this.setVisible(false);
-			MainGUI.initGUI_Game();
+			MainGUI.showPanePlayerNames();
 		}
 		
 	}
