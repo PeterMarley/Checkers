@@ -1,16 +1,17 @@
-package checkersGUI;
+package cGUI.GUIObjects;
 
 import java.awt.Color;
 
+import javax.swing.JPanel;
+
+import cGUI.Enums.Sizes;
 import checkers.GamePiece;
-import checkersGUI.Enums.Sizes;
-import checkersGUI.abstracts.GUIPanelMain;
 
 @SuppressWarnings("serial")
-public class GUIPanelBoard extends GUIPanelMain {
+public class GUIPanel_Game_Squares extends JPanel {
 
 	//public GUISquareLabel[][] squares;
-	public GUISquareButton[][] squares;
+	public GUIButton_aSquare[][] squares;
 
 	/**
 	 * 
@@ -18,12 +19,12 @@ public class GUIPanelBoard extends GUIPanelMain {
 	 * @param panelWidth
 	 * @param PanelHeight
 	 */
-	public GUIPanelBoard() {
+	public GUIPanel_Game_Squares() {
 		super();
 
 		// get enum values for readability
 		int squaresWide = Sizes.CENTER_PANEL_SQUARES.value();
-		this.squares = new GUISquareButton[squaresWide][squaresWide];
+		this.squares = new GUIButton_aSquare[squaresWide][squaresWide];
 		int team = 0;
 		Color squareColor = Color.WHITE;
 		Color brown = new Color(107, 71, 55);
@@ -33,7 +34,7 @@ public class GUIPanelBoard extends GUIPanelMain {
 					team = 1;
 				}
 				GamePiece piece = null;
-				GUISquareButton square = null;
+				GUIButton_aSquare square = null;
 				if (row < 3 || row > 4) {
 					if ((row + 1) % 2 == 1) {
 						if ((col + 1) % 2 == 0) {
@@ -46,7 +47,7 @@ public class GUIPanelBoard extends GUIPanelMain {
 					}
 				}
 				//if (piece != null) piece.setToKing();
-				square = new GUISquareButton(row, col, squareColor, piece);
+				square = new GUIButton_aSquare(row, col, squareColor, piece);
 				this.add(square);
 				if (col != 7) {
 					squareColor = (squareColor == Color.WHITE) ? brown : Color.WHITE;

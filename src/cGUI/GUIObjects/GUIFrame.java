@@ -1,4 +1,4 @@
-package checkersGUI.abstracts;
+package cGUI.GUIObjects;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,11 +7,11 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import checkersGUI.Enums;
-import checkersGUI.Enums.Sizes;
+import cGUI.Enums;
+import cGUI.Enums.Sizes;
 
 /**
- * This custom JFrame object is used to define the Game window JFrame
+ * This custom JFrame object is used to define the Game JFrame
  * @author Peter Marley
  * @StudentNum 13404067
  * @email pmarley03@qub.ac.uk
@@ -19,8 +19,10 @@ import checkersGUI.Enums.Sizes;
  *
  */
 @SuppressWarnings("serial")
-public abstract class GUIFrame extends JFrame {
-	
+public class GUIFrame extends JFrame {
+	/**
+	 * Constructor for the JFrame which houses all game GUI components
+	 */
 	public GUIFrame() {
 		ImageIcon icon = new ImageIcon("./images/checkersIcon.png");
 

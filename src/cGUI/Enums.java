@@ -1,4 +1,4 @@
-package checkersGUI;
+package cGUI;
 
 import java.awt.Color;
 

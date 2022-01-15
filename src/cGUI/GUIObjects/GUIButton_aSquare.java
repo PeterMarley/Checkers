@@ -1,4 +1,4 @@
-package checkersGUI;
+package cGUI.GUIObjects;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,15 +11,17 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-import checkers.GamePiece;
-import checkersGUI.Enums.Sizes;;
+import cGUI.Enums;
+import cGUI.Enums.Icons;
+import cGUI.Enums.Sizes;
+import checkers.GamePiece;;
 
 @SuppressWarnings("serial")
-public class GUISquareButton extends JButton implements ActionListener {
+public class GUIButton_aSquare extends JButton implements ActionListener {
 	public int row;
 	public int col;
 
-	public GUISquareButton(int row, int col, Color color, GamePiece p) {
+	public GUIButton_aSquare(int row, int col, Color color, GamePiece p) {
 		int borderThickness = Sizes.SQUARE_BORDER_THICKNESS.value();
 		int widthOfSquare = Sizes.CENTER_PANEL_SIZE.value() / Sizes.CENTER_PANEL_SQUARES.value() - (borderThickness * 2);
 		

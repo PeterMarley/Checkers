@@ -1,17 +1,16 @@
-package checkersGUI;
+package cGUI.GUIObjects;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import checkersGUI.Enums.Sizes;
-import checkersGUI.abstracts.GUIFrame;
-import checkersGUI.abstracts.GUIPanelMain;
+import cGUI.Enums.Sizes;
 
 /**
- * This custom JFrame object is used to define the Game window JFrame
+ * Creates a JPanel instance which is used to house the main games play window - where the game is played
  * @author Peter Marley
  * @StudentNum 13404067
  * @email pmarley03@qub.ac.uk
@@ -19,18 +18,29 @@ import checkersGUI.abstracts.GUIPanelMain;
  *
  */
 @SuppressWarnings("serial")
-public class GUIFrameMain extends GUIFrame {
-	public GUIFrameMain() {
+public class GUIPanel_Game extends JPanel {
+
+	/**
+	 * A constructor for the main game display JPanel of GUI
+	 */
+	public GUIPanel_Game() {
 		super();
+		
+		int squareCount = Sizes.CENTER_PANEL_SQUARES.value();
+		int length = Sizes.CENTER_PANEL_SIZE.value();
+		this.setLayout(new GridLayout(squareCount, squareCount));
+		this.setPreferredSize(new Dimension(length, length));
+		
+		
 		// create panels
 		JPanel topPanel, leftPanel, bottomPanel;
-		GUIPanelMain centrePanel;
+		GUIPanel_Game_Squares centrePanel;
 		Color bgColor = Color.LIGHT_GRAY;
 		
 		topPanel = new JPanel();
 		leftPanel = new JPanel();
 		bottomPanel = new JPanel();
-		centrePanel = new GUIPanelBoard(); // the game board itself
+		centrePanel = new GUIPanel_Game_Squares(); // the game board itself
 
 		// set panel sizes
 		topPanel.setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.value()));		// if you use .setSize it doesn't work? says:
@@ -48,5 +58,7 @@ public class GUIFrameMain extends GUIFrame {
 		this.add(leftPanel, BorderLayout.WEST);
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		this.add(centrePanel, BorderLayout.CENTER);
+		
+		
 	}
 }

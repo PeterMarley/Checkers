@@ -4,8 +4,8 @@ import java.awt.EventQueue;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import cGUI.GUIDriver;
 import checkers.Enums.BoardSetup;
-import checkersGUI.GUIDriver;
 
 /**
  * 
@@ -30,9 +30,6 @@ public class Controller {
 	public static final boolean TIMERS_DEACTIVATED = false; 				// Deactivates menu sleep() timers
 	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
 
-	// GUI elements
-	public static GUIDriver gui = new GUIDriver();
-
 	///////////////////////////////////////
 	// BOARD ADMIN 						//
 	/////////////////////////////////////
@@ -50,7 +47,7 @@ public class Controller {
 	 * Start log, get player names, initiate game
 	 */
 	private static void startUp() {
-		gui.initGUI();
+		GUIDriver.initGUI();
 		//		gameBoard = (SKIP_INTRO) ? new GameBoard("Test Player 1", "Test Player 2") : getGameBoard();
 		//		aGameOfCheckers();
 	}
