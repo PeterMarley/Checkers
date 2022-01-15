@@ -19,10 +19,10 @@ import checkersGUI.abstracts.GUIFrame;
  */
 public class GUIDriver {
 
-	public static GUIFrame frameIntro = new GUIFrameIntro();
-	public static GUIFrame frameMain = new GUIFrameMain();
+	public GUIFrame frameIntro = new GUIFrameIntro();
+	public GUIFrame frameMain = new GUIFrameMain();
 	
-	public static void initGUI() {
+	public void initGUI() {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				initGUI_Intro();
@@ -30,11 +30,11 @@ public class GUIDriver {
 		});
 	}
 
-	public static void initGUI_Intro() {
+	public void initGUI_Intro() {
 		frameIntro.setVisible(true);
 	}
 
-	public static void initGUI_Game() {
+	public void initGUI_Game() {
 		frameIntro.dispose();
 		frameMain.setVisible(true);
 	}

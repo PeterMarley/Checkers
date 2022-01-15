@@ -19,7 +19,7 @@ import checkersGUI.GUIDriver;
 public class Controller {
 
 	// declarations
-	public static Log log; 											// Logging System
+	public static Log log = new Log("./Logfiles/");; 											// Logging System
 	private static GameBoard gameBoard; 							// GameBoard object
 	private static Scanner scanner = new Scanner(System.in); 		// User input scanner
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
@@ -29,6 +29,9 @@ public class Controller {
 	public static final boolean SKIP_INTRO = false;						// When set to true, the game immediately starts rather than gets user input
 	public static final boolean TIMERS_DEACTIVATED = false; 				// Deactivates menu sleep() timers
 	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
+
+	// GUI elements
+	public static GUIDriver gui = new GUIDriver();
 
 	///////////////////////////////////////
 	// BOARD ADMIN 						//
@@ -47,27 +50,18 @@ public class Controller {
 	 * Start log, get player names, initiate game
 	 */
 	private static void startUp() {
-		log = new Log("./Logfiles/");
-		GUIDriver.initGUI();
+		gui.initGUI();
 		//		gameBoard = (SKIP_INTRO) ? new GameBoard("Test Player 1", "Test Player 2") : getGameBoard();
 		//		aGameOfCheckers();
-	}
-
-	public static void log(String message, boolean isError) {
-		log.add(message, isError);
-	}
-
-	public static void log(String message) {
-		log(message, false);
 	}
 
 	/**
 	 * Shuts the program down safely by shutting down the logging system and displaying credits & farewell message
 	 */
 	private static void shutDown() {
+		sleep(2); // give GUI time to finish logging - probably janky as hell
 		log.shutdown();
-		System.out.println("Thanks for playing!");
-
+		//System.out.println("Thanks for playing!");
 		//		for (int i = 0; i < 4; i++) {
 		//			sleep(1);
 		//			System.out.println(".".repeat(i + 1));
