@@ -1,4 +1,4 @@
-package cGUI.GUIObjects;
+package cGUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,9 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-import cGUI.Enums;
-import cGUI.Enums.Icons;
 import cGUI.Enums.Sizes;
+import checkers.Controller;
 import checkers.GamePiece;;
 
 @SuppressWarnings("serial")
@@ -23,8 +22,8 @@ public class GUIButton_aSquare extends JButton implements ActionListener {
 
 	public GUIButton_aSquare(int row, int col, Color color, GamePiece p) {
 		int borderThickness = Sizes.SQUARE_BORDER_THICKNESS.value();
-		int widthOfSquare = Sizes.CENTER_PANEL_SIZE.value() / Sizes.CENTER_PANEL_SQUARES.value() - (borderThickness * 2);
-		
+		int widthOfSquare = Sizes.CENTER_PANEL_SIZE.value() / Sizes.CENTER_PANEL_SQUARES.value() - (2 * Sizes.SQUARE_BORDER_THICKNESS.value());
+
 		// define square display
 		ImageIcon icon = null;
 		this.row = row;
@@ -75,7 +74,7 @@ public class GUIButton_aSquare extends JButton implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this) {
 			System.out.println("row=" + row + ", col=" + col + " button pressed!");
-			String square = checkers.Controller.convertCoords(new int[] {row, col});
+			String square = Controller.convertCoords(new int[] { row, col });
 			System.out.println("Square is: " + square);
 			System.out.println();
 		}

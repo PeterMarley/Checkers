@@ -1,4 +1,4 @@
-package cGUI.GUIObjects;
+package cGUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cGUI.Enums.WinColors;
-import cGUI.GUIDriver;
 
 @SuppressWarnings("serial")
 public class GUIPanel_Intro extends JPanel implements ActionListener {
@@ -35,11 +34,6 @@ public class GUIPanel_Intro extends JPanel implements ActionListener {
 	public GUIPanel_Intro() {
 		this.setLayout(new GridBagLayout());
 		this.setBackground(WinColors.LIGHT.get());
-
-		JLabel topText = getTopTextLabel();
-		JLabel midText = getMidTextLabel();
-		JButton startButton = getStartButton();
-		JPanel selectionPanel = getSelectionPanel();
 
 		///////////////////////////////
 		// GridBagLayout			//
@@ -195,8 +189,8 @@ public class GUIPanel_Intro extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==startButton) {
-			//this.setEnabled(false);
-			GUIDriver.initGUI_Game();
+			this.setVisible(false);
+			MainGUI.initGUI_Game();
 		}
 		
 	}

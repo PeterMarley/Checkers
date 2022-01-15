@@ -1,4 +1,4 @@
-package cGUI.GUIObjects;
+package cGUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,13 +28,14 @@ public class GUIPanel_Game extends JPanel {
 		
 		int squareCount = Sizes.CENTER_PANEL_SQUARES.value();
 		int length = Sizes.CENTER_PANEL_SIZE.value();
-		this.setLayout(new GridLayout(squareCount, squareCount));
-		this.setPreferredSize(new Dimension(length, length));
+		//this.setLayout(new GridLayout(squareCount, squareCount));
+		this.setLayout(new BorderLayout());
+		//this.setPreferredSize(new Dimension(length, length));
 		
 		
 		// create panels
-		JPanel topPanel, leftPanel, bottomPanel;
-		GUIPanel_Game_Squares centrePanel;
+		JPanel topPanel, leftPanel, bottomPanel, centrePanel;
+		//GUIPanel_Game_Squares centrePanel;
 		Color bgColor = Color.LIGHT_GRAY;
 		
 		topPanel = new JPanel();
@@ -48,10 +49,14 @@ public class GUIPanel_Game extends JPanel {
 		bottomPanel.setPreferredSize(new Dimension(1, Sizes.BOTTOM_PANEL_HEIGHT.value()));	// in the tool tip
 
 		// set panel backgrounds
-		topPanel.setBackground(bgColor);
-		leftPanel.setBackground(bgColor);
-		bottomPanel.setBackground(bgColor);
-		centrePanel.setBackground(bgColor);
+//		topPanel.setBackground(bgColor);
+//		leftPanel.setBackground(bgColor);
+//		bottomPanel.setBackground(bgColor);
+//		centrePanel.setBackground(bgColor);
+		topPanel.setBackground(Color.RED);
+		leftPanel.setBackground(Color.GREEN);
+		bottomPanel.setBackground(Color.BLUE);
+		centrePanel.setBackground(Color.MAGENTA);
 
 		// add components
 		this.add(topPanel, BorderLayout.NORTH);

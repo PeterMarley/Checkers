@@ -1,10 +1,8 @@
 package checkers;
 
-import java.awt.EventQueue;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import cGUI.GUIDriver;
 import checkers.Enums.BoardSetup;
 
 /**
@@ -38,16 +36,16 @@ public class Controller {
 	 * Start point of program<br>
 	 * ensures logging system is correctly shut down after program is finished
 	 */
-	public static void main(String[] args) {
-		startUp();
-		shutDown();
-	}
+	//	public static void main(String[] args) {
+	//		startUp();
+	//		shutDown();
+	//	}
 
 	/**
 	 * Start log, get player names, initiate game
 	 */
 	private static void startUp() {
-		GUIDriver.initGUI();
+		//GUIDriver.initGUI();
 		//		gameBoard = (SKIP_INTRO) ? new GameBoard("Test Player 1", "Test Player 2") : getGameBoard();
 		//		aGameOfCheckers();
 	}

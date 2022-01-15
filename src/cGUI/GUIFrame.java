@@ -1,4 +1,4 @@
-package cGUI.GUIObjects;
+package cGUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import cGUI.Enums;
 import cGUI.Enums.Sizes;
 
 /**
