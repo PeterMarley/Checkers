@@ -3,11 +3,16 @@ package cGUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cGUI.Enums.Sizes;
+import cGUI.Enums.WinColors;
+import checkers.Controller;
 
 /**
  * Creates a JPanel instance which is used to house the main games play window - where the game is played
@@ -38,7 +43,7 @@ public class GUIPanel_Game extends JPanel {
 		//GUIPanel_Game_Squares centrePanel;
 		Color bgColor = Color.LIGHT_GRAY;
 		
-		topPanel = new JPanel();
+		topPanel = getPanelTop();
 		leftPanel = new JPanel();
 		bottomPanel = new JPanel();
 		centrePanel = new GUIPanel_Game_Squares(); // the game board itself
@@ -65,5 +70,22 @@ public class GUIPanel_Game extends JPanel {
 		this.add(centrePanel, BorderLayout.CENTER);
 		
 		
+	}
+	
+	private JPanel getPanelTop() {
+		JPanel panel = new JPanel(new GridLayout(1, 2));
+		JLabel player1 = new JLabel("Player 1: " + Controller.gameBoard.getPlayerName(0));
+		JLabel player2 = new JLabel("Player 2: "+Controller.gameBoard.getPlayerName(1));
+		player1.setVerticalAlignment(JLabel.CENTER);
+		player1.setHorizontalAlignment(JLabel.CENTER);
+		player2.setVerticalAlignment(JLabel.CENTER);
+		player2.setHorizontalAlignment(JLabel.CENTER);
+		//player1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		player1.setBackground(WinColors.DARK.get());
+		player1.setForeground(WinColors.ACCENT.get());
+		player1.setOpaque(true);
+		panel.add(player1);
+		panel.add(player2);
+		return panel;
 	}
 }

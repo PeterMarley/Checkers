@@ -1,7 +1,6 @@
 package checkers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import checkers.Enums.*;
 
@@ -37,9 +36,6 @@ public class GameBoard {
 	 * @param player2Name
 	 */
 	public GameBoard(String player1Name, String player2Name) {
-		for (Modifier i : modifierArray) {
-			System.out.println(i);
-		}
 		int gameWidth = 8;
 		board = new GamePiece[gameWidth][gameWidth];
 		boolean firstHalf = true;
@@ -349,7 +345,7 @@ public class GameBoard {
 				// System.out.println(check.toVisualString());
 			} else {
 				//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
-						+ " DENIED - Null Piece Check fail");
+				//		+ " DENIED - Null Piece Check fail");
 				return false;
 			}
 		}

@@ -18,7 +18,7 @@ public class Controller {
 
 	// declarations
 	//public static Log log = new Log("./Logfiles/");					// Logging System
-	private static GameBoard gameBoard; 							// GameBoard object
+	public static GameBoard gameBoard; 							// GameBoard object
 	private static Scanner scanner = new Scanner(System.in); 		// User input scanner
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
 	private static String returnMessage = ""; 						// remotely set display message for UI
