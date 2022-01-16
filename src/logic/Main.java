@@ -32,14 +32,16 @@ public class Main {
 	/////////////////////////////////////
 	
 	// testing variables
-	public static final boolean SKIP_INTRO = true;						// When set to true, the game immediately starts rather than gets user input
-	public static final boolean TIMERS_DEACTIVATED = false; 			// Deactivates menu sleep() timers
-	public static final BoardSetup BOARD_SETUP = BoardSetup.MULTIPLEJUMPS1; 	// Sets up a specific board layout for testing. Normal = "standard"
+	public static final boolean SKIP_INTRO = true;								// When set to true, the game immediately starts rather than gets user input
+	public static final boolean TIMERS_DEACTIVATED = false; 					// Deactivates menu sleep() timers
+	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
 	
+	// GameBoard and memory
 	public static GameBoard gameBoard; 								// GameBoard object
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
 
-	public static JFrame_GUI frame;				// Main GUI JFrame
+	// GUI components
+	public static JFrame_GUI frame;									// Main GUI JFrame
 	public static JPanel_Intro intro;								// Introduction JPanel
 	public static JPanel_PlayerNames playerNames;					// Player Name Selection JPanel
 	public static JPanel_Game game;									// The Game itself JPanel
@@ -60,6 +62,10 @@ public class Main {
 	// INITIALISATIONS					//
 	/////////////////////////////////////
 
+	/**
+	 * Creates and renders the intro screen if SKIP_INTRO is false, otherwise, skips intro and player name screen and moves straight
+	 * to rendering the checker board
+	 */
 	public static void initGUI() {
 		clearMemory();
 		gameBoard = new GameBoard();
@@ -72,6 +78,10 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Creates and renders the player's name selection screen if SKIP_INTRO is false, otherwise skips player name selection screen and renders
+	 * checker board with fake player names
+	 */
 	public static void initPanePlayerNames() {
 		intro.setVisible(false);
 		frame.remove(intro);
@@ -85,11 +95,24 @@ public class Main {
 
 	}
 
+	/**
+	 * Create and render the checker board and info panels (main game screen) for the first time
+	 */
 	public static void initPaneGame() {
 		if (!SKIP_INTRO) {
 			playerNames.setVisible(false);
 			frame.remove(playerNames);
 		}
+		game = new JPanel_Game();
+		frame.add(game);
+	}
+	
+	/**
+	 * Redraws the checker board screen upon a move selection
+	 */
+	public static void redrawPaneGame() {
+		game.setVisible(false);
+		frame.remove(game);
 		game = new JPanel_Game();
 		frame.add(game);
 	}
@@ -141,8 +164,7 @@ public class Main {
 		if (Main.memory[0][0] != -1) {
 			cell = 1;
 		}
-		memory[cell][0] = i[0];
-		memory[cell][1] = i[1];
+		memory[cell] = i;
 		System.out.printf("Cell " + cell + " set to [" + i[0] + "," + i[1] + "]%n%n");
 	}
 

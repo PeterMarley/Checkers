@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import logic.Enums.*;
 
@@ -75,20 +76,16 @@ public class GameBoard {
 			int directionModifier = (this.getCurrentPlayer() == 0) ? 1 : -1;
 			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier)
 					|| (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
-				//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
-				//		+ " DENIED - move in wrong direction");
 				return false;
 			}
 		}
 
 		// General Check Block
-		if (sourcePiece == null // if source square is empty
-				|| currentPlayer != sourcePiece.getTeam() // if source square is other team's piece
-				|| destinationPiece != null // if the destination is NOT empty
-				|| Math.abs(vectorVert) > 2 || Math.abs(vectorHori) > 2 // if move greater than 2 squares away
-				|| Math.abs(vectorVert) != Math.abs(vectorHori)) { // if not a diagonal move
-			//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
-			//		+ " DENIED - General Check Block fail");
+		if (sourcePiece == null 											// if source square is empty
+				|| currentPlayer != sourcePiece.getTeam() 					// if source square is other team's piece
+				|| destinationPiece != null 								// if the destination is NOT empty
+				|| Math.abs(vectorVert) > 2 || Math.abs(vectorHori) > 2 	// if move greater than 2 squares away
+				|| Math.abs(vectorVert) != Math.abs(vectorHori)) { 			// if not a diagonal move
 			return false; // THEN RETURN FALSE
 		}
 
@@ -96,30 +93,23 @@ public class GameBoard {
 		if (Math.abs(vectorVert) == 2) {
 			rowToCheck = s[0] + (vectorVert / 2);
 			colToCheck = s[1] + (vectorHori / 2);
-			GamePiece check = this.getSquare(rowToCheck, colToCheck);
-			if (check != null) {
-				if (check.getTeam() == currentPlayer) {
-					return false;
-				} else {
-					capture = true;
+			GamePiece pieceToCheck = this.getSquare(rowToCheck, colToCheck);
+			if (pieceToCheck != null) {								// if intervening square is not empty
+				if (pieceToCheck.getTeam() == currentPlayer) {		// if it is current players piece
+					return false;									//		return false
+				} else {											// if it is other players piece
+					capture = true;									//		set capture to true
 				}
-				// System.out.println(check.toVisualString());
-			} else {
-				//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer()
-				//		+ " DENIED - Null Piece Check fail");
-				return false;
+			} else {												// if intervening square is empty
+				return false;										//		return false
 			}
 		}
 		ArrayList<String> attacks = checkPlayersPiecesForAttacks();
 
 		// at this point basic checks are done - now to check for jump enforcement
 		if (attacks.size() > 0) {
-			if (!attacks.contains(Main.convertCoords(s))) {
-				String message = String.format("You have attacks at the following squares (if you can attack, you must attack)%n");
-				for (String i : attacks) {
-					message += i + " ";
-				}
-				return false;
+			if (!attacks.contains(Main.convertCoords(s))) {			// if player has an attack somewhere, but their selection piece has no attack
+				return false;										//		return false
 			}
 		}
 
@@ -141,8 +131,7 @@ public class GameBoard {
 		if ((check.getTeam() == 0 && d[0] == 7) || (check.getTeam() == 1 && d[0] == 0)) {
 			check.setToKing();
 		}
-		//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " accepted");
-
+		System.out.println("Move operation complete!");
 		return true;
 	}
 

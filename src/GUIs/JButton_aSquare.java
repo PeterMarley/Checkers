@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -96,42 +97,45 @@ public class JButton_aSquare extends JButton implements ActionListener {
 			int[] coords = new int[] { row, col };
 
 			// console message
+			GamePiece piece = Main.gameBoard.getSquare(coords);
+			String pieceName = (piece == null) ? "empty!" : piece.toString();
 			System.out.println("row=" + row + ", col=" + col + " button pressed!");
 			String square = Main.convertCoords(coords);
-			System.out.println("Square is: " + square);
+			System.out.println("Square is: " + square + " : " + pieceName);
 			System.out.println();
 
 			// set memory
 			Main.setMemory(coords);
 
-			// check if both memory cells set
-			int[][] memory = Main.getMemory();
-			boolean memoryFilled = true;
-			for (int[] cell : memory) {
-				for (int cellPart : cell) {
-					if (cellPart == -1) {
-						memoryFilled = false;
-						break;
-					}
-				}
-			}
-
 			// if memory full then try move operation
-			boolean moveAccepted = false;
-			if (memoryFilled) {
-				moveAccepted = Main.gameBoard.move_operation(memory);
-			}
-			if (moveAccepted) {
-				boolean hasAttacks = Main.gameBoard.move_hasAttack(Main.getMemory(1));
-				if (!hasAttacks) {
-					Main.gameBoard.nextPlayer();
+			if (isMemoryFilled()) {
+				boolean moveAccepted = Main.gameBoard.move_operation(Main.getMemory());
+				// if move operation was successful check if player has more attacks
+				if (moveAccepted) {
+					//boolean hasAttacks = Main.gameBoard.move_hasAttack(Main.getMemory(1));
+					boolean hasAttacks = Main.gameBoard.move_hasAttack(Main.getMemory(1));
+					if (!hasAttacks) {
+						Main.gameBoard.nextPlayer();
+					}
+
 				}
 				Main.clearMemory();
-				Main.initPaneGame();
-			} else {
-				Main.clearMemory();
-				Main.initPaneGame();
+			}
+			Main.redrawPaneGame();
+		}
+	}
+
+	private boolean isMemoryFilled() {
+		int[][] memory = Main.getMemory();
+		boolean memoryFilled = true;
+		for (int[] cell : memory) {
+			for (int cellPart : cell) {
+				if (cellPart == -1) {
+					memoryFilled = false;
+					break;
+				}
 			}
 		}
+		return memoryFilled;
 	}
 }
