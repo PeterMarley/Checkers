@@ -39,7 +39,7 @@ public class Checkers {
 	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
 
 	// GameBoard and memory
-	private static GameBoard gameBoard; 								// GameBoard object
+	private static GameBoard gameBoard; 							// GameBoard object
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
 
 	// GUI components

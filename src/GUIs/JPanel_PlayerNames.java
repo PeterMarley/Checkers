@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import logic.Checkers;
-import logic.Enums.WinColors;
+import logic.Enums.Palette;
 
 @SuppressWarnings("serial")
 public class JPanel_PlayerNames extends JPanel implements ActionListener {
@@ -104,7 +104,7 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 	private JLabel getErrorLabel() {
 		JLabel label = new JLabel();
 		label = new JLabel();
-		label.setBackground(WinColors.DARK.get());
+		label.setBackground(Palette.DARK.get());
 		label.setPreferredSize(new Dimension(200, 50));
 		label.setVerticalAlignment(JLabel.CENTER);
 		label.setHorizontalAlignment(JLabel.CENTER);

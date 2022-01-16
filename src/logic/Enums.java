@@ -102,7 +102,7 @@ public class Enums {
 	 * @GitHub BigJeffTheChef
 	 *
 	 */
-	public enum WinColors {
+	public enum Palette {
 		// CONSTANTS CALLING CONSTRUCTORS
 		DARKEST(Color.decode("#2E5266")),
 		DARK(Color.decode("#6E8898")),
@@ -114,7 +114,7 @@ public class Enums {
 		private Color color;
 
 		// CONSTRUCTOR
-		private WinColors(Color color) {
+		private Palette(Color color) {
 			this.color = color;
 		}
 
@@ -148,6 +148,37 @@ public class Enums {
 		VALIDMOVECHECK,
 		VALIDMOVECHECK2,
 		VALIDMOVECHECK3;
+	}
+	
+	//TODO move all the board setup information from GameBoard constructor to here
+	public enum Boards {
+		// CONSTANTS CALLING CONSTRUCTORS
+		STANDARD,
+		TEST,
+		JUMPING1,
+		JUMPING2,
+		KINGJUMP,
+		MULTIPLEJUMPS1,
+		MULTIPLEJUMPS2,
+		MULTIPLEJUMPSAGAINSTEDGE,
+		BLACKATTACKEDGE,
+		KINGDIRECTIONALATTACK,
+		CS50DEMO,
+		VALIDMOVECHECK,
+		VALIDMOVECHECK2,
+		VALIDMOVECHECK3;
+		
+		private GamePiece[][] board;
+				
+		private Boards() {
+			if (this.ordinal() == 1) {
+			this.board = new GamePiece[Sizes.CENTER_PANEL_SQUARES.get()][Sizes.CENTER_PANEL_SQUARES.get()];
+			}
+		}
+		
+		public GamePiece[][] get() {
+			return null;
+		}
 	}
 
 	/**

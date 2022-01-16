@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import logic.Enums.Sizes;
-import logic.Enums.WinColors;
+import logic.Enums.Palette;
 import logic.Checkers;
 
 /**
@@ -77,10 +77,10 @@ public class JPanel_Game extends JPanel {
 		players[1].setHorizontalAlignment(JLabel.CENTER);
 
 		// set background colours and text depending on current player
-		players[currentPlayer].setBackground(WinColors.DARK.get());
-		players[currentPlayer].setForeground(WinColors.ACCENT.get());
+		players[currentPlayer].setBackground(Palette.DARK.get());
+		players[currentPlayer].setForeground(Palette.ACCENT.get());
 		players[currentPlayer].setText(((currentPlayer == 0) ? "Black: " : "White: ") + names[0] + " (Current)");
-		players[currentPlayer].setBorder(BorderFactory.createLineBorder(WinColors.ACCENT.get(),1));
+		players[currentPlayer].setBorder(BorderFactory.createLineBorder(Palette.ACCENT.get(),1));
 		players[currentPlayer].setOpaque(true);
 
 
@@ -88,7 +88,7 @@ public class JPanel_Game extends JPanel {
 		topPanel.add(players[0]);
 		topPanel.add(players[1]);
 		topPanel.setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.get()));
-		topPanel.setBackground(WinColors.LIGHT.get());
+		topPanel.setBackground(Palette.LIGHT.get());
 
 	}
 
@@ -98,7 +98,7 @@ public class JPanel_Game extends JPanel {
 	private void setLeftPanel() {
 		leftPanel = new JPanel();
 		leftPanel.setPreferredSize(new Dimension(Sizes.LEFT_PANEL_WIDTH.get(), 1));
-		leftPanel.setBackground(WinColors.LIGHT.get());
+		leftPanel.setBackground(Palette.LIGHT.get());
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class JPanel_Game extends JPanel {
 	private void setBottomPanel() {
 		bottomPanel = new JPanel();
 		bottomPanel.setPreferredSize(new Dimension(1, Sizes.BOTTOM_PANEL_HEIGHT.get()));	// in the tool tip
-		bottomPanel.setBackground(WinColors.LIGHT.get());
+		bottomPanel.setBackground(Palette.LIGHT.get());
 		bottomPanel.setLayout(new GridBagLayout());
 		JLabel displayReturnMessage;
 		GridBagConstraints c = new GridBagConstraints();
@@ -119,8 +119,8 @@ public class JPanel_Game extends JPanel {
 		displayReturnMessage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		displayReturnMessage.setPreferredSize(new Dimension(Sizes.getFrameWidth() / 2, Sizes.BOTTOM_PANEL_HEIGHT.get() / 2));
 		displayReturnMessage.setOpaque(true);
-		displayReturnMessage.setBackground(WinColors.DARKEST.get());
-		displayReturnMessage.setForeground(WinColors.ACCENT.get());
+		displayReturnMessage.setBackground(Palette.DARKEST.get());
+		displayReturnMessage.setForeground(Palette.ACCENT.get());
 		bottomPanel.add(displayReturnMessage, c);
 		Checkers.getGameBoard().clearReturnMessage();
 	}

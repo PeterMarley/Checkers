@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import logic.Checkers;
-import logic.Enums.WinColors;
+import logic.Enums.Palette;
 
 @SuppressWarnings("serial")
 public class JPanel_Intro extends JPanel implements ActionListener {
@@ -34,7 +34,7 @@ public class JPanel_Intro extends JPanel implements ActionListener {
 	 */
 	public JPanel_Intro() {
 		this.setLayout(new GridBagLayout());
-		this.setBackground(WinColors.LIGHT.get());
+		this.setBackground(Palette.LIGHT.get());
 
 		///////////////////////////////
 		// GridBagLayout			//
@@ -91,7 +91,7 @@ public class JPanel_Intro extends JPanel implements ActionListener {
 		topText.setText("Welcome to Peter Marley's Student Project!");
 		topText.setVerticalTextPosition(JLabel.TOP);
 		topText.setHorizontalTextPosition(JLabel.CENTER);
-		topText.setForeground(WinColors.DARKEST.get());
+		topText.setForeground(Palette.DARKEST.get());
 		topText.setIconTextGap(15);
 		return topText;
 	}
@@ -105,8 +105,8 @@ public class JPanel_Intro extends JPanel implements ActionListener {
 		midText.setVerticalAlignment(JLabel.CENTER);
 		midText.setHorizontalAlignment(JLabel.CENTER);
 		midText.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		midText.setForeground(WinColors.ACCENT.get());
-		midText.setBackground(WinColors.DARK.get());
+		midText.setForeground(Palette.ACCENT.get());
+		midText.setBackground(Palette.DARK.get());
 		midText.setPreferredSize(new Dimension(150, 50));
 		return midText;
 	}
@@ -130,7 +130,7 @@ public class JPanel_Intro extends JPanel implements ActionListener {
 		// instantiate and configure JPanel container 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-		panel.setBackground(WinColors.MIDDLE.get());
+		panel.setBackground(Palette.MIDDLE.get());
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		panel.setPreferredSize(new Dimension(500, 200));
 
