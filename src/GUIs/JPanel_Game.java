@@ -3,15 +3,11 @@ package GUIs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.lang.ModuleLayer.Controller;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import logic.TestVariables;
 import logic.Enums.Sizes;
 import logic.Enums.WinColors;
 import logic.Main;
@@ -26,45 +22,29 @@ import logic.Main;
  */
 @SuppressWarnings("serial")
 public class JPanel_Game extends JPanel {
-	JPanel centrePanel;
+	
+	///////////////////////////////////////
+	// INSTANCE FIELDS					//
+	/////////////////////////////////////
+	
+	private JPanel centrePanel, topPanel, leftPanel, bottomPanel;
 
+	///////////////////////////////////////
+	// CONSTRUCTOR						//
+	/////////////////////////////////////
+	
 	/**
 	 * A constructor for the main game display JPanel of GUI
 	 */
 	public JPanel_Game() {
+		// configure this.
 		super();
-		int squareCount = Sizes.CENTER_PANEL_SQUARES.value();
-		int length = Sizes.CENTER_PANEL_SIZE.value();
-		//this.setLayout(new GridLayout(squareCount, squareCount));
 		this.setLayout(new BorderLayout());
-		//this.setPreferredSize(new Dimension(length, length));
-
-
-		// create panels
-		JPanel topPanel, leftPanel, bottomPanel;
-		//GUIPanel_Game_Squares centrePanel;
-		Color bgColor = Color.LIGHT_GRAY;
-
-		topPanel = getPanelTop();
-		leftPanel = new JPanel();
-		bottomPanel = new JPanel();
-		centrePanel = new JPanel_Game_Squares(); // the game board itself
-
-		// set panel sizes
-		topPanel.setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.value()));		// if you use .setSize it doesn't work? says:
-		leftPanel.setPreferredSize(new Dimension(Sizes.LEFT_PANEL_WIDTH.value(), 1));		// "This method changes layout-related information, and therefore, invalidates the component hierarchy."
-		bottomPanel.setPreferredSize(new Dimension(1, Sizes.BOTTOM_PANEL_HEIGHT.value()));	// in the tool tip
-
-		// set panel backgrounds
-		//		topPanel.setBackground(bgColor);
-		//		leftPanel.setBackground(bgColor);
-		//		bottomPanel.setBackground(bgColor);
-		//		centrePanel.setBackground(bgColor);
-		topPanel.setBackground(Color.RED);
-		leftPanel.setBackground(Color.GREEN);
-		bottomPanel.setBackground(Color.BLUE);
-		centrePanel.setBackground(Color.MAGENTA);
-
+		// set panels
+		this.setPanelTop();			// display players and show which is current player
+		this.setLeftPanel();
+		this.setBottomPanel();
+		this.setCenterPanel();	 	// the checker board itself
 		// add components
 		this.add(topPanel, BorderLayout.NORTH);
 		this.add(leftPanel, BorderLayout.WEST);
@@ -72,22 +52,74 @@ public class JPanel_Game extends JPanel {
 		this.add(centrePanel, BorderLayout.CENTER);
 	}
 
-	private JPanel getPanelTop() {
-		String[] names = Main.getPlayerNames();
-		JPanel panel = new JPanel(new GridLayout(1, 2));
+	///////////////////////////////////////
+	// GETTERS N SETTERS				//
+	/////////////////////////////////////
+	
+	/**
+	 * @return the top JPanel of main game window (player names and current player indicator)
+	 */
+	private void setPanelTop() {
+		// get player names
+		String[] names = Main.gameBoard.getPlayerNames();
+		
+		// instantiate components
+		topPanel = new JPanel(new GridLayout(1, 2));
 		JLabel player1 = new JLabel("Player 1: " + names[0]);
 		JLabel player2 = new JLabel("Player 2: " + names[1]);
+		
+		// set alignments
 		player1.setVerticalAlignment(JLabel.CENTER);
 		player1.setHorizontalAlignment(JLabel.CENTER);
 		player2.setVerticalAlignment(JLabel.CENTER);
 		player2.setHorizontalAlignment(JLabel.CENTER);
-		//player1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		player1.setBackground(WinColors.DARK.get());
-		player1.setForeground(WinColors.ACCENT.get());
-		player1.setOpaque(true);
-		panel.add(player1);
-		panel.add(player2);
-		return panel;
+		
+		// set background colours and text depending on current player
+		if (Main.gameBoard.getCurrentPlayer() == 0) {
+			player1.setBackground(WinColors.DARK.get());
+			player1.setForeground(WinColors.ACCENT.get());
+			player1.setText("Player 1: " + names[0] + " (Current)");
+			player1.setOpaque(true);
+		} else {
+			player2.setBackground(WinColors.DARK.get());
+			player2.setForeground(WinColors.ACCENT.get());
+			player2.setText("Player 2: " + names[1] + " (Current)");		
+			player2.setOpaque(true);
+		}
+		
+		// configure topPanel
+		topPanel.add(player1);
+		topPanel.add(player2);
+		topPanel.setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.get()));
+		topPanel.setBackground(Color.RED);
+		
+	}
+
+	/**
+	 * @return the left JPanel of main game window
+	 */
+	private void setLeftPanel() {
+		leftPanel = new JPanel();
+		leftPanel.setPreferredSize(new Dimension(Sizes.LEFT_PANEL_WIDTH.get(), 1));
+		leftPanel.setBackground(Color.GREEN);
+	}
+
+	/**
+	 * @return the bottom JPanel of main game window
+	 */
+	private void setBottomPanel() {
+		bottomPanel = new JPanel();
+		bottomPanel.setPreferredSize(new Dimension(1, Sizes.BOTTOM_PANEL_HEIGHT.get()));	// in the tool tip
+		bottomPanel.setBackground(Color.BLUE);
+	}
+
+	/**
+	 * @return the center JPanel of main game window
+	 */
+	private void setCenterPanel() {
+		centrePanel = new JPanel_Game_Squares();
+		centrePanel.setBackground(Color.MAGENTA);
+		centrePanel.setPreferredSize(new Dimension(Sizes.CENTER_PANEL_SIZE.get(),Sizes.CENTER_PANEL_SIZE.get()));
 	}
 
 }

@@ -12,17 +12,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import logic.TestVariables;
 import logic.Main;
-import logic.GameBoard;
 import logic.Enums.WinColors;
 
+@SuppressWarnings("serial")
 public class JPanel_PlayerNames extends JPanel implements ActionListener {
 
-	private JButton startButton;
-	private JTextField namePlayer1, namePlayer2;
+	///////////////////////////////////////
+	// INSTANCE FIELDS					//
+	/////////////////////////////////////
+	
+	private JButton playButton;
+	private JTextField player1TextField, player2TextField;
 	private JLabel player1FeedbackLabel, player2FeedbackLabel;
 
+	///////////////////////////////////////
+	// CONSTRUCTORS						//
+	/////////////////////////////////////
+	
 	public JPanel_PlayerNames() {
 		super();
 		JPanel[] panels = new JPanel[3];
@@ -56,26 +63,30 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 		this.setNames(player1, player2);
 	}
 
+	///////////////////////////////////////
+	// GETTERS N SETTERS				//
+	/////////////////////////////////////
+	
 	private JPanel getPanelTop() {
 		JPanel panel = new JPanel(new GridLayout(2, 2, 3, 3));
 		JLabel labelPlayer1 = getLabel("Player 1 Name:");
 		JLabel labelPlayer2 = getLabel("Player 2 Name:");
-		namePlayer1 = getTextField();
-		namePlayer2 = getTextField();
+		player1TextField = getTextField();
+		player2TextField = getTextField();
 		panel.add(labelPlayer1);
-		panel.add(namePlayer1);
+		panel.add(player1TextField);
 		panel.add(labelPlayer2);
-		panel.add(namePlayer2);
+		panel.add(player2TextField);
 		return panel;
 	}
 
 	private JPanel getPanelMiddle() {
 		JPanel panel = new JPanel();
-		startButton = new JButton();
-		startButton.setPreferredSize(new Dimension(100, 100));
-		startButton.setText("Play!");
-		startButton.addActionListener(this);
-		panel.add(startButton);
+		playButton = new JButton();
+		playButton.setPreferredSize(new Dimension(100, 100));
+		playButton.setText("Play!");
+		playButton.addActionListener(this);
+		panel.add(playButton);
 		return panel;
 
 	}
@@ -117,7 +128,7 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 		return field;
 	}
 
-	public void setNames(String player1, String player2) {
+	public boolean setNames(String player1, String player2) {
 		boolean player1Accepted = true;
 		boolean player2Accepted = true;
 		if (!Main.SKIP_INTRO) {
@@ -150,16 +161,25 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 
 		}
 		if (player1Accepted && player2Accepted) {
-			Main.setGameBoard(player1, player2);
-			Main.initPaneGame();
+			Main.gameBoard.setPlayerNames(player1, player2);
+			return true;
 		}
+		return false;
 	}
 
+	///////////////////////////////////////
+	// ACTIONS							//
+	/////////////////////////////////////
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == startButton) {
-			setNames(namePlayer1.getText(), namePlayer2.getText());
+		if (e.getSource() == playButton) {
+			String player1 = player1TextField.getText();
+			String player2 = player2TextField.getText();
+			boolean namesSet = setNames(player1, player2);
+			if (namesSet) {
+				Main.initPaneGame();
+			}
 		}
 	}
 }

@@ -1,39 +1,45 @@
 package GUIs;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
 import logic.Main;
 import logic.GamePiece;
-import logic.TestVariables;
 import logic.Enums.Sizes;
 
 @SuppressWarnings("serial")
 public class JPanel_Game_Squares extends JPanel {
 
-	//public GUISquareLabel[][] squares;
+	///////////////////////////////////////
+	// INSTANCE FIELDS					//
+	/////////////////////////////////////
+	
 	public JButton_aSquare[][] squares;
 	private int squaresWide;
-	/**
-	 * 
+	
+	///////////////////////////////////////
+	// CONSTRUCTOR						//
+	/////////////////////////////////////
+	
+	/** 
 	 * @param squaresWide
 	 * @param panelWidth
 	 * @param PanelHeight
 	 */
 	public JPanel_Game_Squares() {
 		super();
-		this.squaresWide = Sizes.CENTER_PANEL_SQUARES.value();
+		this.squaresWide = Sizes.CENTER_PANEL_SQUARES.get();
 		this.setLayout(new GridLayout(squaresWide, squaresWide, 0, 0));
-		fillSquares();
+		this.setAllSquares();
 	}
 
-	public void fillSquares() {
+	///////////////////////////////////////
+	// GETTERS N SETTERS				//
+	/////////////////////////////////////
+	
+	public void setAllSquares() {
 		this.squares = new JButton_aSquare[squaresWide][squaresWide];
 		Color squareColor = Color.WHITE;
 		Color brown = new Color(107, 71, 55);

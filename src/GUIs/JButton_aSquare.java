@@ -17,26 +17,42 @@ import logic.Enums.*;
 
 @SuppressWarnings("serial")
 public class JButton_aSquare extends JButton implements ActionListener {
+
+	///////////////////////////////////////
+	// INSTANCE FIELDS					//
+	/////////////////////////////////////
+
 	public int row;
 	public int col;
 
-	public JButton_aSquare(int row, int col, Color color, GamePiece p) {
-		int borderThickness = Sizes.SQUARE_BORDER_THICKNESS.value();
-		int widthOfSquare = Sizes.CENTER_PANEL_SIZE.value() / Sizes.CENTER_PANEL_SQUARES.value() - (2 * Sizes.SQUARE_BORDER_THICKNESS.value());
+	///////////////////////////////////////
+	// CONSTRUCTOR						//
+	/////////////////////////////////////
+
+	/**
+	 * Constructor for a single checker board square
+	 * @param row
+	 * @param col
+	 * @param color
+	 * @param piece
+	 */
+	public JButton_aSquare(int row, int col, Color color, GamePiece piece) {
+		int borderThickness = Sizes.SQUARE_BORDER_THICKNESS.get();
+		int widthOfSquare = Sizes.CENTER_PANEL_SIZE.get() / Sizes.CENTER_PANEL_SQUARES.get() - (2 * Sizes.SQUARE_BORDER_THICKNESS.get());
 
 		// define square display
 		ImageIcon icon = null;
 		this.row = row;
 		this.col = col;
-		if (p != null) {
-			if (p.isKing()) {
-				if (p.getTeam() == 0) {
+		if (piece != null) {
+			if (piece.isKing()) {
+				if (piece.getTeam() == 0) {
 					icon = Icons.BLACK_KING.get();
 				} else {
 					icon = Icons.WHITE_KING.get();
 				}
 			} else {
-				if (p.getTeam() == 0) {
+				if (piece.getTeam() == 0) {
 					icon = Icons.BLACK_PIECE.get();
 				} else {
 					icon = Icons.WHITE_PIECE.get();
@@ -57,7 +73,7 @@ public class JButton_aSquare extends JButton implements ActionListener {
 
 		int topBorderThickness = 0;
 		int leftBorderThickness = 0;
-		if (row == 0) {
+		if (row == Sizes.CENTER_PANEL_SQUARES.get() - 1) {
 			topBorderThickness = borderThickness;
 		}
 		if (col == 0) {
@@ -70,18 +86,25 @@ public class JButton_aSquare extends JButton implements ActionListener {
 
 	}
 
+	///////////////////////////////////////
+	// ACTIONS							//
+	/////////////////////////////////////
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this) {
-			int[] coords = new int[] {row, col};
+			int[] coords = new int[] { row, col };
+
 			// console message
 			System.out.println("row=" + row + ", col=" + col + " button pressed!");
 			String square = Main.convertCoords(coords);
 			System.out.println("Square is: " + square);
 			System.out.println();
+
 			// set memory
 			Main.setMemory(coords);
-			// check if memory cells set
+
+			// check if both memory cells set
 			int[][] memory = Main.getMemory();
 			boolean memoryFilled = true;
 			for (int[] cell : memory) {
@@ -92,6 +115,7 @@ public class JButton_aSquare extends JButton implements ActionListener {
 					}
 				}
 			}
+
 			// if memory full then try move operation
 			boolean moveAccepted = false;
 			if (memoryFilled) {
