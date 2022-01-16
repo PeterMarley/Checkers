@@ -1,6 +1,8 @@
-package cGUI;
+package GUIs;
 
 import javax.swing.SwingUtilities;
+
+import logic.ToolBag;
 
 /**
  * GUI for my 2 player checkers program
@@ -21,10 +23,10 @@ import javax.swing.SwingUtilities;
  */
 public class MainGUI {
 
-	public static GUIFrame window = new GUIFrame();
-	public static GUIPanel_Intro intro;
-	public static GUIPanel_PlayerNames playerNames;
-	public static GUIPanel_Game game;
+	public static JFrame_GUI frame = new JFrame_GUI();
+	public static JPanel_Intro intro;
+	public static JPanel_PlayerNames playerNames;
+	public static JPanel_Game game;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -35,26 +37,35 @@ public class MainGUI {
 	}
 
 	public static void initGUI() {
-		window.setVisible(true);
-		
-		intro = new GUIPanel_Intro();
-		window.add(intro);
+		frame.setVisible(true);
+		intro = new JPanel_Intro();
+		frame.add(intro);
+		if (ToolBag.SKIP_INTRO) {
+			showPanePlayerNames();
+		}
 	}
 
 	public static void showPanePlayerNames() {
 		intro.setVisible(false);
-		window.remove(intro);
-		
-		playerNames = new GUIPanel_PlayerNames();
-		window.add(playerNames);
+		frame.remove(intro);
+		if (ToolBag.SKIP_INTRO) {
+			playerNames = new JPanel_PlayerNames("Test Name 1", "Test Name 2");
+			showPaneGame();
+		} else {
+			playerNames = new JPanel_PlayerNames();
+			frame.add(playerNames);
+		}
+
 	}
 
 	public static void showPaneGame() {
-		playerNames.setVisible(false);
-		window.remove(playerNames);
-		
-		game = new GUIPanel_Game();
-		window.add(game);
+		if (!ToolBag.SKIP_INTRO) {
+			playerNames.setVisible(false);
+			frame.remove(playerNames);
+		}
+
+		game = new JPanel_Game();
+		frame.add(game);
 	}
 
 }

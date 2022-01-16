@@ -1,4 +1,4 @@
-package cGUI;
+package GUIs;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,16 +11,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-import cGUI.Enums.Sizes;
-import checkers.Controller;
-import checkers.GamePiece;;
+import logic.ToolBag;
+import logic.GamePiece;
+import logic.Enums.*;
 
 @SuppressWarnings("serial")
-public class GUIButton_aSquare extends JButton implements ActionListener {
+public class JButton_aSquare extends JButton implements ActionListener {
 	public int row;
 	public int col;
 
-	public GUIButton_aSquare(int row, int col, Color color, GamePiece p) {
+	public JButton_aSquare(int row, int col, Color color, GamePiece p) {
 		int borderThickness = Sizes.SQUARE_BORDER_THICKNESS.value();
 		int widthOfSquare = Sizes.CENTER_PANEL_SIZE.value() / Sizes.CENTER_PANEL_SQUARES.value() - (2 * Sizes.SQUARE_BORDER_THICKNESS.value());
 
@@ -31,15 +31,15 @@ public class GUIButton_aSquare extends JButton implements ActionListener {
 		if (p != null) {
 			if (p.isKing()) {
 				if (p.getTeam() == 0) {
-					icon = Enums.Icons.BLACK_KING.get();
+					icon = Icons.BLACK_KING.get();
 				} else {
-					icon = Enums.Icons.WHITE_KING.get();
+					icon = Icons.WHITE_KING.get();
 				}
 			} else {
 				if (p.getTeam() == 0) {
-					icon = Enums.Icons.BLACK_PIECE.get();
+					icon = Icons.BLACK_PIECE.get();
 				} else {
-					icon = Enums.Icons.WHITE_PIECE.get();
+					icon = Icons.WHITE_PIECE.get();
 				}
 			}
 			this.setIcon(icon);
@@ -74,9 +74,10 @@ public class GUIButton_aSquare extends JButton implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this) {
 			System.out.println("row=" + row + ", col=" + col + " button pressed!");
-			String square = Controller.convertCoords(new int[] { row, col });
+			String square = ToolBag.convertCoords(new int[] { row, col });
 			System.out.println("Square is: " + square);
 			System.out.println();
+			ToolBag.gameBoard.set
 		}
 	}
 }

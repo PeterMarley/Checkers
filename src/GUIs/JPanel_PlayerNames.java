@@ -1,10 +1,9 @@
-package cGUI;
+package GUIs;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,19 +11,18 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.xml.stream.events.StartDocument;
 
-import cGUI.Enums.WinColors;
-import checkers.Controller;
-import checkers.GameBoard;
+import logic.ToolBag;
+import logic.GameBoard;
+import logic.Enums.WinColors;
 
-public class GUIPanel_PlayerNames extends JPanel implements ActionListener {
+public class JPanel_PlayerNames extends JPanel implements ActionListener {
 
 	private JButton startButton;
 	private JTextField namePlayer1, namePlayer2;
 	private JLabel player1FeedbackLabel, player2FeedbackLabel;
 
-	public GUIPanel_PlayerNames() {
+	public JPanel_PlayerNames() {
 		super();
 		JPanel[] panels = new JPanel[3];
 		panels[0] = getPanelTop();
@@ -51,6 +49,10 @@ public class GUIPanel_PlayerNames extends JPanel implements ActionListener {
 		c.weighty = 10;
 		c.gridy = 2;
 		this.add(panels[2], c);
+	}
+
+	public JPanel_PlayerNames(String player1, String player2) {
+		this.setNames(player1, player2);
 	}
 
 	private JPanel getPanelTop() {
@@ -114,15 +116,12 @@ public class GUIPanel_PlayerNames extends JPanel implements ActionListener {
 		return field;
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == startButton) {
-			String player1 = namePlayer1.getText();
-			String player2 = namePlayer2.getText();
+	public void setNames(String player1, String player2) {
+		boolean player1Accepted = true;
+		boolean player2Accepted = true;
+		if (!ToolBag.SKIP_INTRO) {
 			player1FeedbackLabel.setVisible(false);
 			player2FeedbackLabel.setVisible(false);
-			boolean player1Accepted = true;
-			boolean player2Accepted = true;
 
 			// check player 1 name validity
 			if (player1.isEmpty() || player1.isBlank()) {
@@ -147,11 +146,18 @@ public class GUIPanel_PlayerNames extends JPanel implements ActionListener {
 				player2FeedbackLabel.setVisible(true);
 				player2FeedbackLabel.setText(String.format("Player 2: %s", player2));
 			}
-			if (player1Accepted && player2Accepted) {
-				Controller.gameBoard = new GameBoard(player1, player2);
-				MainGUI.showPaneGame();
-			}
 
+		}
+		if (player1Accepted && player2Accepted) {
+			ToolBag.gameBoard = new GameBoard(player1, player2);
+			MainGUI.showPaneGame();
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == startButton) {
+			setNames(namePlayer1.getText(), namePlayer2.getText());
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package cGUI;
+package GUIs;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,10 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import cGUI.Enums.WinColors;
+import logic.Enums.WinColors;
 
 @SuppressWarnings("serial")
-public class GUIPanel_Intro extends JPanel implements ActionListener {
+public class JPanel_Intro extends JPanel implements ActionListener {
 
 	private JLabel topText = getTopTextLabel();
 	private JLabel midText = getMidTextLabel();
@@ -31,7 +31,7 @@ public class GUIPanel_Intro extends JPanel implements ActionListener {
 	/**
 	 * Constructor for the games Intro Screen object
 	 */
-	public GUIPanel_Intro() {
+	public JPanel_Intro() {
 		this.setLayout(new GridBagLayout());
 		this.setBackground(WinColors.LIGHT.get());
 

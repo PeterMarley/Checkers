@@ -1,8 +1,8 @@
-package checkers;
+package logic;
 
 import java.util.ArrayList;
 
-import checkers.Enums.*;
+import logic.Enums.*;
 
 /**
  * <hr>
@@ -44,7 +44,7 @@ public class GameBoard {
 		// populate board
 		int point = 0;
 
-		switch (Controller.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
+		switch (ToolBag.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
 											// Controller.BOARD_SETUP
 		case STANDARD: // REAL GAMEBOARD
 			for (int row = 0; row < gameWidth; row++) {
@@ -214,8 +214,8 @@ public class GameBoard {
 		this.setPlayerName(0, player1Name);
 		this.setPlayerName(1, player2Name);
 
-		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Controller.SKIP_INTRO, Controller.TIMERS_DEACTIVATED,
-				Controller.BOARD_SETUP);
+		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", ToolBag.SKIP_INTRO, ToolBag.TIMERS_DEACTIVATED,
+				ToolBag.BOARD_SETUP);
 		//Controller.log.add(logMessage);
 	}
 
@@ -284,8 +284,8 @@ public class GameBoard {
 			if (!move_hasAttack(coords[1]) || getSquare(coords[1]).isKing())
 				nextPlayer(); // end this players move by changing active player
 		} else {
-			if (Controller.getReturnMessage().isEmpty()) {
-				Controller.setReturnMessage("That move was not acceptable. Please try again!");
+			if (ToolBag.getReturnMessage().isEmpty()) {
+				ToolBag.setReturnMessage("That move was not acceptable. Please try again!");
 			}
 		}
 		return true;
@@ -300,6 +300,7 @@ public class GameBoard {
 	private boolean move_operation(int[][] coords) {
 		int[] s = coords[0];
 		int[] d = coords[1];
+		
 		GamePiece sourcePiece = this.getSquare(s);
 		GamePiece destinationPiece = this.getSquare(d);
 
@@ -353,12 +354,12 @@ public class GameBoard {
 
 		// at this point basic checks are done - now to check for jump enforcement
 		if (attacks.size() > 0) {
-			if (!attacks.contains(Controller.convertCoords(s))) {
+			if (!attacks.contains(ToolBag.convertCoords(s))) {
 				String message = String.format("You have attacks at the following squares (if you can attack, you must attack)%n");
 				for (String i : attacks) {
 					message += i + " ";
 				}
-				Controller.setReturnMessage(String.format(message + "%n"));
+				ToolBag.setReturnMessage(String.format(message + "%n"));
 				return false;
 			}
 		}
@@ -367,7 +368,7 @@ public class GameBoard {
 
 		// if piece hasAttack, but isn't a capture move then move is invalid
 		if (hasAttack && !capture) {
-			Controller.setReturnMessage("You have an attack move, you must make an attack!");
+			ToolBag.setReturnMessage("You have an attack move, you must make an attack!");
 			return false;
 		} else if (hasAttack && capture) {
 			this.move_capture(new int[] { rowToCheck, colToCheck });
@@ -381,7 +382,7 @@ public class GameBoard {
 		// set as king if necessary
 		if ((check.getTeam() == 0 && d[0] == 7) || (check.getTeam() == 1 && d[0] == 0)) {
 			check.setToKing();
-			Controller.setReturnMessage("Piece upgraded to king!");
+			ToolBag.setReturnMessage("Piece upgraded to king!");
 		}
 		//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " accepted");
 
@@ -398,7 +399,7 @@ public class GameBoard {
 				GamePiece tmp = getSquare(row, col);
 				if (tmp != null && tmp.getTeam() == currentPlayer) {
 					if (move_hasAttack(new int[] { row, col })) {
-						attacks.add(Controller.convertCoords(new int[] { row, col }));
+						attacks.add(ToolBag.convertCoords(new int[] { row, col }));
 					}
 				}
 			}
@@ -566,9 +567,9 @@ public class GameBoard {
 		for (int i = board.length - 1; i >= 0; i--) {
 			for (int k = 0; k <= 3; k++) {
 				if (k == 1) {
-					System.out.printf(" (%d) ", (Controller.SKIP_INTRO) ? i : i + 1);
+					System.out.printf(" (%d) ", (ToolBag.SKIP_INTRO) ? i : i + 1);
 				} else {
-					System.out.printf("     ", (Controller.SKIP_INTRO) ? i : i + 1);
+					System.out.printf("     ", (ToolBag.SKIP_INTRO) ? i : i + 1);
 
 				}
 				for (int j = 0; j < board[i].length; j++) {
@@ -590,7 +591,7 @@ public class GameBoard {
 							System.out.printf(" | %13s", "");
 						}
 					} else if (k == 3) {
-						if (Controller.SKIP_INTRO) {
+						if (ToolBag.SKIP_INTRO) {
 							System.out.printf(" | %7s/%3s  ", i + "," + j, (char) (j + 65) + "" + (char) (i + 49));
 						} else {
 							System.out.printf(" |   %7s    ", "(" + (char) (j + 65) + (char) (i + 49) + ")");
@@ -608,7 +609,7 @@ public class GameBoard {
 		}
 		System.out.printf("      ");
 		for (int i = 0; i < board.length; i++) {
-			if (Controller.SKIP_INTRO) {
+			if (ToolBag.SKIP_INTRO) {
 				System.out.printf("|     (%d/%c)     ", i, (char) i + 65);
 			} else {
 				System.out.printf("|      (%c)      ", (char) i + 65);
@@ -618,13 +619,13 @@ public class GameBoard {
 		System.out.println();
 		
 		// print testing variable states
-		if (Controller.SKIP_INTRO) {
+		if (ToolBag.SKIP_INTRO) {
 			System.out.printf("--- SKIP_INTRO ACTIVE%n");
 		}
-		if (!Controller.BOARD_SETUP.equals(BoardSetup.STANDARD)) {
-			System.out.printf("--- BOARD_SETUP non-standard type: %s%n", Controller.BOARD_SETUP);
+		if (!ToolBag.BOARD_SETUP.equals(BoardSetup.STANDARD)) {
+			System.out.printf("--- BOARD_SETUP non-standard type: %s%n", ToolBag.BOARD_SETUP);
 		}
-		if (Controller.TIMERS_DEACTIVATED) {
+		if (ToolBag.TIMERS_DEACTIVATED) {
 			System.out.printf("--- ALL TIMERS DE-ACTIVATED%n", "");
 		}
 		System.out.println();
@@ -642,7 +643,7 @@ public class GameBoard {
 			}
 		}
 		String returnString = String.format("Captured Pieces:%n\tBlack captured %d pieces%n\tWhite captured %d pieces%n", white, black);
-		Controller.setReturnMessage(returnString);
+		ToolBag.setReturnMessage(returnString);
 	}
 
 	/**
@@ -750,7 +751,7 @@ public class GameBoard {
 	 * @param col
 	 * @return Get the piece - or null
 	 */
-	private GamePiece getSquare(int row, int col) {
+	public GamePiece getSquare(int row, int col) {
 		if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
 			return board[row][col];
 		} else {
@@ -763,7 +764,7 @@ public class GameBoard {
 	 * @param coords - an int[2] board coordinates
 	 * @return Get the piece - or null
 	 */
-	private GamePiece getSquare(int[] coords) {
+	public GamePiece getSquare(int[] coords) {
 		return this.getSquare(coords[0], coords[1]);
 	}
 

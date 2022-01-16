@@ -1,9 +1,8 @@
-package checkers;
+package logic;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
-import checkers.Enums.BoardSetup;
+import logic.Enums.BoardSetup;
 
 /**
  * 
@@ -14,71 +13,21 @@ import checkers.Enums.BoardSetup;
  * @maxLove cs50x - You changed my life <3
  *
  */
-public class Controller {
+public class ToolBag {
 
-	// declarations
-	//public static Log log = new Log("./Logfiles/");					// Logging System
-	public static GameBoard gameBoard; 							// GameBoard object
+	public static GameBoard gameBoard; 								// GameBoard object
 	private static Scanner scanner = new Scanner(System.in); 		// User input scanner
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
 	private static String returnMessage = ""; 						// remotely set display message for UI
 
 	// testing variables
-	public static final boolean SKIP_INTRO = false;						// When set to true, the game immediately starts rather than gets user input
+	public static final boolean SKIP_INTRO = true;						// When set to true, the game immediately starts rather than gets user input
 	public static final boolean TIMERS_DEACTIVATED = false; 				// Deactivates menu sleep() timers
-	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
+	public static final BoardSetup BOARD_SETUP = BoardSetup.CS50DEMO; 	// Sets up a specific board layout for testing. Normal = "standard"
 
 	///////////////////////////////////////
 	// BOARD ADMIN 						//
 	/////////////////////////////////////
-
-	/**
-	 * Start point of program<br>
-	 * ensures logging system is correctly shut down after program is finished
-	 */
-	//	public static void main(String[] args) {
-	//		startUp();
-	//		shutDown();
-	//	}
-
-	/**
-	 * Start log, get player names, initiate game
-	 */
-	private static void startUp() {
-		//GUIDriver.initGUI();
-		//		gameBoard = (SKIP_INTRO) ? new GameBoard("Test Player 1", "Test Player 2") : getGameBoard();
-		//		aGameOfCheckers();
-	}
-
-	/**
-	 * Shuts the program down safely by shutting down the logging system and displaying credits & farewell message
-	 */
-	private static void shutDown() {
-		//		sleep(2); // give GUI time to finish logging - probably janky as hell
-		//		//log.shutdown();
-		//System.out.println("Thanks for playing!");
-		//		for (int i = 0; i < 4; i++) {
-		//			sleep(1);
-		//			System.out.println(".".repeat(i + 1));
-		//		}
-		//
-		//		System.out.printf("%n".repeat(50));
-		//		System.out.println("This game brought to you by novice programmer");
-		//
-		//		System.out.println(
-		//				" ______   ______     ______   ______     ______        __    __     ______     ______     __         ______     __  __    ");
-		//		System.out.println(
-		//				"/\\  == \\ /\\  ___\\   /\\__  _\\ /\\  ___\\   /\\  == \\      /\\ \"-./  \\   /\\  __ \\   /\\  == \\   /\\ \\       /\\  ___\\   /\\ \\_\\ \\   ");
-		//		System.out.println(
-		//				"\\ \\  _-/ \\ \\  __\\   \\/_/\\ \\/ \\ \\  __\\   \\ \\  __<      \\ \\ \\-./\\ \\  \\ \\  __ \\  \\ \\  __<   \\ \\ \\____  \\ \\  __\\   \\ \\____ \\");
-		//		System.out.println(
-		//				" \\ \\_\\    \\ \\_____\\    \\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\     \\ \\_\\ \\ \\_\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\/\\_____\\");
-		//		System.out.println(
-		//				"  \\/_/     \\/_____/     \\/_/   \\/_____/   \\/_/ /_/      \\/_/  \\/_/   \\/_/\\/_/   \\/_/ /_/   \\/_____/   \\/_____/   \\/_____/");
-		//		sleep(5);
-		//		System.out.println();
-		//		System.out.println("ASCII text art from: https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Sub-Zero&t=Peter%20Marley");
-	}
 
 	/**
 	 * The main logical loop of the game
@@ -89,8 +38,8 @@ public class Controller {
 			// get selection
 			gameBoard.displayBoard();
 			if (gameBoard.checkPlayerHasValidMoves()) {
-				if (!setMemoryOrQuit(0, "Select your piece!")
-						|| !setMemoryOrQuit(1, "You have selected " + convertCoords(memory[0]) + " - now select your destination square! ")) {
+				if (!setMemory(0, "Select your piece!")
+						|| !setMemory(1, "You have selected " + convertCoords(memory[0]) + " - now select your destination square! ")) {
 					break;
 				}
 
@@ -109,55 +58,17 @@ public class Controller {
 	}
 
 	/**
-	 * This method gets the users input into text prompt.<br>
-	 * Allows:<br>
-	 * - Board coordinates in format "A1", "C4" etc<br>
-	 * - "q"/ "quit" - quits the game<br>
-	 * - "h"/ "help" - displays help menu<br>
-	 * - "c"/ "cancel" - cancels and restarts the current players move
+	 * Set memory cell
 	 * 
-	 * @param i the index of static int[2] memory to set
-	 * @param prompt A String prompt
-	 * @return A boolean - player has selected quit?
+	 * @param i - the cell to set
 	 */
-	private static boolean setMemoryOrQuit(int i, String prompt) {
-
-		if (i >= memory.length || i < 0) {
-			//Controller.log.add("Improper index passed into setMemoryOrQuit() [i=" + i + ", should be 0 or 1]", true);
-			return false;
+	private static void setMemory(int[] i) {
+		int cell = 0;
+		if (memory[0][0] != -1) {
+			cell = 1;
 		}
-
-		boolean isValidated = false;
-		while (!isValidated) {
-			// render game scene and get user input
-			renderGameScene(prompt);
-			String userInput = scanner.nextLine().toLowerCase();
-
-			// selection logic for i'th selection
-			if (userInput.equals("h") || userInput.equals("help")) {
-				printMenuHelp();
-			} else if (userInput.equals("q") || userInput.equals("quit")) {
-				//Controller.log.add("User chose quit!");
-				return false;
-			} else if (userInput.equals("c") || userInput.equals("cancel")) {
-				boolean pieceSelected = (memory[0][0] == -1 || memory[0][1] == -1) ? false : true;
-				returnMessage = String.format("Move cancelled! %s%n", (pieceSelected) ? convertCoords(memory[0]) + " unselected" : "");
-				clearMemory();
-				return true;
-			} else if (userInput.equals("cap") || userInput.equals("captured")) {
-				gameBoard.printCaptured();
-
-			} else if (userInput.length() == 2) {
-				if (userInput.charAt(0) >= 'a' && userInput.charAt(0) <= 'h' && userInput.charAt(1) >= '1' && userInput.charAt(1) <= '8') {
-					isValidated = true;
-					memory[i][0] = userInput.charAt(1) - 49;
-					memory[i][1] = userInput.charAt(0) - 97;
-					//Controller.log.add("Player " + gameBoard.getCurrentPlayer() + " selected " + Arrays.deepToString(memory));
-				}
-			}
-			userInput = "";
-		}
-		return true;
+		memory[cell][0] = i[0];
+		memory[cell][1] = i[1];
 	}
 
 	/**

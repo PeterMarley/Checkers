@@ -1,4 +1,4 @@
-package cGUI;
+package GUIs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,9 +10,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import cGUI.Enums.Sizes;
-import cGUI.Enums.WinColors;
-import checkers.Controller;
+import logic.ToolBag;
+import logic.Enums.Sizes;
+import logic.Enums.WinColors;
 
 /**
  * Creates a JPanel instance which is used to house the main games play window - where the game is played
@@ -23,14 +23,13 @@ import checkers.Controller;
  *
  */
 @SuppressWarnings("serial")
-public class GUIPanel_Game extends JPanel {
+public class JPanel_Game extends JPanel {
 
 	/**
 	 * A constructor for the main game display JPanel of GUI
 	 */
-	public GUIPanel_Game() {
+	public JPanel_Game() {
 		super();
-		
 		int squareCount = Sizes.CENTER_PANEL_SQUARES.value();
 		int length = Sizes.CENTER_PANEL_SIZE.value();
 		//this.setLayout(new GridLayout(squareCount, squareCount));
@@ -46,7 +45,7 @@ public class GUIPanel_Game extends JPanel {
 		topPanel = getPanelTop();
 		leftPanel = new JPanel();
 		bottomPanel = new JPanel();
-		centrePanel = new GUIPanel_Game_Squares(); // the game board itself
+		centrePanel = new JPanel_Game_Squares(); // the game board itself
 
 		// set panel sizes
 		topPanel.setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.value()));		// if you use .setSize it doesn't work? says:
@@ -68,14 +67,12 @@ public class GUIPanel_Game extends JPanel {
 		this.add(leftPanel, BorderLayout.WEST);
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		this.add(centrePanel, BorderLayout.CENTER);
-		
-		
 	}
 	
 	private JPanel getPanelTop() {
 		JPanel panel = new JPanel(new GridLayout(1, 2));
-		JLabel player1 = new JLabel("Player 1: " + Controller.gameBoard.getPlayerName(0));
-		JLabel player2 = new JLabel("Player 2: "+Controller.gameBoard.getPlayerName(1));
+		JLabel player1 = new JLabel("Player 1: " + ToolBag.gameBoard.getPlayerName(0));
+		JLabel player2 = new JLabel("Player 2: "+ToolBag.gameBoard.getPlayerName(1));
 		player1.setVerticalAlignment(JLabel.CENTER);
 		player1.setHorizontalAlignment(JLabel.CENTER);
 		player2.setVerticalAlignment(JLabel.CENTER);

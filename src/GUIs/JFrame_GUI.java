@@ -1,4 +1,4 @@
-package cGUI;
+package GUIs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,7 +7,7 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import cGUI.Enums.Sizes;
+import logic.Enums.Sizes;
 
 /**
  * This custom JFrame object is used to define the Game JFrame
@@ -18,11 +18,11 @@ import cGUI.Enums.Sizes;
  *
  */
 @SuppressWarnings("serial")
-public class GUIFrame extends JFrame {
+public class JFrame_GUI extends JFrame {
 	/**
 	 * Constructor for the JFrame which houses all game GUI components
 	 */
-	public GUIFrame() {
+	public JFrame_GUI() {
 		ImageIcon icon = new ImageIcon("./images/checkersIcon.png");
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
