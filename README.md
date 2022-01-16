@@ -76,6 +76,17 @@ and capturing pieces is done here.
 ##### Log.java
 A basic logging system that outputs a file suffixed with a YYYY-MM-DD HH-MM-SS date stamp from the initialisation of the program. Signifcant events are logged here, along with any errors that arise during game operation
 
+# Credit for images used
+
+### Checkers Pieces images
+adapted by me using gimp from https://woodexpressions.com/wp-content/uploads/2016/07/258015Main2DB.jpg
+
+### Checker board graphic from intro screen
+https://content.mycutegraphics.com/graphics/play/checker-game-clip-art.png
+
+### Winner GIF
+https://giphy.com/gifs/barstoolsports-gambling-barstool-beadvised-ZcUGu59vhBGgbBhh0n
+
 # Still to do
 - Unit Testing
 - GUI implementation
