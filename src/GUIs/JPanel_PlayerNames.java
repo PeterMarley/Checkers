@@ -161,7 +161,7 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 
 		}
 		if (player1Accepted && player2Accepted) {
-			Checkers.gameBoard.setPlayerNames(player1, player2);
+			Checkers.getGameBoard().setPlayerNames(player1, player2);
 			return true;
 		}
 		return false;

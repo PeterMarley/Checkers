@@ -29,16 +29,18 @@ public class GameBoard {
 	private ArrayList<GamePiece> captured; 		// captured pieces stored here
 	private int currentPlayer;					// int representing current player (0 = black, 1 = white)
 	private Modifier[] modifierArray;			// This holds the GameBoard array index modifiers
+	private String returnMessage;				// This holds a return message for displaying move operation fail messages
 
 	///////////////////////////////////////
 	// CONSTRUCTOR	 					//
 	/////////////////////////////////////
 
 	/**
-	 * Creates a game board, the layout of which is governed by the value of Controller.BOARD_SETUP field. The player names are initially set
-	 * to "Unset Player Name 1" & "Unset Player Name 2" and are re-set later to correct names
+	 * Creates a game board, the layout of which is governed by the value of Controller.BOARD_SETUP field. The player names are initially set to
+	 * "Unset Player Name 1" & "Unset Player Name 2" and are re-set later to correct names
 	 */
 	public GameBoard() {
+		this.clearReturnMessage();
 		this.setBoard();
 		this.setPlayerNames("Unset Player Name 1", "Unset Player Name 2");
 		this.setCaptured();
@@ -74,17 +76,35 @@ public class GameBoard {
 			int directionModifier = (this.getCurrentPlayer() == 0) ? 1 : -1;
 			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier)
 					|| (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
+				this.setReturnMessage("That's not your piece!");
 				return false;
 			}
 		}
 
-		// General Check Block
-		if (sourcePiece == null 											// if source square is empty
-				|| currentPlayer != sourcePiece.getTeam() 					// if source square is other team's piece
-				|| destinationPiece != null 								// if the destination is NOT empty
-				|| Math.abs(vectorVert) > 2 || Math.abs(vectorHori) > 2 	// if move greater than 2 squares away
-				|| Math.abs(vectorVert) != Math.abs(vectorHori)) { 			// if not a diagonal move
-			return false; // THEN RETURN FALSE
+		// General Checks
+		if (sourcePiece == null) {											// if source square is empty
+			this.setReturnMessage("You didn't select a piece!");
+			return false;
+		}
+
+		if (currentPlayer != sourcePiece.getTeam()) {						// if source square is other team's piece
+			this.setReturnMessage("You selected an opponents piece!");
+			return false;
+		}
+
+		if (destinationPiece != null) {										// if the destination is NOT empty
+			this.setReturnMessage("The destination square was not empty!");
+			return false;
+		}
+
+		if (Math.abs(vectorVert) > 2 || Math.abs(vectorHori) > 2) {			// if move greater than 2 squares away
+			this.setReturnMessage("You cannot move that far!");
+			return false;
+		}
+
+		if (Math.abs(vectorVert) != Math.abs(vectorHori)) {					// if not a diagonal move
+			this.setReturnMessage("You can only move diagonally!");
+			return false;
 		}
 
 		// Check intervening square if it is a 2-distance move
@@ -94,11 +114,13 @@ public class GameBoard {
 			GamePiece pieceToCheck = this.getSquare(rowToCheck, colToCheck);
 			if (pieceToCheck != null) {								// if intervening square is not empty
 				if (pieceToCheck.getTeam() == currentPlayer) {		// if it is current players piece
+					this.setReturnMessage("You can't capture your own piece!");
 					return false;									//		return false
 				} else {											// if it is other players piece
 					capture = true;									//		set capture to true
 				}
 			} else {												// if intervening square is empty
+				this.setReturnMessage("You cannot move two squares unless capturing!");
 				return false;										//		return false
 			}
 		}
@@ -107,6 +129,7 @@ public class GameBoard {
 		// at this point basic checks are done - now to check for jump enforcement
 		if (attacks.size() > 0) {
 			if (!attacks.contains(Checkers.convertCoords(s))) {			// if player has an attack somewhere, but their selection piece has no attack
+				this.setReturnMessage("If you have an attack you must take it!");
 				return false;										//		return false
 			}
 		}
@@ -115,6 +138,7 @@ public class GameBoard {
 
 		// if piece hasAttack, but isn't a capture move then move is invalid
 		if (hasAttack && !capture) {
+			this.setReturnMessage("If you have an attack you must take it!");
 			return false;
 		} else if (hasAttack && capture) {
 			this.move_capture(new int[] { rowToCheck, colToCheck });
@@ -130,6 +154,7 @@ public class GameBoard {
 			check.setToKing();
 		}
 		System.out.println("Move operation complete!");
+		this.setReturnMessage("Move successful! " + Checkers.convertCoords(s) + " to " + Checkers.convertCoords(d) + ".");
 		return true;
 	}
 
@@ -447,7 +472,7 @@ public class GameBoard {
 		int point = 0;
 		int gameWidth = Sizes.CENTER_PANEL_SQUARES.get();
 		switch (Checkers.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
-									// Controller.BOARD_SETUP
+		// Controller.BOARD_SETUP
 		case STANDARD: // REAL GAMEBOARD
 			for (int row = 0; row < gameWidth; row++) {
 				for (int col = 0; col < gameWidth; col++) {
@@ -610,6 +635,18 @@ public class GameBoard {
 			this.clearSquare(new int[] { 3, 3 });
 			break;
 		}
+	}
+
+	public void setReturnMessage(String message) {
+		this.returnMessage = message;
+	}
+
+	public String getReturnMessage() {
+		return this.returnMessage;
+	}
+
+	public void clearReturnMessage() {
+		this.setReturnMessage("");
 	}
 
 }

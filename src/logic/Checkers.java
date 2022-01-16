@@ -32,19 +32,19 @@ public class Checkers {
 	/////////////////////////////////////
 	
 	// testing variables
-	public static final boolean SKIP_INTRO = false;								// When set to true, the game immediately starts rather than gets user input
+	public static final boolean SKIP_INTRO = true;								// When set to true, the game immediately starts rather than gets user input
 	public static final boolean TIMERS_DEACTIVATED = false; 					// Deactivates menu sleep() timers
-	public static final BoardSetup BOARD_SETUP = BoardSetup.MULTIPLEJUMPS1; 	// Sets up a specific board layout for testing. Normal = "standard"
+	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
 	
 	// GameBoard and memory
-	public static GameBoard gameBoard; 								// GameBoard object
+	private static GameBoard gameBoard; 								// GameBoard object
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
 
 	// GUI components
 	public static JFrame_GUI frame;									// Main GUI JFrame
 	public static JPanel_Intro intro;								// Introduction JPanel
 	public static JPanel_PlayerNames playerNames;					// Player Name Selection JPanel
-	public static JPanel_Game game;									// The Game itself JPanel
+	private static JPanel_Game game;									// The Game itself JPanel
 	
 	///////////////////////////////////////
 	// PROGRAM START main()				//
@@ -154,6 +154,10 @@ public class Checkers {
 	// GETTERS N SETTERS				//
 	/////////////////////////////////////
 	
+	public static GameBoard getGameBoard() {
+		return gameBoard;
+	}
+	
 	/**
 	 * Set memory cell
 	 * 
@@ -192,6 +196,5 @@ public class Checkers {
 	public static void clearMemory() {
 		memory = new int[][] { { -1, -1 }, { -1, -1 } };
 	}
-
 
 }

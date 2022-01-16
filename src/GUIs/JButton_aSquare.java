@@ -45,6 +45,8 @@ public class JButton_aSquare extends JButton implements ActionListener {
 		ImageIcon icon = null;
 		this.row = row;
 		this.col = col;
+
+		this.setToolTipText(Checkers.convertCoords(new int[] { row, col }));
 		if (piece != null) {
 			if (piece.isKing()) {
 				if (piece.getTeam() == 0) {
@@ -60,9 +62,8 @@ public class JButton_aSquare extends JButton implements ActionListener {
 				}
 			}
 			this.setIcon(icon);
-			//this.setText(p.toVisualString());
-
 		}
+
 
 		// define properties
 		this.setBackground(color);
@@ -97,7 +98,7 @@ public class JButton_aSquare extends JButton implements ActionListener {
 			int[] coords = new int[] { row, col };
 
 			// console message
-			GamePiece piece = Checkers.gameBoard.getSquare(coords);
+			GamePiece piece = Checkers.getGameBoard().getSquare(coords);
 			String pieceName = (piece == null) ? "empty!" : piece.toString();
 			System.out.println("row=" + row + ", col=" + col + " button pressed!");
 			String square = Checkers.convertCoords(coords);
@@ -109,13 +110,13 @@ public class JButton_aSquare extends JButton implements ActionListener {
 
 			// if memory full then try move operation
 			if (isMemoryFilled()) {
-				boolean moveAccepted = Checkers.gameBoard.move_operation(Checkers.getMemory());
+				boolean moveAccepted = Checkers.getGameBoard().move_operation(Checkers.getMemory());
 				// if move operation was successful check if player has more attacks
 				if (moveAccepted) {
 					//boolean hasAttacks = Main.gameBoard.move_hasAttack(Main.getMemory(1));
-					boolean hasAttacks = Checkers.gameBoard.move_hasAttack(Checkers.getMemory(1));
+					boolean hasAttacks = Checkers.getGameBoard().move_hasAttack(Checkers.getMemory(1));
 					if (!hasAttacks) {
-						Checkers.gameBoard.nextPlayer();
+						Checkers.getGameBoard().nextPlayer();
 					}
 
 				}
