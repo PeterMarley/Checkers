@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import logic.Main;
+import logic.Checkers;
 import logic.GamePiece;
 import logic.Enums.Sizes;
 
@@ -45,7 +45,7 @@ public class JPanel_Game_Squares extends JPanel {
 		Color brown = new Color(107, 71, 55);
 		for (int row = this.squares.length - 1; row >= 0; row--) {
 			for (int col = 0; col < this.squares.length; col++) {
-				GamePiece piece = Main.gameBoard.getSquare(row, col);
+				GamePiece piece = Checkers.gameBoard.getSquare(row, col);
 				JButton_aSquare square = new JButton_aSquare(row, col, squareColor, piece);
 				this.add(square);
 				if (col != 7) {

@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import logic.Main;
+import logic.Checkers;
 import logic.Enums.WinColors;
 
 @SuppressWarnings("serial")
@@ -131,7 +131,7 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 	public boolean setNames(String player1, String player2) {
 		boolean player1Accepted = true;
 		boolean player2Accepted = true;
-		if (!Main.SKIP_INTRO) {
+		if (!Checkers.SKIP_INTRO) {
 			player1FeedbackLabel.setVisible(false);
 			player2FeedbackLabel.setVisible(false);
 
@@ -161,7 +161,7 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 
 		}
 		if (player1Accepted && player2Accepted) {
-			Main.gameBoard.setPlayerNames(player1, player2);
+			Checkers.gameBoard.setPlayerNames(player1, player2);
 			return true;
 		}
 		return false;
@@ -178,7 +178,7 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 			String player2 = player2TextField.getText();
 			boolean namesSet = setNames(player1, player2);
 			if (namesSet) {
-				Main.initPaneGame();
+				Checkers.initPaneGame();
 			}
 		}
 	}

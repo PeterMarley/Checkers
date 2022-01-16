@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import logic.Main;
+import logic.Checkers;
 import logic.Enums.WinColors;
 
 @SuppressWarnings("serial")
@@ -190,7 +190,7 @@ public class JPanel_Intro extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==startButton) {
-			Main.initPanePlayerNames();
+			Checkers.initPanePlayerNames();
 		}
 		
 	}

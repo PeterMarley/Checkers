@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-import logic.Main;
+import logic.Checkers;
 import logic.GamePiece;
 import logic.Enums.*;
 
@@ -97,36 +97,36 @@ public class JButton_aSquare extends JButton implements ActionListener {
 			int[] coords = new int[] { row, col };
 
 			// console message
-			GamePiece piece = Main.gameBoard.getSquare(coords);
+			GamePiece piece = Checkers.gameBoard.getSquare(coords);
 			String pieceName = (piece == null) ? "empty!" : piece.toString();
 			System.out.println("row=" + row + ", col=" + col + " button pressed!");
-			String square = Main.convertCoords(coords);
+			String square = Checkers.convertCoords(coords);
 			System.out.println("Square is: " + square + " : " + pieceName);
 			System.out.println();
 
 			// set memory
-			Main.setMemory(coords);
+			Checkers.setMemory(coords);
 
 			// if memory full then try move operation
 			if (isMemoryFilled()) {
-				boolean moveAccepted = Main.gameBoard.move_operation(Main.getMemory());
+				boolean moveAccepted = Checkers.gameBoard.move_operation(Checkers.getMemory());
 				// if move operation was successful check if player has more attacks
 				if (moveAccepted) {
 					//boolean hasAttacks = Main.gameBoard.move_hasAttack(Main.getMemory(1));
-					boolean hasAttacks = Main.gameBoard.move_hasAttack(Main.getMemory(1));
+					boolean hasAttacks = Checkers.gameBoard.move_hasAttack(Checkers.getMemory(1));
 					if (!hasAttacks) {
-						Main.gameBoard.nextPlayer();
+						Checkers.gameBoard.nextPlayer();
 					}
 
 				}
-				Main.clearMemory();
+				Checkers.clearMemory();
 			}
-			Main.redrawPaneGame();
+			Checkers.redrawPaneGame();
 		}
 	}
 
 	private boolean isMemoryFilled() {
-		int[][] memory = Main.getMemory();
+		int[][] memory = Checkers.getMemory();
 		boolean memoryFilled = true;
 		for (int[] cell : memory) {
 			for (int cellPart : cell) {

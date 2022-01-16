@@ -24,21 +24,19 @@ public class GameBoard {
 	// INSTANCE FIELDS					//
 	/////////////////////////////////////
 
-	private GamePiece[][] board;											// the "physical" board itself
-	private String[] playerNames;							// stores both players names
-	private ArrayList<GamePiece> captured; 	// captured pieces stored here
-	private int currentPlayer;												// int representing current player (0 = black, 1 = white)
-	private Modifier[] modifierArray;					// This holds the GameBoard array index modifiers
+	private GamePiece[][] board;				// the "physical" board itself
+	private String[] playerNames;				// stores both players names
+	private ArrayList<GamePiece> captured; 		// captured pieces stored here
+	private int currentPlayer;					// int representing current player (0 = black, 1 = white)
+	private Modifier[] modifierArray;			// This holds the GameBoard array index modifiers
 
 	///////////////////////////////////////
 	// CONSTRUCTOR	 					//
 	/////////////////////////////////////
 
 	/**
-	 * Creates a game board, the layout of which is governed by the value of Controller.BOARD_SETUP field
-	 * 
-	 * @param player1Name
-	 * @param player2Name
+	 * Creates a game board, the layout of which is governed by the value of Controller.BOARD_SETUP field. The player names are initially set
+	 * to "Unset Player Name 1" & "Unset Player Name 2" and are re-set later to correct names
 	 */
 	public GameBoard() {
 		this.setBoard();
@@ -108,7 +106,7 @@ public class GameBoard {
 
 		// at this point basic checks are done - now to check for jump enforcement
 		if (attacks.size() > 0) {
-			if (!attacks.contains(Main.convertCoords(s))) {			// if player has an attack somewhere, but their selection piece has no attack
+			if (!attacks.contains(Checkers.convertCoords(s))) {			// if player has an attack somewhere, but their selection piece has no attack
 				return false;										//		return false
 			}
 		}
@@ -252,7 +250,7 @@ public class GameBoard {
 				GamePiece tmp = getSquare(row, col);
 				if (tmp != null && tmp.getTeam() == currentPlayer) {
 					if (move_hasAttack(new int[] { row, col })) {
-						attacks.add(Main.convertCoords(new int[] { row, col }));
+						attacks.add(Checkers.convertCoords(new int[] { row, col }));
 					}
 				}
 			}
@@ -448,7 +446,7 @@ public class GameBoard {
 		// populate board
 		int point = 0;
 		int gameWidth = Sizes.CENTER_PANEL_SQUARES.get();
-		switch (Main.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
+		switch (Checkers.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
 									// Controller.BOARD_SETUP
 		case STANDARD: // REAL GAMEBOARD
 			for (int row = 0; row < gameWidth; row++) {

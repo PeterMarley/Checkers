@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import logic.Enums.Sizes;
 import logic.Enums.WinColors;
-import logic.Main;
+import logic.Checkers;
 
 /**
  * Creates a JPanel instance which is used to house the main games play window - where the game is played
@@ -61,7 +61,7 @@ public class JPanel_Game extends JPanel {
 	 */
 	private void setPanelTop() {
 		// get player names
-		String[] names = Main.gameBoard.getPlayerNames();
+		String[] names = Checkers.gameBoard.getPlayerNames();
 		
 		// instantiate components
 		topPanel = new JPanel(new GridLayout(1, 2));
@@ -75,7 +75,7 @@ public class JPanel_Game extends JPanel {
 		player2.setHorizontalAlignment(JLabel.CENTER);
 		
 		// set background colours and text depending on current player
-		if (Main.gameBoard.getCurrentPlayer() == 0) {
+		if (Checkers.gameBoard.getCurrentPlayer() == 0) {
 			player1.setBackground(WinColors.DARK.get());
 			player1.setForeground(WinColors.ACCENT.get());
 			player1.setText("Player 1: " + names[0] + " (Current)");

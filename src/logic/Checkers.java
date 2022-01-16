@@ -25,16 +25,16 @@ import logic.Enums.BoardSetup;
  * @GitHub BigJeffTheChef
  *
  */
-public class Main {
+public class Checkers {
 
 	///////////////////////////////////////
 	// STATIC VARIABLES					//
 	/////////////////////////////////////
 	
 	// testing variables
-	public static final boolean SKIP_INTRO = true;								// When set to true, the game immediately starts rather than gets user input
+	public static final boolean SKIP_INTRO = false;								// When set to true, the game immediately starts rather than gets user input
 	public static final boolean TIMERS_DEACTIVATED = false; 					// Deactivates menu sleep() timers
-	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
+	public static final BoardSetup BOARD_SETUP = BoardSetup.MULTIPLEJUMPS1; 	// Sets up a specific board layout for testing. Normal = "standard"
 	
 	// GameBoard and memory
 	public static GameBoard gameBoard; 								// GameBoard object
@@ -161,7 +161,7 @@ public class Main {
 	 */
 	public static void setMemory(int[] i) {
 		int cell = 0;
-		if (Main.memory[0][0] != -1) {
+		if (Checkers.memory[0][0] != -1) {
 			cell = 1;
 		}
 		memory[cell] = i;
