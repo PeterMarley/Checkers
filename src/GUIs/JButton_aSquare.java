@@ -11,8 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
+import logic.Main;
 import logic.GamePiece;
-import logic.Tools;
 import logic.Enums.*;
 
 @SuppressWarnings("serial")
@@ -76,13 +76,13 @@ public class JButton_aSquare extends JButton implements ActionListener {
 			int[] coords = new int[] {row, col};
 			// console message
 			System.out.println("row=" + row + ", col=" + col + " button pressed!");
-			String square = Tools.convertCoords(coords);
+			String square = Main.convertCoords(coords);
 			System.out.println("Square is: " + square);
 			System.out.println();
 			// set memory
-			Tools.setMemory(coords);
+			Main.setMemory(coords);
 			// check if memory cells set
-			int[][] memory = Tools.getMemory();
+			int[][] memory = Main.getMemory();
 			boolean memoryFilled = true;
 			for (int[] cell : memory) {
 				for (int cellPart : cell) {
@@ -95,10 +95,18 @@ public class JButton_aSquare extends JButton implements ActionListener {
 			// if memory full then try move operation
 			boolean moveAccepted = false;
 			if (memoryFilled) {
-				moveAccepted = Tools.gameBoard.move_operation(memory);
+				moveAccepted = Main.gameBoard.move_operation(memory);
 			}
 			if (moveAccepted) {
-				Controller.redrawPaneGame();
+				boolean hasAttacks = Main.gameBoard.move_hasAttack(Main.getMemory(1));
+				if (!hasAttacks) {
+					Main.gameBoard.nextPlayer();
+				}
+				Main.clearMemory();
+				Main.initPaneGame();
+			} else {
+				Main.clearMemory();
+				Main.initPaneGame();
 			}
 		}
 	}

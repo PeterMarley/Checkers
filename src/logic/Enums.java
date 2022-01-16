@@ -86,6 +86,14 @@ public class Enums {
 		}
 	}
 
+	/**
+	 * A set of enumerated Color objects for setting GUI colours
+	 * @author Peter Marley
+	 * @StudentNum 13404067
+	 * @email pmarley03@qub.ac.uk
+	 * @GitHub BigJeffTheChef
+	 *
+	 */
 	public enum WinColors {
 		DARKEST(Color.decode("#2E5266")),
 		DARK(Color.decode("#6E8898")),

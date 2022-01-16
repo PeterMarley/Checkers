@@ -5,14 +5,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.lang.ModuleLayer.Controller;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import logic.Tools;
+import logic.TestVariables;
 import logic.Enums.Sizes;
 import logic.Enums.WinColors;
+import logic.Main;
 
 /**
  * Creates a JPanel instance which is used to house the main games play window - where the game is played
@@ -25,7 +27,7 @@ import logic.Enums.WinColors;
 @SuppressWarnings("serial")
 public class JPanel_Game extends JPanel {
 	JPanel centrePanel;
-	
+
 	/**
 	 * A constructor for the main game display JPanel of GUI
 	 */
@@ -36,13 +38,13 @@ public class JPanel_Game extends JPanel {
 		//this.setLayout(new GridLayout(squareCount, squareCount));
 		this.setLayout(new BorderLayout());
 		//this.setPreferredSize(new Dimension(length, length));
-		
-		
+
+
 		// create panels
 		JPanel topPanel, leftPanel, bottomPanel;
 		//GUIPanel_Game_Squares centrePanel;
 		Color bgColor = Color.LIGHT_GRAY;
-		
+
 		topPanel = getPanelTop();
 		leftPanel = new JPanel();
 		bottomPanel = new JPanel();
@@ -54,10 +56,10 @@ public class JPanel_Game extends JPanel {
 		bottomPanel.setPreferredSize(new Dimension(1, Sizes.BOTTOM_PANEL_HEIGHT.value()));	// in the tool tip
 
 		// set panel backgrounds
-//		topPanel.setBackground(bgColor);
-//		leftPanel.setBackground(bgColor);
-//		bottomPanel.setBackground(bgColor);
-//		centrePanel.setBackground(bgColor);
+		//		topPanel.setBackground(bgColor);
+		//		leftPanel.setBackground(bgColor);
+		//		bottomPanel.setBackground(bgColor);
+		//		centrePanel.setBackground(bgColor);
 		topPanel.setBackground(Color.RED);
 		leftPanel.setBackground(Color.GREEN);
 		bottomPanel.setBackground(Color.BLUE);
@@ -69,11 +71,12 @@ public class JPanel_Game extends JPanel {
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		this.add(centrePanel, BorderLayout.CENTER);
 	}
-	
+
 	private JPanel getPanelTop() {
+		String[] names = Main.getPlayerNames();
 		JPanel panel = new JPanel(new GridLayout(1, 2));
-		JLabel player1 = new JLabel("Player 1: " + Tools.gameBoard.getPlayerName(0));
-		JLabel player2 = new JLabel("Player 2: "+Tools.gameBoard.getPlayerName(1));
+		JLabel player1 = new JLabel("Player 1: " + names[0]);
+		JLabel player2 = new JLabel("Player 2: " + names[1]);
 		player1.setVerticalAlignment(JLabel.CENTER);
 		player1.setHorizontalAlignment(JLabel.CENTER);
 		player2.setVerticalAlignment(JLabel.CENTER);
@@ -86,5 +89,5 @@ public class JPanel_Game extends JPanel {
 		panel.add(player2);
 		return panel;
 	}
-	
+
 }

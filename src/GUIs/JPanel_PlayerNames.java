@@ -12,7 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import logic.Tools;
+import logic.TestVariables;
+import logic.Main;
 import logic.GameBoard;
 import logic.Enums.WinColors;
 
@@ -119,7 +120,7 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 	public void setNames(String player1, String player2) {
 		boolean player1Accepted = true;
 		boolean player2Accepted = true;
-		if (!Tools.SKIP_INTRO) {
+		if (!Main.SKIP_INTRO) {
 			player1FeedbackLabel.setVisible(false);
 			player2FeedbackLabel.setVisible(false);
 
@@ -149,11 +150,12 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 
 		}
 		if (player1Accepted && player2Accepted) {
-			Tools.gameBoard = new GameBoard(player1, player2);
-			Controller.showPaneGame();
+			Main.setGameBoard(player1, player2);
+			Main.initPaneGame();
 		}
 	}
 
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == startButton) {

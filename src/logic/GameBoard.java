@@ -44,7 +44,7 @@ public class GameBoard {
 		// populate board
 		int point = 0;
 
-		switch (Tools.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
+		switch (Main.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
 											// Controller.BOARD_SETUP
 		case STANDARD: // REAL GAMEBOARD
 			for (int row = 0; row < gameWidth; row++) {
@@ -214,8 +214,8 @@ public class GameBoard {
 		this.setPlayerName(0, player1Name);
 		this.setPlayerName(1, player2Name);
 
-		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Tools.SKIP_INTRO, Tools.TIMERS_DEACTIVATED,
-				Tools.BOARD_SETUP);
+		//logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", TestVariables.SKIP_INTRO, TestVariables.TIMERS_DEACTIVATED,
+		//		TestVariables.BOARD_SETUP);
 		//Controller.log.add(logMessage);
 	}
 
@@ -332,12 +332,11 @@ public class GameBoard {
 
 		// at this point basic checks are done - now to check for jump enforcement
 		if (attacks.size() > 0) {
-			if (!attacks.contains(Tools.convertCoords(s))) {
+			if (!attacks.contains(Main.convertCoords(s))) {
 				String message = String.format("You have attacks at the following squares (if you can attack, you must attack)%n");
 				for (String i : attacks) {
 					message += i + " ";
 				}
-				Tools.setReturnMessage(String.format(message + "%n"));
 				return false;
 			}
 		}
@@ -346,7 +345,6 @@ public class GameBoard {
 
 		// if piece hasAttack, but isn't a capture move then move is invalid
 		if (hasAttack && !capture) {
-			Tools.setReturnMessage("You have an attack move, you must make an attack!");
 			return false;
 		} else if (hasAttack && capture) {
 			this.move_capture(new int[] { rowToCheck, colToCheck });
@@ -360,7 +358,6 @@ public class GameBoard {
 		// set as king if necessary
 		if ((check.getTeam() == 0 && d[0] == 7) || (check.getTeam() == 1 && d[0] == 0)) {
 			check.setToKing();
-			Tools.setReturnMessage("Piece upgraded to king!");
 		}
 		//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " accepted");
 
@@ -377,7 +374,7 @@ public class GameBoard {
 				GamePiece tmp = getSquare(row, col);
 				if (tmp != null && tmp.getTeam() == currentPlayer) {
 					if (move_hasAttack(new int[] { row, col })) {
-						attacks.add(Tools.convertCoords(new int[] { row, col }));
+						attacks.add(Main.convertCoords(new int[] { row, col }));
 					}
 				}
 			}
@@ -461,7 +458,7 @@ public class GameBoard {
 	 * @param s
 	 * @return a boolean - this piece has an attack?
 	 */
-	private boolean move_hasAttack(int[] s) {
+	public boolean move_hasAttack(int[] s) {
 		boolean hasAttack = false;
 		int start;
 		int end;
@@ -490,46 +487,6 @@ public class GameBoard {
 			}
 		}
 		return hasAttack;
-
-		// GamePiece piece = this.getSquare(coords);
-		// int start = 0;
-		// int end = 4;
-		//
-		// if (!piece.isKing()) {
-		// start = (piece.getTeam() == 0) ? 0 : 2;
-		// end = (piece.getTeam() == 0) ? 2 : 4;
-		// } else {
-		//
-		// }
-		//
-		// int modifierVertical;
-		// int modifierHorizontal;
-		//
-		// int[] moves = move_generateMoveList(coords); // generate 4 direction checks
-		// for this destination square
-		// for (int i = start; i < end; i++) {
-		// modifierVertical = -99; // default value
-		// modifierHorizontal = -99; // default value
-		// if (moves[i] == ((this.currentPlayer == 0) ? 1 : 0)) { // if another teams
-		// piece is there
-		// int[] modifiers = move_generateVectorModifiers(i);
-		// modifierVertical = modifiers[0];
-		// modifierHorizontal = modifiers[1];
-		//
-		// }
-		// if (modifierHorizontal != -99 && modifierVertical != -99) { // if not default
-		// value
-		// int row = coords[0] + modifierVertical;
-		// int col = coords[1] + modifierHorizontal;
-		// int[] emptyAfterEnemy = move_generateMoveList(new int[] { row, col });
-		// // if same direction has empty square then there is a move
-		// if (emptyAfterEnemy[i] == 2) {
-		// return true;
-		// }
-		// }
-		// }
-		//
-		// return false;
 	}
 
 	///////////////////////////////////////
