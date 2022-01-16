@@ -35,8 +35,8 @@ public class Checkers {
 	/////////////////////////////////////
 
 	// testing variables
-	public static final boolean TEST_MODE = true;						// When set to true, the game immediately starts rather than gets user input
-	public static final BoardSetup BOARD_SETUP = BoardSetup.BLACKATTACKEDGE; 	// Sets up a specific board layout for testing. Normal = "standard"
+	public static final boolean TEST_MODE = false;						// When set to true, the game immediately starts rather than gets user input
+	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
 
 	// GameBoard and memory
 	private static GameBoard gameBoard; 								// GameBoard object

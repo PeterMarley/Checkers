@@ -1,7 +1,9 @@
 # 2-player Checkers
 #### Current Version: V0.9.2
 
-![The Game](https://i.imgur.com/IBmU5fH.png)
+![Intro Screen](https://i.imgur.com/zZtaK3t.png)
+![Player Name Entry Screen](https://i.imgur.com/KxykazR.png)
+![Checkers Board Screen(https://i.imgur.com/FLgaUEn.png)
 
 # Basics
 
