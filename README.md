@@ -3,7 +3,7 @@
 
 ![Intro Screen](https://i.imgur.com/zZtaK3t.png)
 ![Player Name Entry Screen](https://i.imgur.com/KxykazR.png)
-![Checkers Board Screen(https://i.imgur.com/FLgaUEn.png)
+![Checkers Board Screen](https://i.imgur.com/FLgaUEn.png)
 
 # Basics
 
