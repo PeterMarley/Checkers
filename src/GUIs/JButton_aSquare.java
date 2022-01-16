@@ -11,8 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-import logic.ToolBag;
 import logic.GamePiece;
+import logic.Tools;
 import logic.Enums.*;
 
 @SuppressWarnings("serial")
@@ -73,11 +73,33 @@ public class JButton_aSquare extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this) {
+			int[] coords = new int[] {row, col};
+			// console message
 			System.out.println("row=" + row + ", col=" + col + " button pressed!");
-			String square = ToolBag.convertCoords(new int[] { row, col });
+			String square = Tools.convertCoords(coords);
 			System.out.println("Square is: " + square);
 			System.out.println();
-			ToolBag.gameBoard.set
+			// set memory
+			Tools.setMemory(coords);
+			// check if memory cells set
+			int[][] memory = Tools.getMemory();
+			boolean memoryFilled = true;
+			for (int[] cell : memory) {
+				for (int cellPart : cell) {
+					if (cellPart == -1) {
+						memoryFilled = false;
+						break;
+					}
+				}
+			}
+			// if memory full then try move operation
+			boolean moveAccepted = false;
+			if (memoryFilled) {
+				moveAccepted = Tools.gameBoard.move_operation(memory);
+			}
+			if (moveAccepted) {
+				Controller.redrawPaneGame();
+			}
 		}
 	}
 }

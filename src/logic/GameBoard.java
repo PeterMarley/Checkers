@@ -44,7 +44,7 @@ public class GameBoard {
 		// populate board
 		int point = 0;
 
-		switch (ToolBag.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
+		switch (Tools.BOARD_SETUP) { // This switch statement sets up the board depending on the value of
 											// Controller.BOARD_SETUP
 		case STANDARD: // REAL GAMEBOARD
 			for (int row = 0; row < gameWidth; row++) {
@@ -214,8 +214,8 @@ public class GameBoard {
 		this.setPlayerName(0, player1Name);
 		this.setPlayerName(1, player2Name);
 
-		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", ToolBag.SKIP_INTRO, ToolBag.TIMERS_DEACTIVATED,
-				ToolBag.BOARD_SETUP);
+		logMessage += String.format("[TEST_MODE=%s ; TIMERS_ACTIVE=%s ; TEST_BOARD=%s]", Tools.SKIP_INTRO, Tools.TIMERS_DEACTIVATED,
+				Tools.BOARD_SETUP);
 		//Controller.log.add(logMessage);
 	}
 
@@ -270,34 +270,12 @@ public class GameBoard {
 	}
 
 	/**
-	 * This adjudicates a players move from start to finish, including any jump enforcement.
-	 * 
-	 * @param coords an int[][] containing the players piece coords at index 0, and the players destination coords at index 1.
-	 * @return A boolean - continue the game?
-	 */
-	public boolean executeMove(int[][] coords) {
-		if (this.move_operation(coords)) { // if the move was successful
-			if (GamePiece.getTotalPieces(0) == 0 || GamePiece.getTotalPieces(1) == 0) { // if a player has lost all
-																						// their pieces
-				return false;
-			}
-			if (!move_hasAttack(coords[1]) || getSquare(coords[1]).isKing())
-				nextPlayer(); // end this players move by changing active player
-		} else {
-			if (ToolBag.getReturnMessage().isEmpty()) {
-				ToolBag.setReturnMessage("That move was not acceptable. Please try again!");
-			}
-		}
-		return true;
-	}
-
-	/**
 	 * Move a piece if its legally allowed
 	 * 
 	 * @param coords an int[][], holding the players own-piece selection at index 0 and the destination square at index 1.
 	 * @return A boolean - This move was made successfully?
 	 */
-	private boolean move_operation(int[][] coords) {
+	public boolean move_operation(int[][] coords) {
 		int[] s = coords[0];
 		int[] d = coords[1];
 		
@@ -354,12 +332,12 @@ public class GameBoard {
 
 		// at this point basic checks are done - now to check for jump enforcement
 		if (attacks.size() > 0) {
-			if (!attacks.contains(ToolBag.convertCoords(s))) {
+			if (!attacks.contains(Tools.convertCoords(s))) {
 				String message = String.format("You have attacks at the following squares (if you can attack, you must attack)%n");
 				for (String i : attacks) {
 					message += i + " ";
 				}
-				ToolBag.setReturnMessage(String.format(message + "%n"));
+				Tools.setReturnMessage(String.format(message + "%n"));
 				return false;
 			}
 		}
@@ -368,7 +346,7 @@ public class GameBoard {
 
 		// if piece hasAttack, but isn't a capture move then move is invalid
 		if (hasAttack && !capture) {
-			ToolBag.setReturnMessage("You have an attack move, you must make an attack!");
+			Tools.setReturnMessage("You have an attack move, you must make an attack!");
 			return false;
 		} else if (hasAttack && capture) {
 			this.move_capture(new int[] { rowToCheck, colToCheck });
@@ -382,7 +360,7 @@ public class GameBoard {
 		// set as king if necessary
 		if ((check.getTeam() == 0 && d[0] == 7) || (check.getTeam() == 1 && d[0] == 0)) {
 			check.setToKing();
-			ToolBag.setReturnMessage("Piece upgraded to king!");
+			Tools.setReturnMessage("Piece upgraded to king!");
 		}
 		//Controller.log.add("Move from " + Arrays.toString(s) + " to " + Arrays.toString(d) + " by player " + this.getCurrentPlayer() + " accepted");
 
@@ -399,7 +377,7 @@ public class GameBoard {
 				GamePiece tmp = getSquare(row, col);
 				if (tmp != null && tmp.getTeam() == currentPlayer) {
 					if (move_hasAttack(new int[] { row, col })) {
-						attacks.add(ToolBag.convertCoords(new int[] { row, col }));
+						attacks.add(Tools.convertCoords(new int[] { row, col }));
 					}
 				}
 			}
@@ -557,94 +535,6 @@ public class GameBoard {
 	///////////////////////////////////////
 	// UTILITY 							//
 	/////////////////////////////////////
-
-	/**
-	 * Display the board
-	 */
-	public void displayBoard() {
-		String border = "       " + ((this.board.length == 8) ? "-".repeat(127) : "-".repeat(159));
-		System.out.println(border);
-		for (int i = board.length - 1; i >= 0; i--) {
-			for (int k = 0; k <= 3; k++) {
-				if (k == 1) {
-					System.out.printf(" (%d) ", (ToolBag.SKIP_INTRO) ? i : i + 1);
-				} else {
-					System.out.printf("     ", (ToolBag.SKIP_INTRO) ? i : i + 1);
-
-				}
-				for (int j = 0; j < board[i].length; j++) {
-
-					if (k == 0 || k == 2) {
-						if (board[i][j] instanceof GamePiece) {
-							if (k == 2 && board[i][j].isKing()) {
-								System.out.printf(" | %13s", getSquare(i, j).toVisualString());
-							} else {
-								System.out.printf(" | %13s", "");
-							}
-						} else {
-							System.out.printf(" | %13s", "");
-						}
-					} else if (k == 1) {
-						if (board[i][j] instanceof GamePiece) {
-							System.out.printf(" | %13s", getSquare(i, j).toVisualString());
-						} else {
-							System.out.printf(" | %13s", "");
-						}
-					} else if (k == 3) {
-						if (ToolBag.SKIP_INTRO) {
-							System.out.printf(" | %7s/%3s  ", i + "," + j, (char) (j + 65) + "" + (char) (i + 49));
-						} else {
-							System.out.printf(" |   %7s    ", "(" + (char) (j + 65) + (char) (i + 49) + ")");
-						}
-					}
-					if (j == this.board.length - 1) {
-						System.out.printf(" |");
-					}
-
-				}
-				System.out.println();
-
-			}
-			System.out.println(border);
-		}
-		System.out.printf("      ");
-		for (int i = 0; i < board.length; i++) {
-			if (ToolBag.SKIP_INTRO) {
-				System.out.printf("|     (%d/%c)     ", i, (char) i + 65);
-			} else {
-				System.out.printf("|      (%c)      ", (char) i + 65);
-			}
-		}
-		System.out.println("|");
-		System.out.println();
-		
-		// print testing variable states
-		if (ToolBag.SKIP_INTRO) {
-			System.out.printf("--- SKIP_INTRO ACTIVE%n");
-		}
-		if (!ToolBag.BOARD_SETUP.equals(BoardSetup.STANDARD)) {
-			System.out.printf("--- BOARD_SETUP non-standard type: %s%n", ToolBag.BOARD_SETUP);
-		}
-		if (ToolBag.TIMERS_DEACTIVATED) {
-			System.out.printf("--- ALL TIMERS DE-ACTIVATED%n", "");
-		}
-		System.out.println();
-		//Controller.log.add("Board displayed");
-	}
-
-	public void printCaptured() {
-		int black = 0;
-		int white = 0;
-		for (GamePiece i : captured) {
-			if (i.getTeam() == 0) {
-				black++;
-			} else {
-				white++;
-			}
-		}
-		String returnString = String.format("Captured Pieces:%n\tBlack captured %d pieces%n\tWhite captured %d pieces%n", white, black);
-		ToolBag.setReturnMessage(returnString);
-	}
 
 	/**
 	 * Change to next player

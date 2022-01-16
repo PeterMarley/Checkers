@@ -10,7 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import logic.ToolBag;
+import logic.Tools;
 import logic.Enums.Sizes;
 import logic.Enums.WinColors;
 
@@ -24,7 +24,8 @@ import logic.Enums.WinColors;
  */
 @SuppressWarnings("serial")
 public class JPanel_Game extends JPanel {
-
+	JPanel centrePanel;
+	
 	/**
 	 * A constructor for the main game display JPanel of GUI
 	 */
@@ -38,7 +39,7 @@ public class JPanel_Game extends JPanel {
 		
 		
 		// create panels
-		JPanel topPanel, leftPanel, bottomPanel, centrePanel;
+		JPanel topPanel, leftPanel, bottomPanel;
 		//GUIPanel_Game_Squares centrePanel;
 		Color bgColor = Color.LIGHT_GRAY;
 		
@@ -71,8 +72,8 @@ public class JPanel_Game extends JPanel {
 	
 	private JPanel getPanelTop() {
 		JPanel panel = new JPanel(new GridLayout(1, 2));
-		JLabel player1 = new JLabel("Player 1: " + ToolBag.gameBoard.getPlayerName(0));
-		JLabel player2 = new JLabel("Player 2: "+ToolBag.gameBoard.getPlayerName(1));
+		JLabel player1 = new JLabel("Player 1: " + Tools.gameBoard.getPlayerName(0));
+		JLabel player2 = new JLabel("Player 2: "+Tools.gameBoard.getPlayerName(1));
 		player1.setVerticalAlignment(JLabel.CENTER);
 		player1.setHorizontalAlignment(JLabel.CENTER);
 		player2.setVerticalAlignment(JLabel.CENTER);
@@ -85,4 +86,5 @@ public class JPanel_Game extends JPanel {
 		panel.add(player2);
 		return panel;
 	}
+	
 }

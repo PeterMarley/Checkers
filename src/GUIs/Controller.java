@@ -2,7 +2,7 @@ package GUIs;
 
 import javax.swing.SwingUtilities;
 
-import logic.ToolBag;
+import logic.Tools;
 
 /**
  * GUI for my 2 player checkers program
@@ -21,7 +21,7 @@ import logic.ToolBag;
  * @GitHub BigJeffTheChef
  *
  */
-public class MainGUI {
+public class Controller {
 
 	public static JFrame_GUI frame = new JFrame_GUI();
 	public static JPanel_Intro intro;
@@ -40,7 +40,7 @@ public class MainGUI {
 		frame.setVisible(true);
 		intro = new JPanel_Intro();
 		frame.add(intro);
-		if (ToolBag.SKIP_INTRO) {
+		if (Tools.SKIP_INTRO) {
 			showPanePlayerNames();
 		}
 	}
@@ -48,7 +48,7 @@ public class MainGUI {
 	public static void showPanePlayerNames() {
 		intro.setVisible(false);
 		frame.remove(intro);
-		if (ToolBag.SKIP_INTRO) {
+		if (Tools.SKIP_INTRO) {
 			playerNames = new JPanel_PlayerNames("Test Name 1", "Test Name 2");
 			showPaneGame();
 		} else {
@@ -59,13 +59,22 @@ public class MainGUI {
 	}
 
 	public static void showPaneGame() {
-		if (!ToolBag.SKIP_INTRO) {
+		if (!Tools.SKIP_INTRO) {
 			playerNames.setVisible(false);
 			frame.remove(playerNames);
 		}
 
 		game = new JPanel_Game();
 		frame.add(game);
+	}
+	
+	public static void redrawPaneGame() {
+		game.setVisible(false);
+		frame.remove(game);
+		Tools.clearMemory();
+		game = new JPanel_Game();
+		frame.add(game);
+		game.setVisible(true);
 	}
 
 }
