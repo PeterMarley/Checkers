@@ -131,7 +131,7 @@ public class JPanel_PlayerNames extends JPanel implements ActionListener {
 	public boolean setNames(String player1, String player2) {
 		boolean player1Accepted = true;
 		boolean player2Accepted = true;
-		if (!Checkers.SKIP_INTRO) {
+		if (!Checkers.TEST_MODE) {
 			player1FeedbackLabel.setVisible(false);
 			player2FeedbackLabel.setVisible(false);
 

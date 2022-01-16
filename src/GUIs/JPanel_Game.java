@@ -68,33 +68,27 @@ public class JPanel_Game extends JPanel {
 
 		// instantiate components
 		topPanel = new JPanel(new GridLayout(1, 2));
-		JLabel player1 = new JLabel("Black: " + names[0]);
-		JLabel player2 = new JLabel("White: " + names[1]);
-
+		JLabel[] players = new JLabel[] { new JLabel("Black: " + names[0]), new JLabel("White: " + names[1]) };
+		int currentPlayer = Checkers.getGameBoard().getCurrentPlayer();
 		// set alignments
-		player1.setVerticalAlignment(JLabel.CENTER);
-		player1.setHorizontalAlignment(JLabel.CENTER);
-		player2.setVerticalAlignment(JLabel.CENTER);
-		player2.setHorizontalAlignment(JLabel.CENTER);
+		players[0].setVerticalAlignment(JLabel.CENTER);
+		players[0].setHorizontalAlignment(JLabel.CENTER);
+		players[1].setVerticalAlignment(JLabel.CENTER);
+		players[1].setHorizontalAlignment(JLabel.CENTER);
 
 		// set background colours and text depending on current player
-		if (Checkers.getGameBoard().getCurrentPlayer() == 0) {
-			player1.setBackground(WinColors.DARK.get());
-			player1.setForeground(WinColors.ACCENT.get());
-			player1.setText("Black: " + names[0] + " (Current)");
-			player1.setOpaque(true);
-		} else {
-			player2.setBackground(WinColors.DARK.get());
-			player2.setForeground(WinColors.ACCENT.get());
-			player2.setText("White: " + names[1] + " (Current)");
-			player2.setOpaque(true);
-		}
+		players[currentPlayer].setBackground(WinColors.DARK.get());
+		players[currentPlayer].setForeground(WinColors.ACCENT.get());
+		players[currentPlayer].setText(((currentPlayer == 0) ? "Black: " : "White: ") + names[0] + " (Current)");
+		players[currentPlayer].setBorder(BorderFactory.createLineBorder(WinColors.ACCENT.get(),1));
+		players[currentPlayer].setOpaque(true);
+
 
 		// configure topPanel
-		topPanel.add(player1);
-		topPanel.add(player2);
+		topPanel.add(players[0]);
+		topPanel.add(players[1]);
 		topPanel.setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.get()));
-		topPanel.setBackground(Color.RED);
+		topPanel.setBackground(WinColors.LIGHT.get());
 
 	}
 
@@ -104,7 +98,7 @@ public class JPanel_Game extends JPanel {
 	private void setLeftPanel() {
 		leftPanel = new JPanel();
 		leftPanel.setPreferredSize(new Dimension(Sizes.LEFT_PANEL_WIDTH.get(), 1));
-		leftPanel.setBackground(Color.GREEN);
+		leftPanel.setBackground(WinColors.LIGHT.get());
 	}
 
 	/**
@@ -113,7 +107,7 @@ public class JPanel_Game extends JPanel {
 	private void setBottomPanel() {
 		bottomPanel = new JPanel();
 		bottomPanel.setPreferredSize(new Dimension(1, Sizes.BOTTOM_PANEL_HEIGHT.get()));	// in the tool tip
-		bottomPanel.setBackground(Color.BLUE);
+		bottomPanel.setBackground(WinColors.LIGHT.get());
 		bottomPanel.setLayout(new GridBagLayout());
 		JLabel displayReturnMessage;
 		GridBagConstraints c = new GridBagConstraints();

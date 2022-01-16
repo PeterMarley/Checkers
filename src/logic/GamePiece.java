@@ -157,7 +157,7 @@ public class GamePiece {
 			--whiteNormalPieces;
 			this.pieceNum = ++whiteKingPieces;
 		}
-
+		System.out.println(this.toString() + " was made into a king!");
 	}
 
 	/**

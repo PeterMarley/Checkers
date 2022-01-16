@@ -1,7 +1,6 @@
 package logic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import logic.Enums.*;
 
@@ -30,6 +29,7 @@ public class GameBoard {
 	private int currentPlayer;					// int representing current player (0 = black, 1 = white)
 	private Modifier[] modifierArray;			// This holds the GameBoard array index modifiers
 	private String returnMessage;				// This holds a return message for displaying move operation fail messages
+	private Integer winner;						// This holds the winners name
 
 	///////////////////////////////////////
 	// CONSTRUCTOR	 					//
@@ -76,11 +76,11 @@ public class GameBoard {
 			int directionModifier = (this.getCurrentPlayer() == 0) ? 1 : -1;
 			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier)
 					|| (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
-				this.setReturnMessage("That's not your piece!");
+				this.setReturnMessage("That's the wrong direction!");
 				return false;
 			}
 		}
-
+		// TODO re-do logic here so it bottom panel of game window can show multiple messages!
 		// General Checks
 		if (sourcePiece == null) {											// if source square is empty
 			this.setReturnMessage("You didn't select a piece!");
@@ -268,7 +268,7 @@ public class GameBoard {
 	/**
 	 * @return return an {@code ArrayList<String>} containing all the players pieces that have a valid attack (in format A1, H8 etc)
 	 */
-	public ArrayList<String> checkPlayersPiecesForAttacks() {
+	private ArrayList<String> checkPlayersPiecesForAttacks() {
 		ArrayList<String> attacks = new ArrayList<>(20);
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length; col++) {
@@ -465,7 +465,6 @@ public class GameBoard {
 
 	public void setBoard() {
 		boolean firstHalf = true;
-		String logMessage = "";
 		board = new GamePiece[Sizes.CENTER_PANEL_SQUARES.get()][Sizes.CENTER_PANEL_SQUARES.get()];
 
 		// populate board
@@ -490,7 +489,6 @@ public class GameBoard {
 				}
 			}
 			this.currentPlayer = 0;
-			logMessage = "Dynamic GameBoard of width " + gameWidth + " created successfully. ";
 			break;
 		case TEST:
 			for (int row = 0; row < gameWidth; row++) {
@@ -514,7 +512,6 @@ public class GameBoard {
 			this.setSquare(1, 1, new GamePiece(0));
 			this.setSquare(2, 2, new GamePiece(1));
 			this.setSquare(4, 4, new GamePiece(1));
-			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 
 			break;
 		case JUMPING2:
@@ -528,7 +525,6 @@ public class GameBoard {
 			this.setSquare(2, 2, new GamePiece(1));
 			this.setSquare(0, 4, new GamePiece(0));
 			// this.setSquare(6, 4, new GamePiece(1));
-			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 
 			break;
 		case KINGJUMP:
@@ -536,7 +532,6 @@ public class GameBoard {
 			this.setSquare(6, 3, new GamePiece(1));
 			this.setSquare(7, 2, new GamePiece(0));
 			getSquare(7, 2).setToKing();
-			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 			break;
 		case MULTIPLEJUMPS1:
 			// testing jump chain
@@ -546,7 +541,6 @@ public class GameBoard {
 			this.setSquare(5, 1, new GamePiece(1));
 			this.setSquare(7, 7, new GamePiece(1));
 			this.setSquare(7, 3, new GamePiece(1));
-			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 			break;
 		case MULTIPLEJUMPS2:
 			// testing jump chain 2
@@ -555,7 +549,6 @@ public class GameBoard {
 			this.setSquare(3, 1, new GamePiece(1));
 			this.setSquare(5, 1, new GamePiece(1));
 			this.setSquare(7, 7, new GamePiece(1));
-			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 			break;
 		case MULTIPLEJUMPSAGAINSTEDGE:
 			// testing hasAttack recognises edges cannot be attacked
@@ -565,7 +558,6 @@ public class GameBoard {
 			this.setSquare(6, 0, new GamePiece(1));
 			this.setSquare(7, 7, new GamePiece(1));
 			this.setSquare(0, 2, new GamePiece(0));
-			logMessage = "Test GameBoard of width " + gameWidth + " created successfully. ";
 			break;
 		case BLACKATTACKEDGE:
 			// testing black attacking edge
@@ -649,4 +641,11 @@ public class GameBoard {
 		this.setReturnMessage("");
 	}
 
+	public void setWinner(int winner) {
+		this.winner = winner;
+	}
+	
+	public Integer getWinner() {
+		return this.winner;
+	}
 }

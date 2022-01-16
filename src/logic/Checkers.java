@@ -1,5 +1,8 @@
 package logic;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import GUIs.JFrame_GUI;
@@ -30,26 +33,26 @@ public class Checkers {
 	///////////////////////////////////////
 	// STATIC VARIABLES					//
 	/////////////////////////////////////
-	
+
 	// testing variables
-	public static final boolean SKIP_INTRO = true;								// When set to true, the game immediately starts rather than gets user input
-	public static final boolean TIMERS_DEACTIVATED = false; 					// Deactivates menu sleep() timers
-	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
-	
+	public static final boolean TEST_MODE = true;						// When set to true, the game immediately starts rather than gets user input
+	public static final BoardSetup BOARD_SETUP = BoardSetup.BLACKATTACKEDGE; 	// Sets up a specific board layout for testing. Normal = "standard"
+
 	// GameBoard and memory
 	private static GameBoard gameBoard; 								// GameBoard object
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
 
 	// GUI components
-	public static JFrame_GUI frame;									// Main GUI JFrame
-	public static JPanel_Intro intro;								// Introduction JPanel
-	public static JPanel_PlayerNames playerNames;					// Player Name Selection JPanel
-	private static JPanel_Game game;									// The Game itself JPanel
-	
+	private static JFrame_GUI frame;									// Main GUI JFrame
+	private static JPanel_Intro intro;								// Introduction JPanel
+	private static JPanel_PlayerNames playerNames;					// Player Name Selection JPanel
+	private static JPanel_Game game;								// The Game itself JPanel
+	private static JPanel winner;									// Declare winner screen
+
 	///////////////////////////////////////
 	// PROGRAM START main()				//
 	/////////////////////////////////////
-	
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -63,8 +66,8 @@ public class Checkers {
 	/////////////////////////////////////
 
 	/**
-	 * Creates and renders the intro screen if SKIP_INTRO is false, otherwise, skips intro and player name screen and moves straight
-	 * to rendering the checker board
+	 * Creates and renders the intro screen if SKIP_INTRO is false, otherwise, skips intro and player name screen and moves straight to rendering the
+	 * checker board
 	 */
 	public static void initGUI() {
 		clearMemory();
@@ -73,19 +76,19 @@ public class Checkers {
 		frame.setVisible(true);
 		intro = new JPanel_Intro();
 		frame.add(intro);
-		if (SKIP_INTRO) {
+		if (TEST_MODE) {
 			initPanePlayerNames();
 		}
 	}
 
 	/**
-	 * Creates and renders the player's name selection screen if SKIP_INTRO is false, otherwise skips player name selection screen and renders
-	 * checker board with fake player names
+	 * Creates and renders the player's name selection screen if SKIP_INTRO is false, otherwise skips player name selection screen and renders checker
+	 * board with fake player names
 	 */
 	public static void initPanePlayerNames() {
 		intro.setVisible(false);
 		frame.remove(intro);
-		if (SKIP_INTRO) {
+		if (TEST_MODE) {
 			playerNames = new JPanel_PlayerNames("Test Name 1", "Test Name 2");
 			initPaneGame();
 		} else {
@@ -99,28 +102,52 @@ public class Checkers {
 	 * Create and render the checker board and info panels (main game screen) for the first time
 	 */
 	public static void initPaneGame() {
-		if (!SKIP_INTRO) {
+		if (!TEST_MODE) {
 			playerNames.setVisible(false);
 			frame.remove(playerNames);
 		}
 		game = new JPanel_Game();
 		frame.add(game);
 	}
-	
+
 	/**
 	 * Redraws the checker board screen upon a move selection
 	 */
 	public static void redrawPaneGame() {
+		// remove last game panel
 		game.setVisible(false);
 		frame.remove(game);
-		game = new JPanel_Game();
-		frame.add(game);
+		// check if game is over
+		boolean playerHasMoves = Checkers.getGameBoard().checkPlayerHasValidMoves();
+		int playersPieceRemaining = GamePiece.getTotalPieces(Checkers.getGameBoard().getCurrentPlayer());
+		if (!playerHasMoves || playersPieceRemaining == 0) {
+			Checkers.getGameBoard().setWinner((Checkers.getGameBoard().getCurrentPlayer() == 0) ? 1 : 0);
+		}
+		if (Checkers.getGameBoard().getWinner() == null) {
+			game = new JPanel_Game();
+			frame.add(game);
+		} else {
+			System.out.println("Winner: " + Checkers.getGameBoard().getPlayerName(Checkers.getGameBoard().getWinner()));
+			initPaneDeclareWinner();
+		}
 	}
 
+	public static void initPaneDeclareWinner() {
+		JLabel winnerLabel = new JLabel("We have a winner! Congratulations " + Checkers.getGameBoard().getPlayerName(Checkers.getGameBoard().getWinner()) + "!");
+		winnerLabel.setIcon(new ImageIcon("./images/winner.gif"));
+		winnerLabel.setVerticalTextPosition(JLabel.BOTTOM);
+		winnerLabel.setHorizontalTextPosition(JLabel.CENTER);
+		winner = new JPanel();
+		winner.setVisible(true);
+		winner.add(winnerLabel);
+		frame.add(winner);
+		frame.setVisible(true);
+	}
+	
 	///////////////////////////////////////
 	// UTILITY 							//
 	/////////////////////////////////////
-	
+
 	/**
 	 * Convert a String representation of a board square to an int[2].<br>
 	 * A1 -> [0,0]
@@ -149,15 +176,15 @@ public class Checkers {
 		}
 		return String.format("%c%c", (char) (c[1] + 65), (char) c[0] + 49);
 	}
-	
+
 	///////////////////////////////////////
 	// GETTERS N SETTERS				//
 	/////////////////////////////////////
-	
+
 	public static GameBoard getGameBoard() {
 		return gameBoard;
 	}
-	
+
 	/**
 	 * Set memory cell
 	 * 
@@ -195,6 +222,7 @@ public class Checkers {
 	 */
 	public static void clearMemory() {
 		memory = new int[][] { { -1, -1 }, { -1, -1 } };
+		System.out.println("Memory cleared.");
 	}
 
 }

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -46,7 +45,6 @@ public class JButton_aSquare extends JButton implements ActionListener {
 		this.row = row;
 		this.col = col;
 
-		this.setToolTipText(Checkers.convertCoords(new int[] { row, col }));
 		if (piece != null) {
 			if (piece.isKing()) {
 				if (piece.getTeam() == 0) {
@@ -64,9 +62,9 @@ public class JButton_aSquare extends JButton implements ActionListener {
 			this.setIcon(icon);
 		}
 
-
 		// define properties
 		this.setBackground(color);
+		this.setToolTipText(Checkers.convertCoords(new int[] { row, col }));
 		this.setOpaque(true);
 		this.setPreferredSize(new Dimension(widthOfSquare, widthOfSquare));
 		this.setHorizontalAlignment(JLabel.CENTER);
@@ -92,40 +90,56 @@ public class JButton_aSquare extends JButton implements ActionListener {
 	// ACTIONS							//
 	/////////////////////////////////////
 
+	/**
+	 * Button click actions for this object
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this) {
-			int[] coords = new int[] { row, col };
-
-			// console message
-			GamePiece piece = Checkers.getGameBoard().getSquare(coords);
-			String pieceName = (piece == null) ? "empty!" : piece.toString();
-			System.out.println("row=" + row + ", col=" + col + " button pressed!");
-			String square = Checkers.convertCoords(coords);
-			System.out.println("Square is: " + square + " : " + pieceName);
-			System.out.println();
-
-			// set memory
-			Checkers.setMemory(coords);
-
-			// if memory full then try move operation
-			if (isMemoryFilled()) {
-				boolean moveAccepted = Checkers.getGameBoard().move_operation(Checkers.getMemory());
-				// if move operation was successful check if player has more attacks
-				if (moveAccepted) {
-					//boolean hasAttacks = Main.gameBoard.move_hasAttack(Main.getMemory(1));
-					boolean hasAttacks = Checkers.getGameBoard().move_hasAttack(Checkers.getMemory(1));
-					if (!hasAttacks) {
-						Checkers.getGameBoard().nextPlayer();
-					}
-
-				}
-				Checkers.clearMemory();
-			}
-			Checkers.redrawPaneGame();
+			squareClicked();
 		}
 	}
 
+	/**
+	 * Player clicks a square
+	 */
+	private void squareClicked() {
+		int[] coords = new int[] { row, col };
+
+		// console message
+		GamePiece piece = Checkers.getGameBoard().getSquare(coords);
+		String pieceName = (piece == null) ? "empty!" : piece.toString();
+		System.out.println("row=" + row + ", col=" + col + " button pressed!");
+		String square = Checkers.convertCoords(coords);
+		System.out.println("Square is: " + square + " : " + pieceName);
+		System.out.println();
+
+		// set memory
+		Checkers.setMemory(coords);
+
+		// if memory full then try move operation
+		if (isMemoryFilled()) {
+			boolean moveAccepted = Checkers.getGameBoard().move_operation(Checkers.getMemory());
+
+			// if move operation was successful check if player has more attacks
+			if (moveAccepted) {
+				boolean hasAttacks = Checkers.getGameBoard().move_hasAttack(Checkers.getMemory(1));
+				if (!hasAttacks) {
+					Checkers.getGameBoard().nextPlayer();
+				}
+			}
+			Checkers.clearMemory();
+		} else {
+			Checkers.getGameBoard().setReturnMessage(Checkers.getGameBoard().getPlayerName(Checkers.getGameBoard().getCurrentPlayer())
+					+ " has selected a piece @ " + Checkers.convertCoords(coords));
+		}
+		Checkers.redrawPaneGame();
+	}
+
+	/**
+	 * Check if the Checkers class memory cells has been filled (meaning player has chose a source square and a destination square)
+	 * @return A boolean - are both memory cells filled?
+	 */
 	private boolean isMemoryFilled() {
 		int[][] memory = Checkers.getMemory();
 		boolean memoryFilled = true;
