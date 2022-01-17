@@ -81,6 +81,7 @@ public class GameBoard {
 			}
 		}
 		// TODO re-do logic here so it bottom panel of game window can show multiple messages!
+		// TODO when player moves without attacking, but then has an attack, the game allows then an erroneous extra move
 		// General Checks
 		if (sourcePiece == null) {											// if source square is empty
 			this.setReturnMessage("You didn't select a piece!");

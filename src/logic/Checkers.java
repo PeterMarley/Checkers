@@ -35,7 +35,7 @@ public class Checkers {
 	private static int[][] memory = { { -1, -1 }, { -1, -1 } }; 	// program memory : default (unset) values all -1
 
 	// GUI components
-	private static JFrame_GUI frame;									// Main GUI JFrame
+	private static JFrame_GUI frame;								// Main GUI JFrame
 	private static JPanel_Intro intro;								// Introduction JPanel
 	private static JPanel_PlayerNames playerNames;					// Player Name Selection JPanel
 	private static JPanel_Game game;								// The Game itself JPanel
