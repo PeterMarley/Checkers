@@ -30,6 +30,7 @@ public class GameBoard {
 	private Modifier[] modifierArray;			// This holds the GameBoard array index modifiers
 	private String returnMessage;				// This holds a return message for displaying move operation fail messages
 	private Integer winner;						// This holds the winners name
+	private boolean isCaptureMove;				// Was the preceeding move a capture?
 
 	///////////////////////////////////////
 	// CONSTRUCTOR	 					//
@@ -59,6 +60,7 @@ public class GameBoard {
 	 * @return A boolean - This move was made successfully?
 	 */
 	public boolean move_operation(int[][] coords) {
+		
 		int[] s = coords[0];
 		int[] d = coords[1];
 
@@ -67,7 +69,7 @@ public class GameBoard {
 
 		int vectorVert = d[0] - s[0];
 		int vectorHori = d[1] - s[1];
-		boolean capture = false;
+		this.setCaptureMove(false);
 		int rowToCheck = 0;
 		int colToCheck = 0;
 
@@ -118,7 +120,8 @@ public class GameBoard {
 					this.setReturnMessage("You can't capture your own piece!");
 					return false;									//		return false
 				} else {											// if it is other players piece
-					capture = true;									//		set capture to true
+					this.setCaptureMove(true);						//		set capture to true
+					
 				}
 			} else {												// if intervening square is empty
 				this.setReturnMessage("You cannot move two squares unless capturing!");
@@ -138,10 +141,10 @@ public class GameBoard {
 		boolean hasAttack = move_hasAttack(s);
 
 		// if piece hasAttack, but isn't a capture move then move is invalid
-		if (hasAttack && !capture) {
+		if (hasAttack && !isCaptureMove()) {
 			this.setReturnMessage("If you have an attack you must take it!");
 			return false;
-		} else if (hasAttack && capture) {
+		} else if (hasAttack && isCaptureMove()) {
 			this.move_capture(new int[] { rowToCheck, colToCheck });
 		}
 
@@ -649,4 +652,13 @@ public class GameBoard {
 	public Integer getWinner() {
 		return this.winner;
 	}
+
+	public boolean isCaptureMove() {
+		return isCaptureMove;
+	}
+	
+	public void setCaptureMove(boolean wasCapture) {
+		this.isCaptureMove = wasCapture;
+	}
 }
+

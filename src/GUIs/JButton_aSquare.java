@@ -117,14 +117,19 @@ public class JButton_aSquare extends JButton implements ActionListener {
 		// set memory
 		Checkers.setMemory(coords);
 
+		//TODO move this logic to Checkers.java - probably more appropriate there
 		// if memory full then try move operation
+		
+		
+		
 		if (isMemoryFilled()) {
 			boolean moveAccepted = Checkers.getGameBoard().move_operation(Checkers.getMemory());
 
 			// if move operation was successful check if player has more attacks
 			if (moveAccepted) {
 				boolean hasAttacks = Checkers.getGameBoard().move_hasAttack(Checkers.getMemory(1));
-				if (!hasAttacks) {
+				if (!hasAttacks || (hasAttacks && !Checkers.getGameBoard().isCaptureMove())) {
+					//TODO fix this conditional statement for todo in checkers.java
 					Checkers.getGameBoard().nextPlayer();
 				}
 			}
@@ -133,6 +138,9 @@ public class JButton_aSquare extends JButton implements ActionListener {
 			Checkers.getGameBoard().setReturnMessage(Checkers.getGameBoard().getPlayerName(Checkers.getGameBoard().getCurrentPlayer())
 					+ " has selected a piece @ " + Checkers.convertCoords(coords));
 		}
+		
+		
+		
 		Checkers.redrawPaneGame();
 	}
 
