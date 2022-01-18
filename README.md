@@ -50,22 +50,22 @@ The program is made up of 2 Java packages.
 ## logic
 
 ##### Checkers.java
-Made up of only static methods, this is the home of the main(). Generally administrates the flow of the game and the GUI.
+A static class, this is the home of the main(). Generally administrates the flow of the game and the GUI.
 ##### Enums.java
 Contains the enumerated type constants for the program (color palette, test/ normal board setups, Icons, window dimensions, and directional Modifiers of the GamePiece 2D array instance field of GameBoard. 
 ##### GameBoard.java
-This beefy boy is where a lot of the program's logic lives (reflected in how much larger this file is). The actual business creating and holding a GameBoard object, moving pieces around the board, and capturing pieces is done here.
+A non-static class that represents the checker board. A lot of the program's logic lives here (reflected in how much larger this file is). The actual business creating and holding a GameBoard object, moving pieces around the board, and capturing pieces is done here.
 ##### GamePiece.java
 A non-static class used to describe the GamePiece object; the actual checkers pieces. Here lives various methods for creating and editing GamePiece's and retrieving data from the GamePiece objects
 ##### Log.java (currently disabled while GUI is implemented)
 A basic logging system that outputs a file suffixed with a YYYY-MM-DD HH-MM-SS date stamp from the initialisation of the program. Signifcant events are logged here, along with any errors that arise during game operation
 
-## GUIs
+## GUIs (all non-static)
 
 ##### JFrame_GUI.java
 A child class of the JFrame Swing class, configured for this program.
 ##### JPanel_Intro.java, JPanel_PlayerNames.java, JPanel_Game.java and JPanel_Game_Squares.java
-Children of the JPanel Swing class objects, used in the GUI
+Children of the JPanel Swing class, configured for this program.
 ##### JButton_aSquare.java
 A child class of the JButton Swing class, configured to represent a single square on the checker board.
 
