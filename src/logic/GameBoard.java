@@ -30,9 +30,9 @@ public class GameBoard {
 	private int currentPlayer;					// int representing current player (0 = black, 1 = white)
 	private Modifier[] modifierArray;			// This holds the GameBoard array index modifiers
 	private String returnMessage;				// This holds a return message for displaying move operation fail messages
-	private Color returnMessageBgColour;
+	private Color returnMessageBgColour;		// This holds the background colour for the return message
 	private Integer winner;						// This holds the winners name
-	private boolean isCaptureMove;				// Was the preceeding move a capture?
+	private boolean isCaptureMove;				// Was the preceding move a capture?
 
 	///////////////////////////////////////
 	// CONSTRUCTOR	 					//
