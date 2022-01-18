@@ -1,5 +1,7 @@
 package logic;
 
+import java.awt.Color;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,6 +12,7 @@ import GUIs.JPanel_Game;
 import GUIs.JPanel_Intro;
 import GUIs.JPanel_PlayerNames;
 import logic.Enums.BoardSetup;
+import logic.Enums.Palette;
 
 /**
  * Main method & GUI for my 2 player checkers program
@@ -125,7 +128,8 @@ public class Checkers {
 	}
 
 	public static void initPaneDeclareWinner() {
-		JLabel winnerLabel = new JLabel("We have a winner! Congratulations " + Checkers.getGameBoard().getPlayerName(Checkers.getGameBoard().getWinner()) + "!");
+		JLabel winnerLabel = new JLabel(
+				"We have a winner! Congratulations " + Checkers.getGameBoard().getPlayerName(Checkers.getGameBoard().getWinner()) + "!");
 		winnerLabel.setIcon(new ImageIcon("./images/winner.gif"));
 		winnerLabel.setVerticalTextPosition(JLabel.BOTTOM);
 		winnerLabel.setHorizontalTextPosition(JLabel.CENTER);
@@ -135,7 +139,32 @@ public class Checkers {
 		frame.add(winner);
 		frame.setVisible(true);
 	}
-	
+
+	public static void moveController() {
+		if (isMemoryFilled()) {
+			boolean moveAccepted = getGameBoard().move_operation(getMemory());
+
+			// if move operation was successful check if player has more attacks
+			if (moveAccepted) {
+				boolean hasAttacks = getGameBoard().move_hasAttack(getMemory(1));
+				if (!hasAttacks || (hasAttacks && !Checkers.getGameBoard().isCaptureMove())) {
+					getGameBoard().nextPlayer();
+				}
+			}
+			clearMemory();
+		} else {
+			// if selected piece is not the current players
+			if (getGameBoard().getCurrentPlayer() != getGameBoard().getSquare(getMemory(0)).getTeam()) {
+				getGameBoard().setReturnMessage("That's not your piece! @ " + Checkers.convertCoords(getMemory(0)), Palette.ERROR.get());
+				clearMemory();
+			} else {
+				getGameBoard().setReturnMessage(getGameBoard().getPlayerName(getGameBoard().getCurrentPlayer())
+						+ " has selected a piece @ " + Checkers.convertCoords(getMemory(0)));
+			}
+		}
+
+	}
+
 	///////////////////////////////////////
 	// UTILITY 							//
 	/////////////////////////////////////
@@ -215,6 +244,24 @@ public class Checkers {
 	public static void clearMemory() {
 		memory = new int[][] { { -1, -1 }, { -1, -1 } };
 		System.out.println("Memory cleared.");
+	}
+
+	/**
+	 * Check if the Checkers class memory cells has been filled (meaning player has chose a source square and a destination square)
+	 * @return A boolean - are both memory cells filled?
+	 */
+	private static boolean isMemoryFilled() {
+		int[][] memory = getMemory();
+		boolean memoryFilled = true;
+		for (int[] cell : memory) {
+			for (int cellPart : cell) {
+				if (cellPart == -1) {
+					memoryFilled = false;
+					break;
+				}
+			}
+		}
+		return memoryFilled;
 	}
 
 }

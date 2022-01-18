@@ -80,7 +80,7 @@ public class JPanel_Game extends JPanel {
 		players[currentPlayer].setBackground(Palette.DARK.get());
 		players[currentPlayer].setForeground(Palette.ACCENT.get());
 		players[currentPlayer].setText(((currentPlayer == 0) ? "Black: " : "White: ") + names[0] + " (Current)");
-		players[currentPlayer].setBorder(BorderFactory.createLineBorder(Palette.ACCENT.get(),1));
+		players[currentPlayer].setBorder(BorderFactory.createLineBorder(Palette.ACCENT.get(), 1));
 		players[currentPlayer].setOpaque(true);
 
 
@@ -119,7 +119,7 @@ public class JPanel_Game extends JPanel {
 		displayReturnMessage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		displayReturnMessage.setPreferredSize(new Dimension(Sizes.getFrameWidth() / 2, Sizes.BOTTOM_PANEL_HEIGHT.get() / 2));
 		displayReturnMessage.setOpaque(true);
-		displayReturnMessage.setBackground(Palette.DARKEST.get());
+		displayReturnMessage.setBackground(Checkers.getGameBoard().getReturnMessageBgColor());
 		displayReturnMessage.setForeground(Palette.ACCENT.get());
 		bottomPanel.add(displayReturnMessage, c);
 		Checkers.getGameBoard().clearReturnMessage();

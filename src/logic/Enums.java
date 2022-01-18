@@ -65,7 +65,7 @@ public class Enums {
 
 		// FIELD
 		private int size;
-		
+
 		// CONSTRUCTOR
 		private Sizes(int size) {
 			this.size = size;
@@ -108,7 +108,8 @@ public class Enums {
 		DARK(Color.decode("#6E8898")),
 		MIDDLE(Color.decode("#9FB1BC")),
 		LIGHT(Color.decode("#D3D0CB")),
-		ACCENT(Color.decode("#E2C044"));
+		ACCENT(Color.decode("#E2C044")),
+		ERROR(Color.RED);
 
 		// FIELD
 		private Color color;
@@ -123,7 +124,7 @@ public class Enums {
 			return this.color;
 		}
 	}
-	
+
 	/**
 	 * The enumerated board setups
 	 * @author Peter Marley
@@ -149,7 +150,7 @@ public class Enums {
 		VALIDMOVECHECK2,
 		VALIDMOVECHECK3;
 	}
-	
+
 	//TODO move all the board setup information from GameBoard constructor to here
 	public enum Boards {
 		// CONSTANTS CALLING CONSTRUCTORS
@@ -167,23 +168,23 @@ public class Enums {
 		VALIDMOVECHECK,
 		VALIDMOVECHECK2,
 		VALIDMOVECHECK3;
-		
+
 		private GamePiece[][] board;
-				
+
 		private Boards() {
 			if (this.ordinal() == 1) {
-			this.board = new GamePiece[Sizes.CENTER_PANEL_SQUARES.get()][Sizes.CENTER_PANEL_SQUARES.get()];
+				this.board = new GamePiece[Sizes.CENTER_PANEL_SQUARES.get()][Sizes.CENTER_PANEL_SQUARES.get()];
 			}
 		}
-		
+
 		public GamePiece[][] get() {
 			return null;
 		}
 	}
 
 	/**
-	 * The enumerated GamePiece[][] index modifiers for the 4 diagonal directions.
-	 * Used to select the adjacent 4 diagonal pieces, moving from up left, clockwise through to down left.
+	 * The enumerated GamePiece[][] index modifiers for the 4 diagonal directions. Used to select the adjacent 4 diagonal pieces, moving from up left,
+	 * clockwise through to down left.
 	 * @author Peter Marley
 	 * @StudentNum 13404067
 	 * @email pmarley03@qub.ac.uk
@@ -196,19 +197,19 @@ public class Enums {
 		UPRIGHT(new int[] { 1, 1 }),
 		DOWNRIGHT(new int[] { -1, 1 }),
 		DOWNLEFT(new int[] { -1, -1 });
-		
+
 		// FIELD
 		private int[] modifiers;
-		
+
 		// CONSTRUCTOR
 		private Modifier(int[] modifiers) {
 			this.modifiers = modifiers;
 		}
-		
+
 		// GETTER
 		/**
-		 * @return An int[2] containing index modifiers for the GamePiece[][] field of GameBoard.
-		 * Used to select the adjacent 4 diagonal pieces, moving from up left, clockwise through to down left.
+		 * @return An int[2] containing index modifiers for the GamePiece[][] field of GameBoard. Used to select the adjacent 4 diagonal pieces,
+		 *         moving from up left, clockwise through to down left.
 		 */
 		public int[] get() {
 			return this.modifiers;

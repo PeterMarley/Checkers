@@ -116,49 +116,8 @@ public class JButton_aSquare extends JButton implements ActionListener {
 
 		// set memory
 		Checkers.setMemory(coords);
-
-		//TODO move this logic to Checkers.java - probably more appropriate there
-		// if memory full then try move operation
-		
-		
-		
-		if (isMemoryFilled()) {
-			boolean moveAccepted = Checkers.getGameBoard().move_operation(Checkers.getMemory());
-
-			// if move operation was successful check if player has more attacks
-			if (moveAccepted) {
-				boolean hasAttacks = Checkers.getGameBoard().move_hasAttack(Checkers.getMemory(1));
-				if (!hasAttacks || (hasAttacks && !Checkers.getGameBoard().isCaptureMove())) {
-					//TODO fix this conditional statement for todo in checkers.java
-					Checkers.getGameBoard().nextPlayer();
-				}
-			}
-			Checkers.clearMemory();
-		} else {
-			Checkers.getGameBoard().setReturnMessage(Checkers.getGameBoard().getPlayerName(Checkers.getGameBoard().getCurrentPlayer())
-					+ " has selected a piece @ " + Checkers.convertCoords(coords));
-		}
-		
-		
-		
+		Checkers.moveController();
 		Checkers.redrawPaneGame();
 	}
 
-	/**
-	 * Check if the Checkers class memory cells has been filled (meaning player has chose a source square and a destination square)
-	 * @return A boolean - are both memory cells filled?
-	 */
-	private boolean isMemoryFilled() {
-		int[][] memory = Checkers.getMemory();
-		boolean memoryFilled = true;
-		for (int[] cell : memory) {
-			for (int cellPart : cell) {
-				if (cellPart == -1) {
-					memoryFilled = false;
-					break;
-				}
-			}
-		}
-		return memoryFilled;
-	}
 }

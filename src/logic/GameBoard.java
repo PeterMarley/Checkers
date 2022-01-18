@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import logic.Enums.*;
@@ -29,6 +30,7 @@ public class GameBoard {
 	private int currentPlayer;					// int representing current player (0 = black, 1 = white)
 	private Modifier[] modifierArray;			// This holds the GameBoard array index modifiers
 	private String returnMessage;				// This holds a return message for displaying move operation fail messages
+	private Color returnMessageBgColour;
 	private Integer winner;						// This holds the winners name
 	private boolean isCaptureMove;				// Was the preceeding move a capture?
 
@@ -42,6 +44,7 @@ public class GameBoard {
 	 */
 	public GameBoard() {
 		this.clearReturnMessage();
+		this.returnMessageBgColour = Palette.DARKEST.get();
 		this.setBoard();
 		this.setPlayerNames("Unset Player Name 1", "Unset Player Name 2");
 		this.setCaptured();
@@ -60,7 +63,7 @@ public class GameBoard {
 	 * @return A boolean - This move was made successfully?
 	 */
 	public boolean move_operation(int[][] coords) {
-		
+
 		int[] s = coords[0];
 		int[] d = coords[1];
 
@@ -72,41 +75,41 @@ public class GameBoard {
 		this.setCaptureMove(false);
 		int rowToCheck = 0;
 		int colToCheck = 0;
+		Color errorMessageColor = Palette.ERROR.get();
 
 		// is move in the correct direction for this player (ignored if king)
 		if (sourcePiece != null && !sourcePiece.isKing()) {
 			int directionModifier = (this.getCurrentPlayer() == 0) ? 1 : -1;
 			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier)
 					|| (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
-				this.setReturnMessage("That's the wrong direction!");
+				this.setReturnMessage("That's the wrong direction!", errorMessageColor);
 				return false;
 			}
 		}
 		// TODO re-do logic here so it bottom panel of game window can show multiple messages!
-		// TODO when player moves without attacking, but then has an attack, the game allows then an erroneous extra move
 		// General Checks
 		if (sourcePiece == null) {											// if source square is empty
-			this.setReturnMessage("You didn't select a piece!");
+			this.setReturnMessage("You didn't select a piece!", errorMessageColor);
 			return false;
 		}
 
-		if (currentPlayer != sourcePiece.getTeam()) {						// if source square is other team's piece
-			this.setReturnMessage("You selected an opponents piece!");
-			return false;
-		}
+		//		if (currentPlayer != sourcePiece.getTeam()) {						// if source square is other team's piece
+		//			this.setReturnMessage("You selected an opponents piece!", errorMessageColor);
+		//			return false;
+		//		}
 
 		if (destinationPiece != null) {										// if the destination is NOT empty
-			this.setReturnMessage("The destination square was not empty!");
+			this.setReturnMessage("The destination square was not empty!", errorMessageColor);
 			return false;
 		}
 
 		if (Math.abs(vectorVert) > 2 || Math.abs(vectorHori) > 2) {			// if move greater than 2 squares away
-			this.setReturnMessage("You cannot move that far!");
+			this.setReturnMessage("You cannot move that far!", errorMessageColor);
 			return false;
 		}
 
 		if (Math.abs(vectorVert) != Math.abs(vectorHori)) {					// if not a diagonal move
-			this.setReturnMessage("You can only move diagonally!");
+			this.setReturnMessage("You can only move diagonally!", errorMessageColor);
 			return false;
 		}
 
@@ -117,14 +120,14 @@ public class GameBoard {
 			GamePiece pieceToCheck = this.getSquare(rowToCheck, colToCheck);
 			if (pieceToCheck != null) {								// if intervening square is not empty
 				if (pieceToCheck.getTeam() == currentPlayer) {		// if it is current players piece
-					this.setReturnMessage("You can't capture your own piece!");
+					this.setReturnMessage("You can't capture your own piece!", errorMessageColor);
 					return false;									//		return false
 				} else {											// if it is other players piece
 					this.setCaptureMove(true);						//		set capture to true
-					
+
 				}
 			} else {												// if intervening square is empty
-				this.setReturnMessage("You cannot move two squares unless capturing!");
+				this.setReturnMessage("You cannot move two squares unless capturing!", errorMessageColor);
 				return false;										//		return false
 			}
 		}
@@ -133,7 +136,7 @@ public class GameBoard {
 		// at this point basic checks are done - now to check for jump enforcement
 		if (attacks.size() > 0) {
 			if (!attacks.contains(Checkers.convertCoords(s))) {			// if player has an attack somewhere, but their selection piece has no attack
-				this.setReturnMessage("If you have an attack you must take it!");
+				this.setReturnMessage("If you have an attack you must take it!", errorMessageColor);
 				return false;										//		return false
 			}
 		}
@@ -142,7 +145,7 @@ public class GameBoard {
 
 		// if piece hasAttack, but isn't a capture move then move is invalid
 		if (hasAttack && !isCaptureMove()) {
-			this.setReturnMessage("If you have an attack you must take it!");
+			this.setReturnMessage("If you have an attack you must take it!", errorMessageColor);
 			return false;
 		} else if (hasAttack && isCaptureMove()) {
 			this.move_capture(new int[] { rowToCheck, colToCheck });
@@ -634,7 +637,12 @@ public class GameBoard {
 	}
 
 	public void setReturnMessage(String message) {
+		setReturnMessage(message, Palette.DARKEST.get());
+	}
+
+	public void setReturnMessage(String message, Color bgColor) {
 		this.returnMessage = message;
+		this.returnMessageBgColour = bgColor;
 	}
 
 	public String getReturnMessage() {
@@ -648,7 +656,7 @@ public class GameBoard {
 	public void setWinner(int winner) {
 		this.winner = winner;
 	}
-	
+
 	public Integer getWinner() {
 		return this.winner;
 	}
@@ -656,9 +664,13 @@ public class GameBoard {
 	public boolean isCaptureMove() {
 		return isCaptureMove;
 	}
-	
+
 	public void setCaptureMove(boolean wasCapture) {
 		this.isCaptureMove = wasCapture;
+	}
+
+	public Color getReturnMessageBgColor() {
+		return this.returnMessageBgColour;
 	}
 }
 
