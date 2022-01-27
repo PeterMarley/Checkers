@@ -59,8 +59,10 @@ public class GamePiece {
 	public static int getTotalPieces(int team) {
 		if (team == 0) {
 			return totalBlackPieces;
-		} else {
+		} else if (team == 1){
 			return totalWhitePieces;
+		} else {
+			return -999;
 		}
 	}
 
@@ -75,7 +77,7 @@ public class GamePiece {
 			} else {
 				blackNormalPieces--;
 			}
-		} else {
+		} else if (team == 1){
 			totalWhitePieces--;
 			if (this.isKing()) {
 				whiteKingPieces--;
@@ -95,12 +97,15 @@ public class GamePiece {
 			team = "Black";
 		} else if (this.team == 1) {
 			team = "White";
+		} else {
+			team = "No Team";
 		}
-		return String.format("%s %s %s", team, ((this.king) ? "King" : ""), this.pieceNum);
+		return String.format("%s %s", team + ((this.king) ? " King" : ""), this.pieceNum);
+		//return String.format("%s %s %s", team, ((this.king) ? "King" : ""), this.pieceNum);
 	}
 
 	/**
-	 * "[#][#][#][#]" / "[ ][ ][ ][ ]" Team 0 == Black Team 1 == White
+	 * @return A String - ASCII-art representing a Checkers Piece
 	 */
 	public String toVisualString() {
 		String team = null;
@@ -125,11 +130,41 @@ public class GamePiece {
 	}
 
 	/**
+	 * Make the Piece a king.
+	 */
+	public void setToKing() {
+		this.king = true;
+		if (this.team == 0) {
+			--blackNormalPieces;
+			this.pieceNum = ++blackKingPieces;
+		} else {
+			--whiteNormalPieces;
+			this.pieceNum = ++whiteKingPieces;
+		}
+		System.out.println(this.toString() + " was made into a king!");
+	}
+	
+	/**
 	 * 
 	 * @return the pieceNum of this piece
 	 */
 	public int getPieceNum() {
 		return this.pieceNum;
+	}
+	
+	/**
+	 * Set the appropriate piece number for this team, if not 0 then white
+	 */
+	private void setPieceNum() {
+		if (this.team == 0) {
+			this.pieceNum = ++blackNormalPieces;
+			++totalBlackPieces;
+		} else if (this.team == 1) {
+			this.pieceNum = ++whiteNormalPieces;
+			++totalWhitePieces;
+		} else {
+			this.pieceNum = -999;
+		}
 	}
 
 	/**
@@ -144,33 +179,7 @@ public class GamePiece {
 		return this.team;
 	}
 
-	/**
-	 * Make the Piece a king.
-	 */
-	public void setToKing() {
-		this.king = true;
-		if (this.team == 0) {
-			--blackNormalPieces;
-			this.pieceNum = ++blackKingPieces;
-		} else {
-			--whiteNormalPieces;
-			this.pieceNum = ++whiteKingPieces;
-		}
-		System.out.println(this.toString() + " was made into a king!");
-	}
 
-	/**
-	 * Set the appropriate piece number for this team, if not 0 then white
-	 */
-	private void setPieceNum() {
-		if (this.team == 0) {
-			this.pieceNum = ++blackNormalPieces;
-			++totalBlackPieces;
-		} else if (this.team == 1) {
-			this.pieceNum = ++whiteNormalPieces;
-			++totalWhitePieces;
-		}
-	}
 
 	/**
 	 * Set the team for this piece

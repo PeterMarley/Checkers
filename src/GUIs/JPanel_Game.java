@@ -73,8 +73,11 @@ public class JPanel_Game extends JPanel {
 		// set alignments
 		players[0].setVerticalAlignment(JLabel.CENTER);
 		players[0].setHorizontalAlignment(JLabel.CENTER);
+		players[0].setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.get() / 2));
 		players[1].setVerticalAlignment(JLabel.CENTER);
 		players[1].setHorizontalAlignment(JLabel.CENTER);
+		players[1].setPreferredSize(new Dimension(1, Sizes.TOP_PANEL_HEIGHT.get() / 2));
+
 
 		// set background colours and text depending on current player
 		players[currentPlayer].setBackground(Palette.DARK.get());
@@ -82,7 +85,6 @@ public class JPanel_Game extends JPanel {
 		players[currentPlayer].setText(((currentPlayer == 0) ? "Black: " : "White: ") + names[0] + " (Current)");
 		players[currentPlayer].setBorder(BorderFactory.createLineBorder(Palette.ACCENT.get(), 1));
 		players[currentPlayer].setOpaque(true);
-
 
 		// configure topPanel
 		topPanel.add(players[0]);
