@@ -31,7 +31,7 @@ public class Checkers {
 	/////////////////////////////////////
 
 	// testing variables
-	public static final boolean TEST_MODE = true;						// When set to true, the game immediately starts rather than gets user input
+	public static final boolean TEST_MODE = false;						// When set to true, the game immediately starts rather than gets user input
 	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
 	public static final String CONSOLE_SEPARATOR = "----------------------";
 
@@ -115,16 +115,17 @@ public class Checkers {
 		game.setVisible(false);
 		frame.remove(game);
 		// check if game is over
-		boolean playerHasMoves = Checkers.getGameBoard().checkPlayerHasValidMoves();
-		int playersPieceRemaining = GamePiece.getTotalPieces(Checkers.getGameBoard().getCurrentPlayer());
+		GameBoard board = getGameBoard();
+		boolean playerHasMoves = board.checkPlayerHasValidMoves();
+		int playersPieceRemaining = GamePiece.getTotalPieces(board.getCurrentPlayer());
 		if (!playerHasMoves || playersPieceRemaining == 0) {
-			Checkers.getGameBoard().setWinner((Checkers.getGameBoard().getCurrentPlayer() == 0) ? 1 : 0);
+			board.setWinner((board.getCurrentPlayer() == 0) ? 1 : 0);
 		}
-		if (Checkers.getGameBoard().getWinner() == null) {
+		if (board.getWinner() == null) {
 			game = new JPanel_Game();
 			frame.add(game);
 		} else {
-			System.out.println("Winner: " + Checkers.getGameBoard().getPlayerName(Checkers.getGameBoard().getWinner()));
+			System.out.println("Winner: " + board.getPlayerName(board.getWinner()));
 			initPaneDeclareWinner();
 		}
 	}

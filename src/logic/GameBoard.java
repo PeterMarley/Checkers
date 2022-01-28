@@ -46,7 +46,7 @@ public class GameBoard {
 	public GameBoard() {
 		this.clearReturnMessage();
 		this.returnMessageBgColour = Palette.DARKEST.get();
-		this.setBoard();
+		this.setBoardArray();
 		this.setPlayerNames("Unset Player Name 1", "Unset Player Name 2");
 		this.setCaptured();
 		this.currentPlayer = 0;
@@ -478,7 +478,14 @@ public class GameBoard {
 		this.captured = new ArrayList<GamePiece>(40);
 	}
 
-	public void setBoard() {
+	/**
+	 * @return the GamePiece[][]
+	 */
+	public GamePiece[][] getBoardArray() {
+		return this.board;
+	}
+	
+	public void setBoardArray() {
 		boolean firstHalf = true;
 		board = new GamePiece[Sizes.CENTER_PANEL_SQUARES.get()][Sizes.CENTER_PANEL_SQUARES.get()];
 

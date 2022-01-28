@@ -132,7 +132,7 @@ public class JPanel_Game extends JPanel {
 	 */
 	private void setCenterPanel() {
 		centrePanel = new JPanel_Game_Squares();
-		centrePanel.setBackground(Color.MAGENTA);
+		centrePanel.setBackground(Palette.LIGHT.get());
 		centrePanel.setPreferredSize(new Dimension(Sizes.CENTER_PANEL_SIZE.get(), Sizes.CENTER_PANEL_SIZE.get()));
 	}
 
