@@ -31,8 +31,9 @@ public class Checkers {
 	/////////////////////////////////////
 
 	// testing variables
-	public static final boolean TEST_MODE = false;						// When set to true, the game immediately starts rather than gets user input
+	public static final boolean TEST_MODE = true;						// When set to true, the game immediately starts rather than gets user input
 	public static final BoardSetup BOARD_SETUP = BoardSetup.STANDARD; 	// Sets up a specific board layout for testing. Normal = "standard"
+	public static final String CONSOLE_SEPARATOR = "----------------------";
 
 	// GameBoard and memory
 	private static GameBoard gameBoard; 							// GameBoard object
@@ -155,14 +156,15 @@ public class Checkers {
 			clearMemory();
 		} else {
 			// if selected piece is not the current players
-			//TODO null pointers happening in line 158
-			GamePiece tmp = getGameBoard().getSquare(getMemory(0));
-			int pieceTeam = (tmp != null) ? tmp.getTeam() : -1 ;
-			if (getGameBoard().getCurrentPlayer() != pieceTeam) {
-				getGameBoard().setReturnMessage("That's not your piece! @ " + Checkers.convertCoords(getMemory(0)), Palette.ERROR.get());
+			GameBoard board = getGameBoard();
+			GamePiece piece = board.getSquare(getMemory(0));
+			int pieceTeam = (piece != null) ? piece.getTeam() : -1;
+			if (board.getCurrentPlayer() != pieceTeam) {
+				board.setReturnMessage("That's not your piece! @ " + Checkers.convertCoords(getMemory(0)), Palette.ERROR.get());
+				System.out.printf("Move operation complete; but player selected an opponents piece or an empty square%n" + CONSOLE_SEPARATOR + "%n");
 				clearMemory();
 			} else {
-				getGameBoard().setReturnMessage(getGameBoard().getPlayerName(getGameBoard().getCurrentPlayer())
+				board.setReturnMessage(board.getPlayerName(board.getCurrentPlayer())
 						+ " has selected a piece @ " + Checkers.convertCoords(getMemory(0)));
 			}
 		}
@@ -253,6 +255,7 @@ public class Checkers {
 
 	/**
 	 * Check if the Checkers class memory cells has been filled (meaning player has chose a source square and a destination square)
+	 * 
 	 * @return A boolean - are both memory cells filled?
 	 */
 	private static boolean isMemoryFilled() {

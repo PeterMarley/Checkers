@@ -11,6 +11,7 @@ import logic.Enums.*;
  * 0 = Black<br>
  * 1 = White
  * <hr>
+ * 
  * @author Peter Marley
  * @projectTitle Checkers V1
  * @City Belfast
@@ -83,6 +84,7 @@ public class GameBoard {
 			if ((this.getCurrentPlayer() == 0 && vectorVert < directionModifier)
 					|| (this.getCurrentPlayer() == 1 && vectorVert > directionModifier)) {
 				this.setReturnMessage("That's the wrong direction!", errorMessageColor);
+				System.out.printf("Move operation complete; but move direction was not valid%n" + Checkers.CONSOLE_SEPARATOR + "%n");
 				return false;
 			}
 		}
@@ -90,6 +92,7 @@ public class GameBoard {
 		// General Checks
 		if (sourcePiece == null) {											// if source square is empty
 			this.setReturnMessage("You didn't select a piece!", errorMessageColor);
+			System.out.printf("Move operation complete; but the player selected an empty square%n" + Checkers.CONSOLE_SEPARATOR + "%n");
 			return false;
 		}
 
@@ -137,6 +140,8 @@ public class GameBoard {
 		if (attacks.size() > 0) {
 			if (!attacks.contains(Checkers.convertCoords(s))) {			// if player has an attack somewhere, but their selection piece has no attack
 				this.setReturnMessage("If you have an attack you must take it!", errorMessageColor);
+				System.out.printf("Move operation complete; but player had an attack and did not take it%n" + Checkers.CONSOLE_SEPARATOR + "%n");
+
 				return false;										//		return false
 			}
 		}
@@ -146,6 +151,7 @@ public class GameBoard {
 		// if piece hasAttack, but isn't a capture move then move is invalid
 		if (hasAttack && !isCaptureMove()) {
 			this.setReturnMessage("If you have an attack you must take it!", errorMessageColor);
+			System.out.printf("Move operation complete; but player had an attack and did not take it%n" + Checkers.CONSOLE_SEPARATOR + "%n");
 			return false;
 		} else if (hasAttack && isCaptureMove()) {
 			this.move_capture(new int[] { rowToCheck, colToCheck });
@@ -160,8 +166,8 @@ public class GameBoard {
 		if ((check.getTeam() == 0 && d[0] == 7) || (check.getTeam() == 1 && d[0] == 0)) {
 			check.setToKing();
 		}
-		System.out.println("Move operation complete!");
 		this.setReturnMessage("Move successful! " + Checkers.convertCoords(s) + " to " + Checkers.convertCoords(d) + ".");
+		System.out.printf("Move operation completed successfully!%n" + Checkers.CONSOLE_SEPARATOR + "%n");
 		return true;
 	}
 
@@ -292,6 +298,7 @@ public class GameBoard {
 
 	/**
 	 * Checks for the loss condition "player has no valid moves"
+	 * 
 	 * @return A boolean - has the current player got valid moves available to them?
 	 */
 	public boolean checkPlayerHasValidMoves() {
@@ -361,6 +368,7 @@ public class GameBoard {
 
 	/**
 	 * Set both player name Strings
+	 * 
 	 * @param player1
 	 * @param player2
 	 */
@@ -373,7 +381,7 @@ public class GameBoard {
 	 * 
 	 * @param row
 	 * @param col
-	 * @param g - A GamePiece
+	 * @param g   - A GamePiece
 	 */
 	private void setSquare(int row, int col, GamePiece g) {
 		if (row >= 0 && row < Sizes.CENTER_PANEL_SQUARES.get()
@@ -673,4 +681,3 @@ public class GameBoard {
 		return this.returnMessageBgColour;
 	}
 }
-
