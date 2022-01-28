@@ -1,6 +1,7 @@
 package logic;
 
 import java.awt.Color;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -154,7 +155,10 @@ public class Checkers {
 			clearMemory();
 		} else {
 			// if selected piece is not the current players
-			if (getGameBoard().getCurrentPlayer() != getGameBoard().getSquare(getMemory(0)).getTeam()) {
+			//TODO null pointers happening in line 158
+			GamePiece tmp = getGameBoard().getSquare(getMemory(0));
+			int pieceTeam = (tmp != null) ? tmp.getTeam() : -1 ;
+			if (getGameBoard().getCurrentPlayer() != pieceTeam) {
 				getGameBoard().setReturnMessage("That's not your piece! @ " + Checkers.convertCoords(getMemory(0)), Palette.ERROR.get());
 				clearMemory();
 			} else {
@@ -213,11 +217,12 @@ public class Checkers {
 	 */
 	public static void setMemory(int[] i) {
 		int cell = 0;
-		if (Checkers.memory[0][0] != -1) {
+		if (Checkers.memory[0][0] > 0) {
 			cell = 1;
 		}
 		memory[cell] = i;
 		System.out.printf("Cell " + cell + " set to [" + i[0] + "," + i[1] + "]%n%n");
+		System.out.println("Memory: " + Arrays.deepToString(getMemory()));
 	}
 
 	/**
