@@ -1,5 +1,5 @@
 # 2-player Checkers
-#### Current Version: V0.2
+#### Current Version: V0.3
 
 ![Intro Screen](https://i.imgur.com/zZtaK3t.png)
 ![Player Name Entry Screen](https://i.imgur.com/KxykazR.png)
